@@ -9,8 +9,6 @@
 @if exist %exename% del %exename%
 @if exist %exename% del %exename%
 @if exist %exename% del %exename%
-%envdir%\csc /nologo /target:exe /out:%exename% MainApp.cs Floare.cs /resource:textressample.txt
-copy /Y Floare.cs Floare.txt
-copy /Y MainApp.cs MainApp.txt
-copy /Y compile.cmd compile.txt
+%envdir%\csc /nologo /target:exe /out:%exename% MainApp.cs MainApp.LoadSaveUtils.cs Floare.cs FloareDialog.cs FloareDialog.Designer.cs /resource:textressample.txt
 @if exist MainApp.exe MainApp
+@if exist MainApp.exe del MainApp.exe
