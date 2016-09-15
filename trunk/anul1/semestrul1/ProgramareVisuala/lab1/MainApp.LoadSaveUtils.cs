@@ -13,26 +13,38 @@ partial class MainApp
     string floareDbName = defaultFloareDbName;
 	XmlSerializer serializer = new XmlSerializer(typeof(FloareSet));
 
-	FloareSet getFloareDb (string dbName = "")
+
+	FloareSet getFloareDb () { return getFloareDb (floareDbName); }
+	FloareSet getFloareDb (string dbName)
 	{
-		if (dbName == "") dbName = floareDbName;
 	    if (!File.Exists (dbName)) createDefaultFloareDb(dbName);
 		return loadFloareDb(dbName);
 	}
-	FloareSet loadFloareDb (string dbName = "")
+
+	FloareSet loadFloareDb () {return loadFloareDb (floareDbName); }
+	FloareSet loadFloareDb (string dbName)
 	{
-		if (dbName == "") dbName = floareDbName;
-		return (FloareSet)serializer.Deserialize(new StreamReader(dbName));
+		StreamReader streamer = new StreamReader(dbName);
+		FloareSet floareSet = (FloareSet)serializer.Deserialize(streamer);
+		streamer.Close();
+		return floareSet;
 	}
 
 	void createDefaultFloareDb (String dbName)
 	{
 		FloareSet floareSet = getDefaultFloareSet();
+		saveFloareDb (floareSet, dbName);
+	}
 
+	public void saveFloareDb (FloareSet floareSet) { saveFloareDb (floareSet, floareDbName); }
+	public void saveFloareDb (FloareSet floareSet, String dbName)
+	{
 		TextWriter writer = new StreamWriter(dbName);
+		
 		serializer.Serialize(writer, floareSet);
 		writer.Close();
 	}
+
 	FloareSet getDefaultFloareSet()
 	{
 		return new FloareSet
@@ -42,16 +54,38 @@ partial class MainApp
 						new Floare
 						{
 							Denumire = "Regina Noptii",
-							DenumireStiintifica = "Selenicereus Grandifloris",
+							DenumireStiintifica = "Selenicereus grandifloris",
+							ClasaBiologica = "Cactaceae",
 							Longevitate = Longevitate.Perena
 						},
 						new Floare
 						{
 							Denumire = "Peyota",
-							DenumireStiintifica = "Lophophora Williamsii",
+							DenumireStiintifica = "Lophophora williamsii",
+							ClasaBiologica = "Cactaceae",
+							Longevitate = Longevitate.Perena
+						},
+						new Floare
+						{
+							Denumire = "Macies",
+							DenumireStiintifica = "Rosa canina",
+							ClasaBiologica = "Rosaceae",
+							Longevitate = Longevitate.Perena
+						},
+						new Floare
+						{
+							Denumire = "Trandafir",
+							DenumireStiintifica = "Rosa canina",
+							ClasaBiologica = "Rosaceae",
+							Longevitate = Longevitate.Perena
+						},
+						new Floare
+						{
+							Denumire = "Grau comun",
+							DenumireStiintifica = "Triticum aestivum",
+							ClasaBiologica = "Poaceae",
 							Longevitate = Longevitate.Perena
 						}
-						, new Floare{}
 					}
 		};
 	}
@@ -59,6 +93,7 @@ partial class MainApp
 	{
 		serializer.Serialize(writer, floareSet);
 		writer.WriteLine();
+		writer.Close();
 	}
 	
 	void resourceTest()

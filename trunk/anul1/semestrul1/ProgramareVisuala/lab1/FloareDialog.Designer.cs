@@ -1,4 +1,7 @@
-﻿namespace USM.ProgramareVisuala.Lab1
+﻿using System;
+using System.Drawing;
+using System.Windows.Forms;
+namespace USM.ProgramareVisuala.Lab1
 {
     partial class FloareDialog
     {
@@ -13,6 +16,7 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
+			mainApp.saveFloareDb (floareSet);
             if (disposing && (components != null))
             {
                 components.Dispose();
@@ -28,32 +32,48 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.treeView1 = new System.Windows.Forms.TreeView();
-            this.SuspendLayout();
+            this.treeViewFlori = new System.Windows.Forms.TreeView();
+			this.listViewFlori = new System.Windows.Forms.ListView();
+            //this.SuspendLayout();
             // 
-            // treeView1
+            // treeViewFlori
             // 
-            this.treeView1.Location = new System.Drawing.Point(84, 72);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(121, 97);
-            this.treeView1.TabIndex = 0;
+            this.treeViewFlori.Location = new System.Drawing.Point(5, 5);
+            this.treeViewFlori.Name = "treeViewFlori";
+            this.treeViewFlori.Size = new System.Drawing.Size(345, 145);
+            this.treeViewFlori.TabIndex = 0;
+			treeViewFlori.AfterSelect += TreeViewFlori_AfterSelect;
+            // 
+            // listViewFlori
+            // 
+            this.listViewFlori.Location = new System.Drawing.Point(5, 150);
+            this.listViewFlori.Name = "listViewFlori";
+            this.listViewFlori.Size = new System.Drawing.Size(345, 345);
+            this.listViewFlori.TabIndex = 1;
+			listViewFlori.View = View.Details;
+			listViewFlori.Columns.Add("Denumire", 100);
+			listViewFlori.Columns.Add("Clasa", 100);
+            listViewFlori.GridLines = true;
+            listViewFlori.FullRowSelect = true;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.treeView1);
+            //this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            //this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(700, 500);
+            this.Controls.Add(this.treeViewFlori);
+            this.Controls.Add(this.listViewFlori);
             this.Name = "Floare Dialog";
             this.Text = "Main Floare Dialog";
             this.Load += new System.EventHandler(this.FloareDialog_Load);
-            this.ResumeLayout(false);
+            //this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ListView listViewFlori;
+        private System.Windows.Forms.TreeView treeViewFlori;
     }
 }
 
