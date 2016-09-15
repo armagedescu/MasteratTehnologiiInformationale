@@ -1,15 +1,21 @@
+using System;
+using System.IO;
+
 namespace USM.ProgramareVisuala.Lab1
 {
 
-using System;
-using System.IO;
 public class Floare
 {
-   public string Denumire{get;set;}
-   public string DenumireStiintifica{get;set;}
-   public Longevitate? Longevitate{get; set;}
+   public string Denumire {get; set;}
+   public string DenumireStiintifica {get; set;}
+   public string ClasaBiologica {get; set;}
+   public int? NumarDePetale {get; set;}
+   public Tulpina? Tulpina {get; set;}
+   public Ramificare? Ramificare {get; set;}
+   public Longevitate? Longevitate {get; set;}
    public double? LungimeMedie;
    public double? LungimeMaxima;
+   public double? Pret;
 
 	/////////   output   ///////////
    public void Write(TextWriter writer, string indent)
@@ -42,6 +48,14 @@ public class FloareSet
 	}
 }
 
+public enum Ramificare
+{
+	Neramificat, Dihotomic, Opus, Alternativ
+}
+public enum Tulpina
+{
+	Erecta, Taratoare, Volubila, Agataroare
+}
 public enum Longevitate
 {
    Anuala, Bianuala, Perena

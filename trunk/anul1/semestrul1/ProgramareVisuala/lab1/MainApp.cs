@@ -7,17 +7,19 @@ using System.Text;
 
 namespace USM.ProgramareVisuala.Lab1
 {
-partial class MainApp
+public partial class MainApp
 {
-
+	[STAThread]
     public static int Main (string[] args)
 	{
 	    MainApp mainApp =  new MainApp(".\\flori.db.xml");
 		FloareSet floareSet = mainApp.getFloareDb();
-		mainApp.WriteAsXml(Console.Out, floareSet);
-		floareSet.Write(Console.Out);
-		mainApp.resourceTest();
-		FloareDialog floareDialog = new FloareDialog(floareSet);
+		//mainApp.WriteAsXml(Console.Out, floareSet);
+		//floareSet.Write(Console.Out);
+		//mainApp.resourceTest();
+		FloareDialog floareDialog = new FloareDialog(floareSet, mainApp);
+		floareDialog.ShowDialog();
+		mainApp.saveFloareDb (floareSet);
 	    return 0;
 	}
 
