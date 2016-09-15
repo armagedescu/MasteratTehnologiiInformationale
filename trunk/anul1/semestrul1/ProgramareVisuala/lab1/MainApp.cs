@@ -1,16 +1,15 @@
-namespace USM.ProgramareVisuala.Lab1
-{
 using System;
 using System.IO;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Text;
-class MainApp
+
+namespace USM.ProgramareVisuala.Lab1
 {
-	static string defaultFloareDbName = ".\\flori.db.xml";
-    string floareDbName = defaultFloareDbName;
-	XmlSerializer serializer = new XmlSerializer(typeof(FloareSet));
+partial class MainApp
+{
+
     public static int Main (string[] args)
 	{
 	    MainApp mainApp =  new MainApp(".\\flori.db.xml");
@@ -18,67 +17,16 @@ class MainApp
 		mainApp.WriteAsXml(Console.Out, floareSet);
 		floareSet.Write(Console.Out);
 		mainApp.resourceTest();
+		FloareDialog floareDialog = new FloareDialog(floareSet);
 	    return 0;
 	}
 
-	MainApp (string dbName)
+	MainApp (string dbName = "")
 	{
-	    this.floareDbName = dbName;
-	}
-	FloareSet getFloareDb (string dbName = "")
-	{
-		if (dbName == "") dbName = floareDbName;
-	    if (!File.Exists (dbName)) createDefaultFloareDb(dbName);
-		return loadFloareDb(dbName);
-	}
-	FloareSet loadFloareDb (string dbName = "")
-	{
-		if (dbName == "") dbName = floareDbName;
-		return (FloareSet)serializer.Deserialize(new StreamReader(dbName));
+		if (dbName == "") dbName = this.floareDbName;
+		this.floareDbName = dbName;
 	}
 
-	void createDefaultFloareDb (String dbName)
-	{
-		FloareSet floareSet = getDefaultFloareSet();
-
-		TextWriter writer = new StreamWriter(dbName);
-		serializer.Serialize(writer, floareSet);
-		writer.Close();
-	}
-	FloareSet getDefaultFloareSet()
-	{
-		return new FloareSet
-		{
-			Flori = new Floare[]
-					{
-						new Floare
-						{
-							Denumire = "Regina Noptii",
-							DenumireStiintifica = "Selenicereus Grandifloris",
-							Longevitate = Longevitate.Perena
-						},
-						new Floare
-						{
-							Denumire = "Peyota",
-							DenumireStiintifica = "Lophophora Williamsii",
-							Longevitate = Longevitate.Perena
-						}
-						, new Floare{}
-					}
-		};
-	}
-	void WriteAsXml(TextWriter writer, FloareSet floareSet)
-	{
-		serializer.Serialize(writer, floareSet);
-		writer.WriteLine();
-	}
-	
-	void resourceTest()
-	{
-		Assembly _assembly = Assembly.GetExecutingAssembly();
-        StreamReader _textStreamReader = new StreamReader(_assembly.GetManifestResourceStream("textressample.txt"));
-		Console.WriteLine("read from resource: " + _textStreamReader.ReadToEnd());
-	}
 
 }
 
