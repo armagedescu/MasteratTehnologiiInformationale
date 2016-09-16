@@ -21,6 +21,8 @@ namespace USM.ProgramareVisuala.Lab1
 			this.mainApp = _mainApp;
             InitializeComponent();
 			IncarcaFloriInArobreDupaClasa();
+            listViewFlori.Columns.Add("Denumire", 100);
+            listViewFlori.Columns.Add("Clasa", 100);
         }
 		void IncarcaFloriInArobreDupaClasa()
 		{
