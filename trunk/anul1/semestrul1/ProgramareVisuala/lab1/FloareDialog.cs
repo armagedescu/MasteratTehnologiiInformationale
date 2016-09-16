@@ -25,38 +25,17 @@ namespace USM.ProgramareVisuala.Lab1
             listViewFlori.Columns.Add("Denumire", 100);
             listViewFlori.Columns.Add("Clasa", 100);
             listViewFlori.Columns.Add("Utilizare", 100);
-			IncarcaFloriInArbore();
-        }
-		void IncarcaFloriInArbore()
-		{
 			switch (floareSet.SelectMetoda)
 			{
-			case SelectMetoda.DupaClasa:
-				IncarcaFloriInArbore (x => x.ClasaBiologica);
-				break;
 			case SelectMetoda.DupaUtilizare:
-				IncarcaFloriInArbore (x => x.Utilizare);
+				radioButtonDupaUtilizare.Checked = true;
+				break;
+			case SelectMetoda.DupaClasa:
+				radioButtonDupaClasa.Checked = true;
 				break;
 			}
-
-		}
-		void IncarcaFloriInArbore<TKey>(Func<Floare, TKey> groupby)
-		{
-			treeViewFlori.Nodes.Clear();
-			TreeNode treeNode = new TreeNode("Toate Florile");
-			treeViewFlori.Nodes.Add(treeNode);
-			foreach (Floare floare in floareSet.Flori.GroupBy(groupby).Select(x => x.First())  )
-			{
-				var categorieNode = new TreeNode(groupby(floare).ToString());
-				treeNode.Nodes.Add(categorieNode);
-				foreach (Floare ifloare in floareSet.Flori.Where(g => groupby(g).ToString() == groupby(floare).ToString()))
-				{
-					TreeNode node = categorieNode.Nodes.Add(ifloare.Denumire);
-					node.Tag = ifloare;
-				}
-			}
-			treeNode.Expand();
-		}
+			IncarcaFloriInArbore();
+        }
 
 		private void TreeViewFlori_AfterSelect(System.Object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
@@ -75,27 +54,6 @@ namespace USM.ProgramareVisuala.Lab1
 				}
 			else if (e.Node.Level == 2)
 				incarcaFloriInLista((Floare)e.Node.Tag);
-		}
-
-		void adaugaFloareLista(Floare floare)
-		{
-			ListViewItem listItemView = new ListViewItem(new []{floare.Denumire, floare.ClasaBiologica, floare.Utilizare});
-			listItemView.Tag = floare;
-			listViewFlori.Items.Add(listItemView);
-		}
-		void incarcaFloriInLista(Floare floare)
-		{
-			listViewFlori.Items.Clear();
-			adaugaFloareLista(floare);
-		}
-		void incarcaFloriInLista(IEnumerable<Floare> flori)
-		{
-			listViewFlori.Items.Clear();
-			foreach (Floare floare in flori) adaugaFloareLista(floare);
-		}
-		void incarcaFloriInLista<TKey>(string clasa, Func<Floare, TKey> groupby)
-		{
-			incarcaFloriInLista(floareSet.Flori.Where(g => groupby(g).ToString() == clasa));
 		}
 		
         private void FloareDialog_Load(object sender, EventArgs e)

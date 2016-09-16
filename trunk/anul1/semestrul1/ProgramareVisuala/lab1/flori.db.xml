@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FloareSet xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SelectMetoda>DupaUtilizare</SelectMetoda>
+  <SelectMetoda>DupaClasa</SelectMetoda>
   <Flori>
     <Floare>
       <LungimeMedie xsi:nil="true" />
