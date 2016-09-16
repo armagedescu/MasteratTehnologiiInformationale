@@ -47,11 +47,11 @@ namespace USM.ProgramareVisuala.Lab1
 			treeViewFlori.Nodes.Add(treeNode);
 			foreach (Floare floare in floareSet.Flori.GroupBy(groupby).Select(x => x.First())  )
 			{
-				var clasaNode = new TreeNode(groupby(floare).ToString());
-				treeNode.Nodes.Add(clasaNode);
+				var categorieNode = new TreeNode(groupby(floare).ToString());
+				treeNode.Nodes.Add(categorieNode);
 				foreach (Floare ifloare in floareSet.Flori.Where(g => groupby(g).ToString() == groupby(floare).ToString()))
 				{
-					TreeNode node = clasaNode.Nodes.Add(ifloare.Denumire);
+					TreeNode node = categorieNode.Nodes.Add(ifloare.Denumire);
 					node.Tag = ifloare;
 				}
 			}
@@ -74,15 +74,16 @@ namespace USM.ProgramareVisuala.Lab1
 					break;
 				}
 			else if (e.Node.Level == 2)
-				incarcaFloareLista((Floare)e.Node.Tag);
+				incarcaFloriInLista((Floare)e.Node.Tag);
 		}
 
 		void adaugaFloareLista(Floare floare)
 		{
 			ListViewItem listItemView = new ListViewItem(new []{floare.Denumire, floare.ClasaBiologica, floare.Utilizare});
+			listItemView.Tag = floare;
 			listViewFlori.Items.Add(listItemView);
 		}
-		void incarcaFloareLista(Floare floare)
+		void incarcaFloriInLista(Floare floare)
 		{
 			listViewFlori.Items.Clear();
 			adaugaFloareLista(floare);
@@ -94,7 +95,7 @@ namespace USM.ProgramareVisuala.Lab1
 		}
 		void incarcaFloriInLista<TKey>(string clasa, Func<Floare, TKey> groupby)
 		{
-			incarcaFloriInLista(floareSet.Flori.Where(g => groupby(g).ToString() == clasa).Select(x=>x));
+			incarcaFloriInLista(floareSet.Flori.Where(g => groupby(g).ToString() == clasa));
 		}
 		
         private void FloareDialog_Load(object sender, EventArgs e)
