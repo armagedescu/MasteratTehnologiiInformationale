@@ -4,21 +4,62 @@
     <Floare>
       <LungimeMedie xsi:nil="true" />
       <LungimeMaxima xsi:nil="true" />
+      <Pret xsi:nil="true" />
       <Denumire>Regina Noptii</Denumire>
-      <DenumireStiintifica>Selenicereus Grandifloris</DenumireStiintifica>
+      <DenumireStiintifica>Selenicereus grandifloris</DenumireStiintifica>
+      <ClasaBiologica>Cactaceae</ClasaBiologica>
+      <NumarDePetale xsi:nil="true" />
+      <Tulpina xsi:nil="true" />
+      <Ramificare xsi:nil="true" />
       <Longevitate>Perena</Longevitate>
     </Floare>
     <Floare>
       <LungimeMedie xsi:nil="true" />
       <LungimeMaxima xsi:nil="true" />
+      <Pret xsi:nil="true" />
       <Denumire>Peyota</Denumire>
-      <DenumireStiintifica>Lophophora Williamsii</DenumireStiintifica>
+      <DenumireStiintifica>Lophophora williamsii</DenumireStiintifica>
+      <ClasaBiologica>Cactaceae</ClasaBiologica>
+      <NumarDePetale xsi:nil="true" />
+      <Tulpina xsi:nil="true" />
+      <Ramificare xsi:nil="true" />
       <Longevitate>Perena</Longevitate>
     </Floare>
     <Floare>
       <LungimeMedie xsi:nil="true" />
       <LungimeMaxima xsi:nil="true" />
-      <Longevitate xsi:nil="true" />
+      <Pret xsi:nil="true" />
+      <Denumire>Macies</Denumire>
+      <DenumireStiintifica>Rosa canina</DenumireStiintifica>
+      <ClasaBiologica>Rosaceae</ClasaBiologica>
+      <NumarDePetale xsi:nil="true" />
+      <Tulpina xsi:nil="true" />
+      <Ramificare xsi:nil="true" />
+      <Longevitate>Perena</Longevitate>
+    </Floare>
+    <Floare>
+      <LungimeMedie xsi:nil="true" />
+      <LungimeMaxima xsi:nil="true" />
+      <Pret xsi:nil="true" />
+      <Denumire>Trandafir</Denumire>
+      <DenumireStiintifica>Rosa canina</DenumireStiintifica>
+      <ClasaBiologica>Rosaceae</ClasaBiologica>
+      <NumarDePetale xsi:nil="true" />
+      <Tulpina xsi:nil="true" />
+      <Ramificare xsi:nil="true" />
+      <Longevitate>Perena</Longevitate>
+    </Floare>
+    <Floare>
+      <LungimeMedie xsi:nil="true" />
+      <LungimeMaxima xsi:nil="true" />
+      <Pret xsi:nil="true" />
+      <Denumire>Grau comun</Denumire>
+      <DenumireStiintifica>Triticum aestivum</DenumireStiintifica>
+      <ClasaBiologica>Poaceae</ClasaBiologica>
+      <NumarDePetale xsi:nil="true" />
+      <Tulpina xsi:nil="true" />
+      <Ramificare xsi:nil="true" />
+      <Longevitate>Perena</Longevitate>
     </Floare>
   </Flori>
 </FloareSet>
