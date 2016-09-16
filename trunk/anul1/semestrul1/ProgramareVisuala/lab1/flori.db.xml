@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FloareSet xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SelectMetoda>DupaUtilizare</SelectMetoda>
   <Flori>
     <Floare>
       <LungimeMedie xsi:nil="true" />
@@ -8,6 +9,7 @@
       <Denumire>Regina Noptii</Denumire>
       <DenumireStiintifica>Selenicereus grandifloris</DenumireStiintifica>
       <ClasaBiologica>Cactaceae</ClasaBiologica>
+      <Utilizare>Decorativa</Utilizare>
       <NumarDePetale xsi:nil="true" />
       <Tulpina xsi:nil="true" />
       <Ramificare xsi:nil="true" />
@@ -20,6 +22,7 @@
       <Denumire>Peyota</Denumire>
       <DenumireStiintifica>Lophophora williamsii</DenumireStiintifica>
       <ClasaBiologica>Cactaceae</ClasaBiologica>
+      <Utilizare>Culturala</Utilizare>
       <NumarDePetale xsi:nil="true" />
       <Tulpina xsi:nil="true" />
       <Ramificare xsi:nil="true" />
@@ -32,6 +35,7 @@
       <Denumire>Macies</Denumire>
       <DenumireStiintifica>Rosa canina</DenumireStiintifica>
       <ClasaBiologica>Rosaceae</ClasaBiologica>
+      <Utilizare>Medicinala</Utilizare>
       <NumarDePetale xsi:nil="true" />
       <Tulpina xsi:nil="true" />
       <Ramificare xsi:nil="true" />
@@ -44,6 +48,7 @@
       <Denumire>Trandafir</Denumire>
       <DenumireStiintifica>Rosa canina</DenumireStiintifica>
       <ClasaBiologica>Rosaceae</ClasaBiologica>
+      <Utilizare>Decorativa</Utilizare>
       <NumarDePetale xsi:nil="true" />
       <Tulpina xsi:nil="true" />
       <Ramificare xsi:nil="true" />
@@ -56,6 +61,7 @@
       <Denumire>Grau comun</Denumire>
       <DenumireStiintifica>Triticum aestivum</DenumireStiintifica>
       <ClasaBiologica>Poaceae</ClasaBiologica>
+      <Utilizare>Alimentara</Utilizare>
       <NumarDePetale xsi:nil="true" />
       <Tulpina xsi:nil="true" />
       <Ramificare xsi:nil="true" />
