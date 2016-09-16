@@ -1,2 +1,2 @@
 # MasteratTehnologiiInformationale
-Anul1
+Masterat Tehnologii Informationale, USM
