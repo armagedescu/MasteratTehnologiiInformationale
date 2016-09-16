@@ -49,6 +49,7 @@ partial class MainApp
 	{
 		return new FloareSet
 		{
+			SelectMetoda = SelectMetoda.DupaClasa,
 			Flori = new Floare[]
 					{
 						new Floare
@@ -56,6 +57,7 @@ partial class MainApp
 							Denumire = "Regina Noptii",
 							DenumireStiintifica = "Selenicereus grandifloris",
 							ClasaBiologica = "Cactaceae",
+							Utilizare = "Decorativa",
 							Longevitate = Longevitate.Perena
 						},
 						new Floare
@@ -63,6 +65,7 @@ partial class MainApp
 							Denumire = "Peyota",
 							DenumireStiintifica = "Lophophora williamsii",
 							ClasaBiologica = "Cactaceae",
+							Utilizare = "Culturala",
 							Longevitate = Longevitate.Perena
 						},
 						new Floare
@@ -70,6 +73,7 @@ partial class MainApp
 							Denumire = "Macies",
 							DenumireStiintifica = "Rosa canina",
 							ClasaBiologica = "Rosaceae",
+							Utilizare = "Medicinala",
 							Longevitate = Longevitate.Perena
 						},
 						new Floare
@@ -77,6 +81,7 @@ partial class MainApp
 							Denumire = "Trandafir",
 							DenumireStiintifica = "Rosa canina",
 							ClasaBiologica = "Rosaceae",
+							Utilizare = "Decorativa",
 							Longevitate = Longevitate.Perena
 						},
 						new Floare
@@ -84,6 +89,7 @@ partial class MainApp
 							Denumire = "Grau comun",
 							DenumireStiintifica = "Triticum aestivum",
 							ClasaBiologica = "Poaceae",
+							Utilizare = "Alimentara",
 							Longevitate = Longevitate.Perena
 						}
 					}

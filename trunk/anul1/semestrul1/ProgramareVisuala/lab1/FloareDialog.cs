@@ -13,29 +13,43 @@ namespace USM.ProgramareVisuala.Lab1
     {
 		FloareSet floareSet;
 		MainApp mainApp;
-		enum SelectMetoda{DupaClasa};
-		SelectMetoda selectMetoda = SelectMetoda.DupaClasa;
         public FloareDialog(FloareSet _floareSet, MainApp _mainApp)
         {
 			this.floareSet = _floareSet;
 			this.mainApp = _mainApp;
             InitializeComponent();
-			IncarcaFloriInArobreDupaClasa();
+			
+			this.treeViewFlori.AfterSelect += this.TreeViewFlori_AfterSelect;
+			this.checkBoxSetariAvansate.CheckedChanged += this.checkBoxSetariAvansate_CheckedChanged;
+			groupBoxSetariAvansate.Hide();
             listViewFlori.Columns.Add("Denumire", 100);
             listViewFlori.Columns.Add("Clasa", 100);
+            listViewFlori.Columns.Add("Utilizare", 100);
+			IncarcaFloriInArbore();
         }
-		void IncarcaFloriInArobreDupaClasa()
+		void IncarcaFloriInArbore()
+		{
+			switch (floareSet.SelectMetoda)
+			{
+			case SelectMetoda.DupaClasa:
+				IncarcaFloriInArbore (x => x.ClasaBiologica);
+				break;
+			case SelectMetoda.DupaUtilizare:
+				IncarcaFloriInArbore (x => x.Utilizare);
+				break;
+			}
+
+		}
+		void IncarcaFloriInArbore<TKey>(Func<Floare, TKey> groupby)
 		{
 			treeViewFlori.Nodes.Clear();
 			TreeNode treeNode = new TreeNode("Toate Florile");
 			treeViewFlori.Nodes.Add(treeNode);
-
-			foreach (Floare floare in floareSet.Flori.GroupBy(g => g.ClasaBiologica).Select(x => x.First()) )
+			foreach (Floare floare in floareSet.Flori.GroupBy(groupby).Select(x => x.First())  )
 			{
-				var clasaNode = new TreeNode(floare.ClasaBiologica);
+				var clasaNode = new TreeNode(groupby(floare).ToString());
 				treeNode.Nodes.Add(clasaNode);
-				//foreach (string denumire in floareSet.Flori.Where(g => g.ClasaBiologica == floare.ClasaBiologica).Select(x => x.Denumire))
-				foreach (Floare ifloare in floareSet.Flori.Where(g => g.ClasaBiologica == floare.ClasaBiologica).Select(x => x))
+				foreach (Floare ifloare in floareSet.Flori.Where(g => groupby(g).ToString() == groupby(floare).ToString()))
 				{
 					TreeNode node = clasaNode.Nodes.Add(ifloare.Denumire);
 					node.Tag = ifloare;
@@ -43,65 +57,72 @@ namespace USM.ProgramareVisuala.Lab1
 			}
 			treeNode.Expand();
 		}
-		private void TreeViewFlori_AfterSelect(System.Object sender, 
-			System.Windows.Forms.TreeViewEventArgs e)
+
+		private void TreeViewFlori_AfterSelect(System.Object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
 			Console.WriteLine("clicked: " + e.Node.Text + "; Level: " + e.Node.Level);
 			if (e.Node.Level == 0)
-				incarcaToateFlorile();
+				incarcaFloriInLista (floareSet.Flori);
 			else if (e.Node.Level == 1)
-			{
-				//Console.WriteLine("clicked level 1" );
-				switch (selectMetoda)
+				switch (floareSet.SelectMetoda)
 				{
 				case SelectMetoda.DupaClasa:
-					incarcaFloriDupaClasa( e.Node.Text );
+					incarcaFloriInLista( e.Node.Text,  x => x.ClasaBiologica);
+					break;
+				case SelectMetoda.DupaUtilizare:
+					incarcaFloriInLista( e.Node.Text,  x => x.Utilizare);
 					break;
 				}
-			}
 			else if (e.Node.Level == 2)
-			{
-				incarcaFloareObiect((Floare)e.Node.Tag);
-			}
+				incarcaFloareLista((Floare)e.Node.Tag);
 		}
-		void incarcaToateFlorile()
+
+		void adaugaFloareLista(Floare floare)
 		{
-			listViewFlori.Items.Clear();
-			foreach (Floare floare in floareSet.Flori)
-			{
-				ListViewItem listItemView = new ListViewItem(new []{floare.Denumire, floare.ClasaBiologica});
-				listViewFlori.Items.Add(listItemView);
-			}
-		}
-		void incarcaFloareObiect(Floare floare)
-		{
-			listViewFlori.Items.Clear();
-			ListViewItem listItemView = new ListViewItem(new []{floare.Denumire, floare.ClasaBiologica});
+			ListViewItem listItemView = new ListViewItem(new []{floare.Denumire, floare.ClasaBiologica, floare.Utilizare});
 			listViewFlori.Items.Add(listItemView);
 		}
-		void incarcaFloriDupaClasa(string clasa)
+		void incarcaFloareLista(Floare floare)
 		{
 			listViewFlori.Items.Clear();
-			foreach (Floare floare in floareSet.Flori.Where(g => g.ClasaBiologica == clasa).Select(x=>x))
-			{
-				ListViewItem listItemView = new ListViewItem(new []{floare.Denumire, floare.ClasaBiologica});
-				listViewFlori.Items.Add(listItemView);
-				Console.WriteLine("added " + floare.Denumire);
-			}
-			//listViewFlori
+			adaugaFloareLista(floare);
 		}
+		void incarcaFloriInLista(IEnumerable<Floare> flori)
+		{
+			listViewFlori.Items.Clear();
+			foreach (Floare floare in flori) adaugaFloareLista(floare);
+		}
+		void incarcaFloriInLista<TKey>(string clasa, Func<Floare, TKey> groupby)
+		{
+			incarcaFloriInLista(floareSet.Flori.Where(g => groupby(g).ToString() == clasa).Select(x=>x));
+		}
+		
         private void FloareDialog_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxSetariAvansate_CheckedChanged(object sender, EventArgs e)
         {
-
+			Console.WriteLine("checkBoxSetariAvansate_CheckedChanged");
+			CheckBox checkBox = (CheckBox) sender;
+			if (checkBox.Checked)
+				groupBoxSetariAvansate.Show();
+			else
+				groupBoxSetariAvansate.Hide();
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonDupaUtilizare_CheckedChanged(object sender, EventArgs e)
+		{
+			RadioButton radioButton = (RadioButton) sender;
+			if (radioButton.Checked) floareSet.SelectMetoda = SelectMetoda.DupaUtilizare;
+			IncarcaFloriInArbore();
+		}
+        private void radioButtonDupaClasa_CheckedChanged(object sender, EventArgs e)
         {
+			RadioButton radioButton = (RadioButton) sender;
+			if (radioButton.Checked) floareSet.SelectMetoda = SelectMetoda.DupaClasa;
+			IncarcaFloriInArbore();
 
         }
 

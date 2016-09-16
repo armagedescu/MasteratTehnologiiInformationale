@@ -35,24 +35,24 @@ namespace USM.ProgramareVisuala.Lab1
             this.treeViewFlori = new System.Windows.Forms.TreeView();
             this.listViewFlori = new System.Windows.Forms.ListView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageDetaliiFloare = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.groupBoxAfisare = new System.Windows.Forms.GroupBox();
+            this.radioButtonDupaClasa = new System.Windows.Forms.RadioButton();
+            this.radioButtonDupaUtilizare = new System.Windows.Forms.RadioButton();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxSetariAvansate = new System.Windows.Forms.CheckBox();
+            this.groupBoxSetariAvansate = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPageDetaliiFloare.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBoxAfisare.SuspendLayout();
+            this.groupBoxSetariAvansate.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeViewFlori
@@ -61,6 +61,7 @@ namespace USM.ProgramareVisuala.Lab1
             this.treeViewFlori.Name = "treeViewFlori";
             this.treeViewFlori.Size = new System.Drawing.Size(345, 145);
             this.treeViewFlori.TabIndex = 0;
+            this.treeViewFlori.AfterSelect += TreeViewFlori_AfterSelect;
             // 
             // listViewFlori
             // 
@@ -75,7 +76,7 @@ namespace USM.ProgramareVisuala.Lab1
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPageDetaliiFloare);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(356, 12);
             this.tabControl1.Name = "tabControl1";
@@ -83,20 +84,20 @@ namespace USM.ProgramareVisuala.Lab1
             this.tabControl1.Size = new System.Drawing.Size(332, 483);
             this.tabControl1.TabIndex = 2;
             // 
-            // tabPage1
+            // tabPageDetaliiFloare
             // 
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.groupBox2);
-            this.tabPage1.Controls.Add(this.checkBox1);
-            this.tabPage1.Controls.Add(this.textBox1);
-            this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(324, 457);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Detaii Floare";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageDetaliiFloare.Controls.Add(this.label1);
+            this.tabPageDetaliiFloare.Controls.Add(this.groupBoxSetariAvansate);
+            this.tabPageDetaliiFloare.Controls.Add(this.checkBoxSetariAvansate);
+            this.tabPageDetaliiFloare.Controls.Add(this.textBox1);
+            this.tabPageDetaliiFloare.Controls.Add(this.groupBoxAfisare);
+            this.tabPageDetaliiFloare.Location = new System.Drawing.Point(4, 22);
+            this.tabPageDetaliiFloare.Name = "tabPageDetaliiFloare";
+            this.tabPageDetaliiFloare.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageDetaliiFloare.Size = new System.Drawing.Size(324, 457);
+            this.tabPageDetaliiFloare.TabIndex = 0;
+            this.tabPageDetaliiFloare.Text = "Detaii Floare";
+            this.tabPageDetaliiFloare.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -109,39 +110,41 @@ namespace USM.ProgramareVisuala.Lab1
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // groupBoxAfisare
             // 
-            this.groupBox1.Controls.Add(this.radioButton2);
-            this.groupBox1.Controls.Add(this.radioButton1);
-            this.groupBox1.Location = new System.Drawing.Point(57, 53);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(200, 100);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Afisare";
+            this.groupBoxAfisare.Controls.Add(this.radioButtonDupaUtilizare);
+            this.groupBoxAfisare.Controls.Add(this.radioButtonDupaClasa);
+            this.groupBoxAfisare.Location = new System.Drawing.Point(57, 53);
+            this.groupBoxAfisare.Name = "groupBoxAfisare";
+            this.groupBoxAfisare.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxAfisare.TabIndex = 0;
+            this.groupBoxAfisare.TabStop = false;
+            this.groupBoxAfisare.Text = "Afisare";
             // 
-            // radioButton1
+            // radioButtonDupaClasa
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(26, 31);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(102, 17);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Dupa Clasificare";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            this.radioButtonDupaClasa.AutoSize = true;
+            this.radioButtonDupaClasa.Location = new System.Drawing.Point(26, 31);
+            this.radioButtonDupaClasa.Name = "radioButtonDupaClasa";
+            this.radioButtonDupaClasa.Size = new System.Drawing.Size(102, 17);
+            this.radioButtonDupaClasa.TabIndex = 0;
+            this.radioButtonDupaClasa.TabStop = true;
+            this.radioButtonDupaClasa.Text = "Dupa Clasa";
+            this.radioButtonDupaClasa.UseVisualStyleBackColor = true;
+            this.radioButtonDupaClasa.CheckedChanged += new System.EventHandler(this.radioButtonDupaClasa_CheckedChanged);
             // 
-            // radioButton2
+            // radioButtonDupaUtilizare
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(26, 55);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButtonDupaUtilizare.AutoSize = true;
+            this.radioButtonDupaUtilizare.Location = new System.Drawing.Point(26, 55);
+            this.radioButtonDupaUtilizare.Name = "radioButtonDupaUtilizare";
+            this.radioButtonDupaUtilizare.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonDupaUtilizare.TabIndex = 1;
+            this.radioButtonDupaUtilizare.TabStop = true;
+            this.radioButtonDupaUtilizare.Text = "Dupa Utilizare";
+            this.radioButtonDupaUtilizare.UseVisualStyleBackColor = true;
+			this.radioButtonDupaUtilizare.CheckedChanged += new System.EventHandler(this.radioButtonDupaUtilizare_CheckedChanged);
+
             // 
             // textBox1
             // 
@@ -150,28 +153,28 @@ namespace USM.ProgramareVisuala.Lab1
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 1;
             // 
-            // checkBox1
+            // checkBoxSetariAvansate
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(68, 251);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(65, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Avansat";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBoxSetariAvansate.AutoSize = true;
+            this.checkBoxSetariAvansate.Location = new System.Drawing.Point(68, 251);
+            this.checkBoxSetariAvansate.Name = "checkBoxSetariAvansate";
+            this.checkBoxSetariAvansate.Size = new System.Drawing.Size(65, 17);
+            this.checkBoxSetariAvansate.TabIndex = 2;
+            this.checkBoxSetariAvansate.Text = "Avansat";
+            this.checkBoxSetariAvansate.UseVisualStyleBackColor = true;
+
             // 
-            // groupBox2
+            // groupBoxSetariAvansate
             // 
-            this.groupBox2.Controls.Add(this.button3);
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Location = new System.Drawing.Point(40, 294);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(228, 118);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Setari Avansate";
+            this.groupBoxSetariAvansate.Controls.Add(this.button3);
+            this.groupBoxSetariAvansate.Controls.Add(this.button2);
+            this.groupBoxSetariAvansate.Controls.Add(this.button1);
+            this.groupBoxSetariAvansate.Location = new System.Drawing.Point(40, 294);
+            this.groupBoxSetariAvansate.Name = "groupBoxSetariAvansate";
+            this.groupBoxSetariAvansate.Size = new System.Drawing.Size(228, 118);
+            this.groupBoxSetariAvansate.TabIndex = 3;
+            this.groupBoxSetariAvansate.TabStop = false;
+            this.groupBoxSetariAvansate.Text = "Setari Avansate";
             // 
             // label1
             // 
@@ -229,12 +232,12 @@ namespace USM.ProgramareVisuala.Lab1
             this.Text = "Main Floare Dialog";
             this.Load += new System.EventHandler(this.FloareDialog_Load);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPageDetaliiFloare.ResumeLayout(false);
+            this.tabPageDetaliiFloare.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.groupBoxAfisare.ResumeLayout(false);
+            this.groupBoxAfisare.PerformLayout();
+            this.groupBoxSetariAvansate.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -244,17 +247,17 @@ namespace USM.ProgramareVisuala.Lab1
         private System.Windows.Forms.ListView listViewFlori;
         private System.Windows.Forms.TreeView treeViewFlori;
         private TabControl tabControl1;
-        private TabPage tabPage1;
-        private GroupBox groupBox1;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
+        private TabPage tabPageDetaliiFloare;
+        private GroupBox groupBoxAfisare;
+        private RadioButton radioButtonDupaUtilizare;
+        private RadioButton radioButtonDupaClasa;
         private TabPage tabPage2;
         private Label label1;
-        private GroupBox groupBox2;
+        private GroupBox groupBoxSetariAvansate;
         private Button button3;
         private Button button2;
         private Button button1;
-        private CheckBox checkBox1;
+        private CheckBox checkBoxSetariAvansate;
         private TextBox textBox1;
         private Button button4;
     }

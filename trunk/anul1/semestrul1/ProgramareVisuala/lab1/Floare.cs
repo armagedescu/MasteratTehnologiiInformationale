@@ -9,6 +9,7 @@ public class Floare
    public string Denumire {get; set;}
    public string DenumireStiintifica {get; set;}
    public string ClasaBiologica {get; set;}
+   public string Utilizare {get; set;}
    public int? NumarDePetale {get; set;}
    public Tulpina? Tulpina {get; set;}
    public Ramificare? Ramificare {get; set;}
@@ -31,6 +32,7 @@ public class Floare
 
 public class FloareSet
 {
+	public SelectMetoda? SelectMetoda {get; set;}
     public Floare[] Flori {get; set;}
 	
 	/////////   output   ///////////
@@ -60,5 +62,10 @@ public enum Longevitate
 {
    Anuala, Bianuala, Perena
 }
+public enum SelectMetoda
+{
+	DupaClasa, DupaUtilizare
+};
+//SelectMetoda selectMetoda = SelectMetoda.DupaClasa;
 
 }
