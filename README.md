@@ -1,0 +1,2 @@
+# MasteratTehnologiiInformationale
+Anul1
