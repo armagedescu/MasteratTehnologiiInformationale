@@ -13,31 +13,18 @@ namespace USM.ProgramareVisuala.Lab1
     {
 		void IncarcaFloriInArbore()
 		{
-			switch (floareSet.SelectMetoda)
-			{
-			case SelectMetoda.DupaClasa:
-				IncarcaFloriInArbore (x => x.ClasaBiologica);
-				break;
-			case SelectMetoda.DupaUtilizare:
-				IncarcaFloriInArbore (x => x.Utilizare);
-				break;
-			}
-
+            IncarcaFloriInArbore(floareSelector[FloareModel.SelectMetoda]);
 		}
-		void IncarcaFloriInArbore<TKey>(Func<Floare, TKey> groupby)
+        void IncarcaFloriInArbore<TKey>(Func<Floare, TKey> groupby)
 		{
-			treeViewFlori.Nodes.Clear();
-			TreeNode treeNode = new TreeNode("Toate Florile");
-			treeViewFlori.Nodes.Add(treeNode);
-			foreach (Floare floare in floareSet.Flori.GroupBy(groupby).Select(x => x.First())  )
+            clearFloareControls();
+            TreeNode treeNode = treeViewFlori.Nodes.Add("Toate Florile");
+
+			foreach (Floare floare in FloareModel.Flori.GroupBy(groupby).Select(x => x.First())  )
 			{
-				var categorieNode = new TreeNode(groupby(floare).ToString());
-				treeNode.Nodes.Add(categorieNode);
-				foreach (Floare ifloare in floareSet.Flori.Where(g => groupby(g).ToString() == groupby(floare).ToString()))
-				{
-					TreeNode node = categorieNode.Nodes.Add(ifloare.Denumire);
-					node.Tag = ifloare;
-				}
+                var categorieNode = treeNode.Nodes.Add(groupby(floare).ToString());
+                foreach (Floare ifloare in FloareModel.Flori.Where(g => groupby(g).Equals(groupby(floare))))
+                    categorieNode.Nodes.Add(ifloare.Denumire).Tag = ifloare;
 			}
 			treeNode.Expand();
 		}

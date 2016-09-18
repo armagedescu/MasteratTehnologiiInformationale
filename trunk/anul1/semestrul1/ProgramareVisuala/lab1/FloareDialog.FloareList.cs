@@ -13,15 +13,17 @@ namespace USM.ProgramareVisuala.Lab1
     {
 		void adaugaFloareLista(Floare floare)
 		{
-			ListViewItem listItemView = new ListViewItem(new []{floare.Denumire, floare.ClasaBiologica, floare.Utilizare});
-			listItemView.Tag = floare;
-			listViewFlori.Items.Add(listItemView);
+            listViewFlori.Items.Add(
+                new ListViewItem(
+                    new[] 
+                    {
+                        floare.Denumire, floare.ClasaBiologica, floare.Utilizare 
+                    })).Tag = floare;
 		}
 		void incarcaFloriInLista(Floare floare)
 		{
-			listViewFlori.Items.Clear();
-			adaugaFloareLista(floare);
-		}
+            incarcaFloriInLista(new[] { floare });
+        }
 		void incarcaFloriInLista(IEnumerable<Floare> flori)
 		{
 			listViewFlori.Items.Clear();
@@ -29,7 +31,7 @@ namespace USM.ProgramareVisuala.Lab1
 		}
 		void incarcaFloriInLista<TKey>(string categorie, Func<Floare, TKey> groupby)
 		{
-			incarcaFloriInLista(floareSet.Flori.Where(g => groupby(g).ToString() == categorie));
+			incarcaFloriInLista(FloareModel.Flori.Where(g => groupby(g).Equals(categorie)));
 		}
 
     }

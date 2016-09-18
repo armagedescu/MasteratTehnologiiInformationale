@@ -9,6 +9,7 @@
 @if exist %exename% del %exename%
 @if exist %exename% del %exename%
 @if exist %exename% del %exename%
-%envdir%\csc /nologo /target:exe /out:%exename% MainApp.cs MainApp.LoadSaveUtils.cs Floare.cs FloareDialog.cs FloareDialog.Designer.cs FloareDialog.FloareTree.cs FloareDialog.FloareList.cs /resource:textressample.txt
+rem %envdir%\csc /nologo /target:exe /out:%exename% MainApp.cs Floare.cs FloareDialog.cs FloareDialog.Designer.cs FloareDialog.FloareTree.cs FloareDialog.FloareList.cs /resource:textressample.txt
+%envdir%\csc /nologo /target:exe /out:%exename% *.cs /resource:textressample.txt
 @if exist MainApp.exe MainApp
 @if exist MainApp.exe del MainApp.exe

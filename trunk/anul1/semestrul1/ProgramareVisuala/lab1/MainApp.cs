@@ -12,23 +12,20 @@ public partial class MainApp
 	[STAThread]
     public static int Main (string[] args)
 	{
-	    MainApp mainApp =  new MainApp(".\\flori.db.xml");
-		FloareSet floareSet = mainApp.getFloareDb();
-		//mainApp.WriteAsXml(Console.Out, floareSet);
-		//floareSet.Write(Console.Out);
-		//mainApp.resourceTest();
-		FloareDialog floareDialog = new FloareDialog(floareSet, mainApp);
+        FloareModel floareModel = new FloareModel(".\\flori.db.xml");
+        floareModel.getFloareDb();
+		FloareDialog floareDialog = new FloareDialog(floareModel);
 		floareDialog.ShowDialog();
-		mainApp.saveFloareDb (floareSet);
+        floareModel.saveFloareDb();
 	    return 0;
 	}
 
-	MainApp (string dbName = "")
-	{
-		if (dbName == "") dbName = this.floareDbName;
-		this.floareDbName = dbName;
-	}
-
+    //void resourceTest()
+    //{
+    //    Assembly _assembly = Assembly.GetExecutingAssembly();
+    //    StreamReader _textStreamReader = new StreamReader(_assembly.GetManifestResourceStream("textressample.txt"));
+    //    Console.WriteLine("read from resource: " + _textStreamReader.ReadToEnd());
+    //}
 
 }
 

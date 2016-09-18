@@ -11,12 +11,16 @@ namespace USM.ProgramareVisuala.Lab1
 {
     public partial class FloareDialog : Form
     {
-		FloareSet floareSet;
-		MainApp mainApp;
-        public FloareDialog(FloareSet _floareSet, MainApp _mainApp)
+        Dictionary<SelectMetoda, Func<Floare, object>> floareSelector =
+            new Dictionary<SelectMetoda, Func<Floare, object>>
+            {
+                {SelectMetoda.DupaClasa, x => x.ClasaBiologica},
+                {SelectMetoda.DupaUtilizare, x => x.Utilizare}
+            };
+        FloareModel FloareModel { get; set; }
+        public FloareDialog(FloareModel floareModel)
         {
-			this.floareSet = _floareSet;
-			this.mainApp = _mainApp;
+            this.FloareModel = floareModel;
             InitializeComponent();
 			
 			this.treeViewFlori.AfterSelect += this.TreeViewFlori_AfterSelect;
@@ -25,7 +29,7 @@ namespace USM.ProgramareVisuala.Lab1
             listViewFlori.Columns.Add("Denumire", 100);
             listViewFlori.Columns.Add("Clasa", 100);
             listViewFlori.Columns.Add("Utilizare", 100);
-			switch (floareSet.SelectMetoda)
+            switch (FloareModel.FloareSet.SelectMetoda)
 			{
 			case SelectMetoda.DupaUtilizare:
 				radioButtonDupaUtilizare.Checked = true;
@@ -39,21 +43,19 @@ namespace USM.ProgramareVisuala.Lab1
 
 		private void TreeViewFlori_AfterSelect(System.Object sender, System.Windows.Forms.TreeViewEventArgs e)
 		{
-			Console.WriteLine("clicked: " + e.Node.Text + "; Level: " + e.Node.Level);
-			if (e.Node.Level == 0)
-				incarcaFloriInLista (floareSet.Flori);
-			else if (e.Node.Level == 1)
-				switch (floareSet.SelectMetoda)
-				{
-				case SelectMetoda.DupaClasa:
-					incarcaFloriInLista( e.Node.Text,  x => x.ClasaBiologica);
-					break;
-				case SelectMetoda.DupaUtilizare:
-					incarcaFloriInLista( e.Node.Text,  x => x.Utilizare);
-					break;
-				}
-			else if (e.Node.Level == 2)
-				incarcaFloriInLista((Floare)e.Node.Tag);
+            switch (e.Node.Level)
+            {
+                case 0:
+                    incarcaFloriInLista(FloareModel.Flori);
+                    break;
+                case 1:
+                    incarcaFloriInLista(e.Node.Text, floareSelector[FloareModel.SelectMetoda]);
+                    break;
+                case 2:
+                    incarcaFloriInLista((Floare)e.Node.Tag);
+                    break;
+            }
+
 		}
 		
         private void FloareDialog_Load(object sender, EventArgs e)
@@ -63,9 +65,7 @@ namespace USM.ProgramareVisuala.Lab1
 
         private void checkBoxSetariAvansate_CheckedChanged(object sender, EventArgs e)
         {
-			Console.WriteLine("checkBoxSetariAvansate_CheckedChanged");
-			CheckBox checkBox = (CheckBox) sender;
-			if (checkBox.Checked)
+            if (((CheckBox)sender).Checked)
 				groupBoxSetariAvansate.Show();
 			else
 				groupBoxSetariAvansate.Hide();
@@ -73,14 +73,12 @@ namespace USM.ProgramareVisuala.Lab1
 
         private void radioButtonDupaUtilizare_CheckedChanged(object sender, EventArgs e)
 		{
-			RadioButton radioButton = (RadioButton) sender;
-			if (radioButton.Checked) floareSet.SelectMetoda = SelectMetoda.DupaUtilizare;
+            if (((RadioButton)sender).Checked) FloareModel.SelectMetoda = SelectMetoda.DupaUtilizare;
 			IncarcaFloriInArbore();
 		}
         private void radioButtonDupaClasa_CheckedChanged(object sender, EventArgs e)
         {
-			RadioButton radioButton = (RadioButton) sender;
-			if (radioButton.Checked) floareSet.SelectMetoda = SelectMetoda.DupaClasa;
+            if (((RadioButton)sender).Checked) FloareModel.SelectMetoda = SelectMetoda.DupaClasa;
 			IncarcaFloriInArbore();
 
         }
@@ -88,6 +86,24 @@ namespace USM.ProgramareVisuala.Lab1
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void listViewFlori_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            { 
+                case Keys.F2:
+                    break;
+                case Keys.Insert:
+                    break;
+                case Keys.Delete:
+                    break;
+            }
+        }
+        void clearFloareControls()
+        {
+            listViewFlori.Items.Clear();
+            treeViewFlori.Nodes.Clear();
         }
     }
 }
