@@ -12,7 +12,9 @@ public partial class MainApp
 	[STAThread]
     public static int Main (string[] args)
 	{
-        FloareModel floareModel = new FloareModel(".\\flori.db.xml");
+		string floareDbPath = ".\\flori.db.xml";
+		if (args.Length > 0) floareDbPath = args[0];
+        FloareModel floareModel = new FloareModel(floareDbPath);
         floareModel.getFloareDb();
 		FloareDialog floareDialog = new FloareDialog(floareModel);
 		floareDialog.ShowDialog();
@@ -20,12 +22,12 @@ public partial class MainApp
 	    return 0;
 	}
 
-    //void resourceTest()
-    //{
-    //    Assembly _assembly = Assembly.GetExecutingAssembly();
-    //    StreamReader _textStreamReader = new StreamReader(_assembly.GetManifestResourceStream("textressample.txt"));
-    //    Console.WriteLine("read from resource: " + _textStreamReader.ReadToEnd());
-    //}
+    void resourceTest()
+    {
+        Assembly _assembly = Assembly.GetExecutingAssembly();
+        StreamReader _textStreamReader = new StreamReader(_assembly.GetManifestResourceStream("textressample.txt"));
+        Console.WriteLine("read from resource: " + _textStreamReader.ReadToEnd());
+    }
 
 }
 

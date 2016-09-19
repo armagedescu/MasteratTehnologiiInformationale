@@ -36,18 +36,39 @@ namespace USM.ProgramareVisuala.Lab1
             this.listViewFlori = new System.Windows.Forms.ListView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageDetaliiFloare = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxPret = new System.Windows.Forms.TextBox();
+            this.textBoxLungimeMaxima = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxLungimeMedie = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.comboBoxLongevitate = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBoxRamificatie = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboTulpina = new System.Windows.Forms.ComboBox();
+            this.textBoxNumarDePetale = new System.Windows.Forms.TextBox();
+            this.textBoxUtilizare = new System.Windows.Forms.TextBox();
+            this.textBoxClasaBiologica = new System.Windows.Forms.TextBox();
+            this.textBoxDenumireStiintifica = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxSetariAvansate = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonInchideFaraASalva = new System.Windows.Forms.Button();
+            this.buttonReincarcaDinBaza = new System.Windows.Forms.Button();
+            this.buttonReinitializeazaBaza = new System.Windows.Forms.Button();
+            this.buttonRescrieBaza = new System.Windows.Forms.Button();
             this.checkBoxSetariAvansate = new System.Windows.Forms.CheckBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBoxDenumire = new System.Windows.Forms.TextBox();
             this.groupBoxAfisare = new System.Windows.Forms.GroupBox();
             this.radioButtonDupaUtilizare = new System.Windows.Forms.RadioButton();
             this.radioButtonDupaClasa = new System.Windows.Forms.RadioButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonSalveazaOCopieCa = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPageDetaliiFloare.SuspendLayout();
             this.groupBoxSetariAvansate.SuspendLayout();
@@ -81,72 +102,283 @@ namespace USM.ProgramareVisuala.Lab1
             this.tabControl1.Location = new System.Drawing.Point(356, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(332, 483);
+            this.tabControl1.Size = new System.Drawing.Size(448, 483);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPageDetaliiFloare
             // 
+            this.tabPageDetaliiFloare.Controls.Add(this.label11);
+            this.tabPageDetaliiFloare.Controls.Add(this.textBoxPret);
+            this.tabPageDetaliiFloare.Controls.Add(this.textBoxLungimeMaxima);
+            this.tabPageDetaliiFloare.Controls.Add(this.label10);
+            this.tabPageDetaliiFloare.Controls.Add(this.textBoxLungimeMedie);
+            this.tabPageDetaliiFloare.Controls.Add(this.label9);
+            this.tabPageDetaliiFloare.Controls.Add(this.comboBoxLongevitate);
+            this.tabPageDetaliiFloare.Controls.Add(this.label8);
+            this.tabPageDetaliiFloare.Controls.Add(this.comboBoxRamificatie);
+            this.tabPageDetaliiFloare.Controls.Add(this.label7);
+            this.tabPageDetaliiFloare.Controls.Add(this.label6);
+            this.tabPageDetaliiFloare.Controls.Add(this.label5);
+            this.tabPageDetaliiFloare.Controls.Add(this.label4);
+            this.tabPageDetaliiFloare.Controls.Add(this.label3);
+            this.tabPageDetaliiFloare.Controls.Add(this.label2);
+            this.tabPageDetaliiFloare.Controls.Add(this.comboTulpina);
+            this.tabPageDetaliiFloare.Controls.Add(this.textBoxNumarDePetale);
+            this.tabPageDetaliiFloare.Controls.Add(this.textBoxUtilizare);
+            this.tabPageDetaliiFloare.Controls.Add(this.textBoxClasaBiologica);
+            this.tabPageDetaliiFloare.Controls.Add(this.textBoxDenumireStiintifica);
             this.tabPageDetaliiFloare.Controls.Add(this.label1);
             this.tabPageDetaliiFloare.Controls.Add(this.groupBoxSetariAvansate);
             this.tabPageDetaliiFloare.Controls.Add(this.checkBoxSetariAvansate);
-            this.tabPageDetaliiFloare.Controls.Add(this.textBox1);
+            this.tabPageDetaliiFloare.Controls.Add(this.textBoxDenumire);
             this.tabPageDetaliiFloare.Controls.Add(this.groupBoxAfisare);
             this.tabPageDetaliiFloare.Location = new System.Drawing.Point(4, 22);
             this.tabPageDetaliiFloare.Name = "tabPageDetaliiFloare";
             this.tabPageDetaliiFloare.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageDetaliiFloare.Size = new System.Drawing.Size(324, 457);
+            this.tabPageDetaliiFloare.Size = new System.Drawing.Size(440, 457);
             this.tabPageDetaliiFloare.TabIndex = 0;
             this.tabPageDetaliiFloare.Text = "Detaii Floare";
             this.tabPageDetaliiFloare.UseVisualStyleBackColor = true;
+            this.tabPageDetaliiFloare.Click += new System.EventHandler(this.tabPageDetaliiFloare_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(232, 194);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(26, 13);
+            this.label11.TabIndex = 25;
+            this.label11.Text = "Pret";
+            // 
+            // textBoxPret
+            // 
+            this.textBoxPret.Location = new System.Drawing.Point(331, 191);
+            this.textBoxPret.Name = "textBoxPret";
+            this.textBoxPret.Size = new System.Drawing.Size(100, 20);
+            this.textBoxPret.TabIndex = 24;
+            // 
+            // textBoxLungimeMaxima
+            // 
+            this.textBoxLungimeMaxima.Location = new System.Drawing.Point(331, 163);
+            this.textBoxLungimeMaxima.Name = "textBoxLungimeMaxima";
+            this.textBoxLungimeMaxima.Size = new System.Drawing.Size(100, 20);
+            this.textBoxLungimeMaxima.TabIndex = 23;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(232, 167);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(86, 13);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "Lungime Maxima";
+            // 
+            // textBoxLungimeMedie
+            // 
+            this.textBoxLungimeMedie.Location = new System.Drawing.Point(331, 136);
+            this.textBoxLungimeMedie.Name = "textBoxLungimeMedie";
+            this.textBoxLungimeMedie.Size = new System.Drawing.Size(103, 20);
+            this.textBoxLungimeMedie.TabIndex = 21;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(232, 140);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(79, 13);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "Lungime Medie";
+            // 
+            // comboBoxLongevitate
+            // 
+            this.comboBoxLongevitate.FormattingEnabled = true;
+            this.comboBoxLongevitate.Items.AddRange(new object[] {
+            "Anuala",
+            "Bianuala",
+            "Perena"});
+            this.comboBoxLongevitate.Location = new System.Drawing.Point(316, 110);
+            this.comboBoxLongevitate.Name = "comboBoxLongevitate";
+            this.comboBoxLongevitate.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxLongevitate.TabIndex = 19;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(232, 113);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(63, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Longevitate";
+            // 
+            // comboBoxRamificatie
+            // 
+            this.comboBoxRamificatie.FormattingEnabled = true;
+            this.comboBoxRamificatie.Items.AddRange(new object[] {
+            "Neramificat",
+            "Dihotomic",
+            "Opus",
+            "Alternativ"});
+            this.comboBoxRamificatie.Location = new System.Drawing.Point(108, 275);
+            this.comboBoxRamificatie.Name = "comboBoxRamificatie";
+            this.comboBoxRamificatie.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxRamificatie.TabIndex = 17;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 278);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(57, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Ramificare";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 248);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(42, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Tulpina";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 221);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(88, 13);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Numar De Petale";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 194);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Utilizare";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 167);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(79, 13);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Clasa Biologica";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 140);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Denumire Stiintifica";
+            // 
+            // comboTulpina
+            // 
+            this.comboTulpina.FormattingEnabled = true;
+            this.comboTulpina.Items.AddRange(new object[] {
+            "Erecta",
+            "Taratoare",
+            "Volubila",
+            "Agataroare"});
+            this.comboTulpina.Location = new System.Drawing.Point(108, 245);
+            this.comboTulpina.Name = "comboTulpina";
+            this.comboTulpina.Size = new System.Drawing.Size(121, 21);
+            this.comboTulpina.TabIndex = 10;
+            // 
+            // textBoxNumarDePetale
+            // 
+            this.textBoxNumarDePetale.Location = new System.Drawing.Point(108, 218);
+            this.textBoxNumarDePetale.Name = "textBoxNumarDePetale";
+            this.textBoxNumarDePetale.Size = new System.Drawing.Size(118, 20);
+            this.textBoxNumarDePetale.TabIndex = 9;
+            // 
+            // textBoxUtilizare
+            // 
+            this.textBoxUtilizare.Location = new System.Drawing.Point(108, 191);
+            this.textBoxUtilizare.Name = "textBoxUtilizare";
+            this.textBoxUtilizare.Size = new System.Drawing.Size(118, 20);
+            this.textBoxUtilizare.TabIndex = 8;
+            // 
+            // textBoxClasaBiologica
+            // 
+            this.textBoxClasaBiologica.Location = new System.Drawing.Point(108, 164);
+            this.textBoxClasaBiologica.Name = "textBoxClasaBiologica";
+            this.textBoxClasaBiologica.Size = new System.Drawing.Size(118, 20);
+            this.textBoxClasaBiologica.TabIndex = 7;
+            // 
+            // textBoxDenumireStiintifica
+            // 
+            this.textBoxDenumireStiintifica.Location = new System.Drawing.Point(108, 137);
+            this.textBoxDenumireStiintifica.Name = "textBoxDenumireStiintifica";
+            this.textBoxDenumireStiintifica.Size = new System.Drawing.Size(118, 20);
+            this.textBoxDenumireStiintifica.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 109);
+            this.label1.Location = new System.Drawing.Point(5, 113);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 13);
+            this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Clasa";
+            this.label1.Text = "Denumire";
             // 
             // groupBoxSetariAvansate
             // 
-            this.groupBoxSetariAvansate.Controls.Add(this.button3);
-            this.groupBoxSetariAvansate.Controls.Add(this.button2);
-            this.groupBoxSetariAvansate.Controls.Add(this.button1);
+            this.groupBoxSetariAvansate.Controls.Add(this.buttonInchideFaraASalva);
+            this.groupBoxSetariAvansate.Controls.Add(this.buttonReincarcaDinBaza);
+            this.groupBoxSetariAvansate.Controls.Add(this.buttonReinitializeazaBaza);
+            this.groupBoxSetariAvansate.Controls.Add(this.buttonRescrieBaza);
             this.groupBoxSetariAvansate.Location = new System.Drawing.Point(9, 333);
             this.groupBoxSetariAvansate.Name = "groupBoxSetariAvansate";
-            this.groupBoxSetariAvansate.Size = new System.Drawing.Size(228, 118);
+            this.groupBoxSetariAvansate.Size = new System.Drawing.Size(425, 118);
             this.groupBoxSetariAvansate.TabIndex = 3;
             this.groupBoxSetariAvansate.TabStop = false;
             this.groupBoxSetariAvansate.Text = "Setari Avansate";
             // 
-            // button3
+            // buttonInchideFaraASalva
             // 
-            this.button3.Location = new System.Drawing.Point(15, 80);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(202, 23);
-            this.button3.TabIndex = 2;
-            this.button3.Text = "Reincarca Din Baza";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonInchideFaraASalva.Location = new System.Drawing.Point(234, 21);
+            this.buttonInchideFaraASalva.Name = "buttonInchideFaraASalva";
+            this.buttonInchideFaraASalva.Size = new System.Drawing.Size(148, 23);
+            this.buttonInchideFaraASalva.TabIndex = 26;
+            this.buttonInchideFaraASalva.Text = "Inchide Fara A Salva";
+            this.buttonInchideFaraASalva.UseVisualStyleBackColor = true;
+            this.buttonInchideFaraASalva.Click += new System.EventHandler(this.buttonInchideFaraASalva_Click);
             // 
-            // button2
+            // buttonReincarcaDinBaza
             // 
-            this.button2.Location = new System.Drawing.Point(15, 50);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(202, 23);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Reinitializeaza Baza";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonReincarcaDinBaza.Location = new System.Drawing.Point(15, 80);
+            this.buttonReincarcaDinBaza.Name = "buttonReincarcaDinBaza";
+            this.buttonReincarcaDinBaza.Size = new System.Drawing.Size(184, 23);
+            this.buttonReincarcaDinBaza.TabIndex = 2;
+            this.buttonReincarcaDinBaza.Text = "Reincarca Din Baza";
+            this.buttonReincarcaDinBaza.UseVisualStyleBackColor = true;
+            this.buttonReincarcaDinBaza.Click += new System.EventHandler(this.buttonReincarcaDinBaza_Click);
             // 
-            // button1
+            // buttonReinitializeazaBaza
             // 
-            this.button1.Location = new System.Drawing.Point(15, 21);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(202, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Rescrie Baza";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonReinitializeazaBaza.Location = new System.Drawing.Point(15, 50);
+            this.buttonReinitializeazaBaza.Name = "buttonReinitializeazaBaza";
+            this.buttonReinitializeazaBaza.Size = new System.Drawing.Size(184, 23);
+            this.buttonReinitializeazaBaza.TabIndex = 1;
+            this.buttonReinitializeazaBaza.Text = "Reinitializeaza Baza";
+            this.buttonReinitializeazaBaza.UseVisualStyleBackColor = true;
+            this.buttonReinitializeazaBaza.Click += new System.EventHandler(this.buttonReinitializeazaBaza_Click);
+            // 
+            // buttonRescrieBaza
+            // 
+            this.buttonRescrieBaza.Location = new System.Drawing.Point(15, 21);
+            this.buttonRescrieBaza.Name = "buttonRescrieBaza";
+            this.buttonRescrieBaza.Size = new System.Drawing.Size(184, 23);
+            this.buttonRescrieBaza.TabIndex = 0;
+            this.buttonRescrieBaza.Text = "Rescrie Baza";
+            this.buttonRescrieBaza.UseVisualStyleBackColor = true;
+            this.buttonRescrieBaza.Click += new System.EventHandler(this.buttonRescrieBaza_Click);
             // 
             // checkBoxSetariAvansate
             // 
@@ -158,12 +390,12 @@ namespace USM.ProgramareVisuala.Lab1
             this.checkBoxSetariAvansate.Text = "Avansat";
             this.checkBoxSetariAvansate.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // textBoxDenumire
             // 
-            this.textBox1.Location = new System.Drawing.Point(45, 106);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 1;
+            this.textBoxDenumire.Location = new System.Drawing.Point(108, 110);
+            this.textBoxDenumire.Name = "textBoxDenumire";
+            this.textBoxDenumire.Size = new System.Drawing.Size(118, 20);
+            this.textBoxDenumire.TabIndex = 1;
             // 
             // groupBoxAfisare
             // 
@@ -202,27 +434,27 @@ namespace USM.ProgramareVisuala.Lab1
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.buttonSalveazaOCopieCa);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(324, 457);
+            this.tabPage2.Size = new System.Drawing.Size(440, 457);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Optiuni Suplimentare";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // buttonSalveazaOCopieCa
             // 
-            this.button4.Location = new System.Drawing.Point(39, 23);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 0;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonSalveazaOCopieCa.Location = new System.Drawing.Point(39, 23);
+            this.buttonSalveazaOCopieCa.Name = "buttonSalveazaOCopieCa";
+            this.buttonSalveazaOCopieCa.Size = new System.Drawing.Size(151, 23);
+            this.buttonSalveazaOCopieCa.TabIndex = 0;
+            this.buttonSalveazaOCopieCa.Text = "Salveaza O Copie Ca";
+            this.buttonSalveazaOCopieCa.UseVisualStyleBackColor = true;
             // 
             // FloareDialog
             // 
-            this.ClientSize = new System.Drawing.Size(700, 500);
+            this.ClientSize = new System.Drawing.Size(816, 500);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.treeViewFlori);
             this.Controls.Add(this.listViewFlori);
@@ -252,12 +484,33 @@ namespace USM.ProgramareVisuala.Lab1
         private TabPage tabPage2;
         private Label label1;
         private GroupBox groupBoxSetariAvansate;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Button buttonReincarcaDinBaza;
+        private Button buttonReinitializeazaBaza;
+        private Button buttonRescrieBaza;
         private CheckBox checkBoxSetariAvansate;
-        private TextBox textBox1;
-        private Button button4;
+        private TextBox textBoxDenumire;
+        private Button buttonSalveazaOCopieCa;
+        private Label label4;
+        private Label label3;
+        private Label label2;
+        private ComboBox comboTulpina;
+        private TextBox textBoxNumarDePetale;
+        private TextBox textBoxUtilizare;
+        private TextBox textBoxClasaBiologica;
+        private TextBox textBoxDenumireStiintifica;
+        private Label label6;
+        private Label label5;
+        private ComboBox comboBoxLongevitate;
+        private Label label8;
+        private ComboBox comboBoxRamificatie;
+        private Label label7;
+        private Label label11;
+        private TextBox textBoxPret;
+        private TextBox textBoxLungimeMaxima;
+        private Label label10;
+        private TextBox textBoxLungimeMedie;
+        private Label label9;
+        private Button buttonInchideFaraASalva;
     }
 }
 

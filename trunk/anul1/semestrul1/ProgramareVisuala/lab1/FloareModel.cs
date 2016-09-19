@@ -9,13 +9,11 @@ namespace USM.ProgramareVisuala.Lab1
 {
     public class FloareModel
     {
-        public FloareModel(string dbName = "")
+        public FloareModel(string dbName)
 	    {
-	    	if (dbName == "") dbName = this.floareDbName;
 	    	this.floareDbName = dbName;
 	    }
-        static string defaultFloareDbName = ".\\flori.db.xml";
-        string floareDbName = defaultFloareDbName;
+        string floareDbName;
         XmlSerializer serializer = new XmlSerializer(typeof(FloareSet));
         public FloareSet FloareSet {get; set;}
         public Floare[] Flori 
@@ -51,12 +49,15 @@ namespace USM.ProgramareVisuala.Lab1
 
         public void saveFloareDb()
         {
+            saveFloareDbTo(floareDbName);
+        }
+        public void saveFloareDbTo(string path)
+        {
             FloareSet.SelectMetoda = FloareSet.SelectMetoda.GetValueOrDefault(SelectMetoda.DupaClasa);
-            TextWriter writer = new StreamWriter(floareDbName);
+            TextWriter writer = new StreamWriter(path);
             serializer.Serialize(writer, FloareSet);
             writer.Close();
         }
-
         FloareSet getDefaultFloareSet()
         {
             return new FloareSet

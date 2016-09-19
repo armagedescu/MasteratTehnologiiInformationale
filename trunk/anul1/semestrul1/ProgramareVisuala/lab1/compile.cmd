@@ -11,5 +11,5 @@
 @if exist %exename% del %exename%
 rem %envdir%\csc /nologo /target:exe /out:%exename% MainApp.cs Floare.cs FloareDialog.cs FloareDialog.Designer.cs FloareDialog.FloareTree.cs FloareDialog.FloareList.cs /resource:textressample.txt
 %envdir%\csc /nologo /target:exe /out:%exename% *.cs /resource:textressample.txt
-@if exist MainApp.exe MainApp
+@if exist MainApp.exe MainApp .\flori.db.xml
 @if exist MainApp.exe del MainApp.exe

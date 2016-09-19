@@ -83,10 +83,6 @@ namespace USM.ProgramareVisuala.Lab1
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void listViewFlori_KeyUp(object sender, KeyEventArgs e)
         {
@@ -104,6 +100,31 @@ namespace USM.ProgramareVisuala.Lab1
         {
             listViewFlori.Items.Clear();
             treeViewFlori.Nodes.Clear();
+        }
+
+        private void tabPageDetaliiFloare_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonRescrieBaza_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonReinitializeazaBaza_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonReincarcaDinBaza_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonInchideFaraASalva_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
