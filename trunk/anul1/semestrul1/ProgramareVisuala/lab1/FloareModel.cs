@@ -14,6 +14,11 @@ namespace USM.ProgramareVisuala.Lab1
 	    	this.floareDbName = dbName;
 	    }
         string floareDbName;
+        string xmlName = "flori.db.xml";
+        string buildXmlPath(string path) { return path + "\\" + xmlName; }
+        string getDb() { return floareDbName; }
+        string getXmlName() { return buildXmlPath(floareDbName); }
+
         XmlSerializer serializer = new XmlSerializer(typeof(FloareSet));
         public FloareSet FloareSet {get; set;}
         public Floare[] Flori 
@@ -29,19 +34,19 @@ namespace USM.ProgramareVisuala.Lab1
 
         public void getFloareDb()
         {
-            if (!File.Exists(floareDbName)) createDefaultFloareDb(floareDbName);
+            if (!File.Exists(getXmlName()) ) createDefaultFloareDb( );
             FloareSet = loadFloareDb();
         }
 
         FloareSet loadFloareDb()
         {
-            StreamReader streamer = new StreamReader(floareDbName);
+            StreamReader streamer = new StreamReader(getXmlName());
             FloareSet floareSet = (FloareSet)serializer.Deserialize(streamer);
             streamer.Close();
             return floareSet;
         }
 
-        public void createDefaultFloareDb(String dbName)
+        public void createDefaultFloareDb()
         {
             FloareSet = getDefaultFloareSet();
             saveFloareDb();
@@ -49,12 +54,18 @@ namespace USM.ProgramareVisuala.Lab1
 
         public void saveFloareDb()
         {
-            saveFloareDbTo(floareDbName);
+            saveFloareDbTo(getDb());
+        }
+        public void checkFolder(string path)
+        {
+            if (Directory.Exists(path)) return;
+            DirectoryInfo directory = Directory.CreateDirectory(path);
         }
         public void saveFloareDbTo(string path)
         {
+            checkFolder(path);
             FloareSet.SelectMetoda = FloareSet.SelectMetoda.GetValueOrDefault(SelectMetoda.DupaClasa);
-            TextWriter writer = new StreamWriter(path);
+            TextWriter writer = new StreamWriter(buildXmlPath(path));
             serializer.Serialize(writer, FloareSet);
             writer.Close();
         }

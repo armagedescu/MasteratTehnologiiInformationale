@@ -12,9 +12,12 @@ public partial class MainApp
 	[STAThread]
     public static int Main (string[] args)
 	{
-		string floareDbPath = ".\\flori.db.xml";
+		string floareDbPath = ".\\flori.db";
+        string workingPath = Directory.GetCurrentDirectory();
 		if (args.Length > 0) floareDbPath = args[0];
-        FloareModel floareModel = new FloareModel(floareDbPath);
+        if (args.Length > 1) workingPath = args[1];
+
+        FloareModel floareModel = new FloareModel(workingPath + "\\" + floareDbPath);
         floareModel.getFloareDb();
 		FloareDialog floareDialog = new FloareDialog(floareModel);
 		floareDialog.ShowDialog();

@@ -20,11 +20,15 @@ namespace USM.ProgramareVisuala.Lab1
         FloareModel FloareModel { get; set; }
         public FloareDialog(FloareModel floareModel)
         {
-            this.FloareModel = floareModel;
             InitializeComponent();
 			
+            this.FloareModel = floareModel;
+
 			this.treeViewFlori.AfterSelect += this.TreeViewFlori_AfterSelect;
 			this.checkBoxSetariAvansate.CheckedChanged += this.checkBoxSetariAvansate_CheckedChanged;
+            this.pictureBoxFloare.MouseWheel += this.pictureBoxFloare_MouseWheel;
+
+
 			groupBoxSetariAvansate.Hide();
             listViewFlori.Columns.Add("Denumire", 100);
             listViewFlori.Columns.Add("Clasa", 100);
@@ -125,6 +129,95 @@ namespace USM.ProgramareVisuala.Lab1
         private void buttonInchideFaraASalva_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBoxFloare_Click(object sender, EventArgs e)
+        {
+            if (listViewFlori.SelectedItems.Count <= 0) return;
+
+
+            Floare floare = (Floare)listViewFlori.SelectedItems[0].Tag;
+
+            //MessageBox.Show("click");
+            MouseEventArgs me = (MouseEventArgs) e;
+            if (me.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+                openFileDialog1.InitialDirectory = ".";
+                openFileDialog1.Filter = "jpeg files (*.jpg)|*.jpg|All files (*.*)|*.*";
+                openFileDialog1.FilterIndex = 2;
+                openFileDialog1.RestoreDirectory = true;
+
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBoxFloare.Image = new Bitmap(openFileDialog1.FileName);
+                    
+                    //pictureBoxFloare.AutoScrollOffset.X = 100;
+                    //pictureBoxFloare.Location = new Point(20, 100);
+                    //Console.WriteLine(openFileDialog1.FileName);
+                    
+                }
+            }
+            if (me.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                Console.WriteLine(Guid.NewGuid());
+            }
+        }
+
+        private void pictureBoxFloare_DragDrop(object sender, DragEventArgs e)
+        {
+
+        }
+        private void pictureBoxFloare_MouseWheel(object sender, MouseEventArgs e)
+        {
+            Size sz = pictureBoxFloare.Size;
+            Point location = pictureBoxFloare.Location;
+            Console.WriteLine("wheel: " + e.Delta);
+            if ((ModifierKeys & Keys.Control) == Keys.Control)
+            {
+                Console.WriteLine("Wheel:Ctrl!");
+                //pictureBoxFloare.Size = 
+                sz.Height = (int)((float)sz.Height * (float)(e.Delta + (e.Delta > 0 ? 5 : -5)) / 120);
+                sz.Width *= (int)((float)sz.Width * (float)(e.Delta + (e.Delta > 0 ? 5 : -5)) / 120);
+                pictureBoxFloare.Size = sz;
+                pictureBoxFloare.Location = location;
+            }
+            //MessageBox.Show("wheel");
+        }
+
+        private void pictureBoxFloare_MouseEnter(object sender, EventArgs e)
+        {
+            //pictureBoxFloare.Capture = true;
+            pictureBoxFloare.Focus();
+        }
+
+        private void pictureBoxFloare_MouseLeave(object sender, EventArgs e)
+        {
+            //pictureBoxFloare.Capture = false;
+            this.ActiveControl = null;
+        }
+
+        private void tabPageDetaliiFloare_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+
+        }
+
+        private void pictureBoxFloare_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                pictureBoxFloare.Left = e.X + pictureBoxFloare.Left - MouseDownLocation.X;
+                pictureBoxFloare.Top = e.Y + pictureBoxFloare.Top - MouseDownLocation.Y;
+            }
+        }
+        private Point MouseDownLocation;
+        private void pictureBoxFloare_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                MouseDownLocation = e.Location;
+            }
         }
     }
 }

@@ -17,6 +17,7 @@ public class Floare
    public double? LungimeMedie;
    public double? LungimeMaxima;
    public double? Pret;
+   public Imagine Imagine {get; set;}
 
 	/////////   output   ///////////
    public void Write(TextWriter writer, string indent)
@@ -30,6 +31,10 @@ public class Floare
    }
 }
 
+public class Imagine
+{
+    public string NumeImagine { get; set; }
+}
 public class FloareSet
 {
 	public SelectMetoda? SelectMetoda {get; set;}
