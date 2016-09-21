@@ -110,6 +110,7 @@ namespace USM.ProgramareVisuala.Lab1
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(448, 483);
             this.tabControl1.TabIndex = 2;
+            this.tabControl1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FloareDialog_KeyDown);
             // 
             // tabPageDetaliiFloare
             // 

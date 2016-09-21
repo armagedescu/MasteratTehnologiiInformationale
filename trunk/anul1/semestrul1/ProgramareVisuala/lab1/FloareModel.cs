@@ -159,7 +159,12 @@ namespace USM.ProgramareVisuala.Lab1
 
 
 
-
+        public Image GetImage(Floare floare)
+        {
+            if (floare == null) return null;
+            if (floare.Imagine == null) return null;
+            return GetImage(floare.Imagine);
+        }
         public Image GetImage(Imagine imagine)
         {
             if (string.IsNullOrWhiteSpace(imagine.NumeImagine) && string.IsNullOrWhiteSpace(imagine.SystemPath))

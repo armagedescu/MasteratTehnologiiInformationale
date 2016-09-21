@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace USM.ProgramareVisuala.Lab1
 {
@@ -110,6 +111,7 @@ namespace USM.ProgramareVisuala.Lab1
         }
         void clearFloareControls()
         {
+            floareClear();
             listViewFlori.Items.Clear();
             treeViewFlori.Nodes.Clear();
         }
@@ -142,10 +144,8 @@ namespace USM.ProgramareVisuala.Lab1
         private void pictureBoxFloare_Click(object sender, EventArgs e)
         {
             if (listViewFlori.SelectedItems.Count <= 0) return;
-
             Floare floare = (Floare)listViewFlori.SelectedItems[0].Tag;
 
-            //MessageBox.Show("click");
             MouseEventArgs me = (MouseEventArgs) e;
             if (me.Button == System.Windows.Forms.MouseButtons.Right)
             {
@@ -168,10 +168,6 @@ namespace USM.ProgramareVisuala.Lab1
 
 
                     pictureBoxFloare.Image = FloareModel.GetImage(floare.Imagine);
-                    //pictureBoxFloare.AutoScrollOffset.X = 100;
-                    //pictureBoxFloare.Location = new Point(20, 100);
-                    //Console.WriteLine(openFileDialog1.FileName);
-                    
                 }
             }
             if (me.Button == System.Windows.Forms.MouseButtons.Left)
@@ -190,30 +186,25 @@ namespace USM.ProgramareVisuala.Lab1
             Floare floare = (Floare)listViewFlori.SelectedItems[0].Tag;
 
             Size sz = pictureBoxFloare.Size;
-            //Point location = pictureBoxFloare.Location;
             Console.WriteLine("wheel: " + e.Delta);
             if ((ModifierKeys & Keys.Control) == Keys.Control)
             {
                 Console.WriteLine("Wheel:Ctrl!");
-                sz.Height = (int)((float)sz.Height * (float)(1f + .05f * (e.Delta / 120)));
-                sz.Width = (int)((float)sz.Width * (float)(1f + .05f * (e.Delta / 120)));
+                sz.Height = (int)((float)sz.Height * (float)(1f + .05f * (e.Delta / 120f)));
+                sz.Width = (int)((float)sz.Width * (float)(1f + .05f * (e.Delta / 120f)));
                 pictureBoxFloare.Size = sz;
                 floare.Imagine.Size = pictureBoxFloare.Size;
-                //pictureBoxFloare.Location = location;
-
             }
 
         }
 
         private void pictureBoxFloare_MouseEnter(object sender, EventArgs e)
         {
-            //pictureBoxFloare.Capture = true;
             pictureBoxFloare.Focus();
         }
 
         private void pictureBoxFloare_MouseLeave(object sender, EventArgs e)
         {
-            //pictureBoxFloare.Capture = false;
             this.ActiveControl = null;
         }
 
@@ -232,7 +223,6 @@ namespace USM.ProgramareVisuala.Lab1
                 pictureBoxFloare.Left = e.X + pictureBoxFloare.Left - MouseDownLocation.X;
                 pictureBoxFloare.Top = e.Y + pictureBoxFloare.Top - MouseDownLocation.Y;
                 floare.Imagine.Location = pictureBoxFloare.Location;
-
             }
         }
         private Point MouseDownLocation;
@@ -246,7 +236,6 @@ namespace USM.ProgramareVisuala.Lab1
 
         private void listViewFlori_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
         {
-            Console.WriteLine(e.Item.Text + "; checked " + e.IsSelected);
             if (!e.IsSelected)
             {
                 floareClear();
@@ -269,24 +258,41 @@ namespace USM.ProgramareVisuala.Lab1
             textBoxLungimeMaxima.Text = floare.LungimeMaxima.ToString();
             textBoxLungimeMedie.Text = floare.LungimeMedie.ToString();
             floareToImage(floare);
-
+        }
+        public static object ParseEnum<T>(string value)
+        {
+            try { return Enum.Parse(typeof(T), value, true); }
+            catch(Exception){return null;}
+        }
+        void formToFloare()
+        {
+            Console.WriteLine("save");
+            if (listViewFlori.SelectedItems.Count <= 0) return;
+            formToFloare((Floare)listViewFlori.SelectedItems[0].Tag);
+        }
+        void formToFloare(Floare floare)
+        {
+            floare.Denumire = textBoxDenumire.Text;
+            floare.Tulpina = (Tulpina?)ParseEnum<Tulpina>(comboTulpina.Text);;
+            floare.NumarDePetale = int.Parse("0" + textBoxNumarDePetale.Text);
+            floare.Utilizare = textBoxUtilizare.Text;
+            floare.ClasaBiologica = textBoxClasaBiologica.Text;
+            floare.DenumireStiintifica = textBoxDenumireStiintifica.Text;
+            floare.Longevitate = (Longevitate?)ParseEnum<Longevitate> (comboBoxLongevitate.Text);
+            floare.Ramificare = (Ramificare?) ParseEnum<Ramificare> (comboBoxRamificatie.Text);
+            floare.Pret = float.Parse("0" + textBoxPret.Text, CultureInfo.InvariantCulture.NumberFormat); ;
+            floare.LungimeMaxima = int.Parse("0" + textBoxLungimeMaxima.Text);
+            floare.LungimeMedie = int.Parse("0" + textBoxLungimeMedie.Text);
+            //floareToImage(floare);
         }
         void floareToImage(Floare floare)
         {
-            if (floare.Imagine == null)
-            {
-                imageClear();
-                Console.WriteLine("floare to image exit");
-                return;
-            }
-            Imagine imagine = floare.Imagine;
-            Console.WriteLine("floare to build path: " + imagine.SystemPath);
-            Console.WriteLine("floare to build name: " + imagine.NumeImagine);
-            Image image = FloareModel.GetImage(imagine); // new Bitmap(openFileDialog1.FileName);
-            //FloareModel.GetImage(floare);
-            pictureBoxFloare.Image = image;
-            pictureBoxFloare.Location = imagine.Location;
-            pictureBoxFloare.Size = imagine.Size;
+            imageClear();
+            if (floare == null || floare.Imagine == null) return;
+
+            pictureBoxFloare.Image = FloareModel.GetImage(floare);
+            pictureBoxFloare.Location = floare.Imagine.Location;
+            pictureBoxFloare.Size = floare.Imagine.Size;
         }
         void floareClear()
         { 
@@ -309,5 +315,24 @@ namespace USM.ProgramareVisuala.Lab1
             pictureBoxFloare.Location = new Point(0, 0);
             pictureBoxFloare.Size = new Size(panelFloare.Width, panelFloare.Height);
         }
+
+
+
+        private void FloareDialog_KeyDown(object sender, KeyEventArgs e)
+        {
+            
+            switch (e.KeyCode)
+            { 
+                case Keys.Escape:
+                    Dispose();
+                    break;
+                case Keys.S:
+                    if (ModifierKeys.HasFlag(Keys.Control))
+                        formToFloare();
+                    break;
+            }
+        }
+
+
     }
 }
