@@ -97,6 +97,14 @@ namespace USM.ProgramareVisuala.Lab1
                 case Keys.Insert:
                     break;
                 case Keys.Delete:
+                    if (listViewFlori.SelectedItems.Count > 0)
+                    {
+                        pictureBoxFloare.Image = null;
+                        Floare floare = (Floare)listViewFlori.SelectedItems[0].Tag;
+                        floare.Sters = true;
+                        listViewFlori.Items.Remove(listViewFlori.SelectedItems[0]);
+                    }
+
                     break;
             }
         }
@@ -135,24 +143,31 @@ namespace USM.ProgramareVisuala.Lab1
         {
             if (listViewFlori.SelectedItems.Count <= 0) return;
 
-
             Floare floare = (Floare)listViewFlori.SelectedItems[0].Tag;
 
             //MessageBox.Show("click");
             MouseEventArgs me = (MouseEventArgs) e;
             if (me.Button == System.Windows.Forms.MouseButtons.Right)
             {
-                OpenFileDialog openFileDialog1 = new OpenFileDialog();
+                OpenFileDialog openFloareDialog = new OpenFileDialog();
 
-                openFileDialog1.InitialDirectory = ".";
-                openFileDialog1.Filter = "jpeg files (*.jpg)|*.jpg|All files (*.*)|*.*";
-                openFileDialog1.FilterIndex = 2;
-                openFileDialog1.RestoreDirectory = true;
+                openFloareDialog.InitialDirectory = ".";
+                openFloareDialog.Filter = "jpeg files (*.jpg)|*.jpg|All files (*.*)|*.*";
+                openFloareDialog.FilterIndex = 2;
+                openFloareDialog.RestoreDirectory = true;
 
-                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                if (openFloareDialog.ShowDialog() == DialogResult.OK)
                 {
-                    pictureBoxFloare.Image = new Bitmap(openFileDialog1.FileName);
-                    
+                    imageClear();
+                    floare.Imagine = new Imagine()
+                    {
+                        SystemPath = openFloareDialog.FileName,
+                        Location = pictureBoxFloare.Location,
+                        Size = pictureBoxFloare.Size
+                    };
+
+
+                    pictureBoxFloare.Image = FloareModel.GetImage(floare.Imagine);
                     //pictureBoxFloare.AutoScrollOffset.X = 100;
                     //pictureBoxFloare.Location = new Point(20, 100);
                     //Console.WriteLine(openFileDialog1.FileName);
@@ -171,19 +186,23 @@ namespace USM.ProgramareVisuala.Lab1
         }
         private void pictureBoxFloare_MouseWheel(object sender, MouseEventArgs e)
         {
+            if (listViewFlori.SelectedItems.Count <= 0) return;
+            Floare floare = (Floare)listViewFlori.SelectedItems[0].Tag;
+
             Size sz = pictureBoxFloare.Size;
-            Point location = pictureBoxFloare.Location;
+            //Point location = pictureBoxFloare.Location;
             Console.WriteLine("wheel: " + e.Delta);
             if ((ModifierKeys & Keys.Control) == Keys.Control)
             {
                 Console.WriteLine("Wheel:Ctrl!");
-                //pictureBoxFloare.Size = 
-                sz.Height = (int)((float)sz.Height * (float)(e.Delta + (e.Delta > 0 ? 5 : -5)) / 120);
-                sz.Width *= (int)((float)sz.Width * (float)(e.Delta + (e.Delta > 0 ? 5 : -5)) / 120);
+                sz.Height = (int)((float)sz.Height * (float)(1f + .05f * (e.Delta / 120)));
+                sz.Width = (int)((float)sz.Width * (float)(1f + .05f * (e.Delta / 120)));
                 pictureBoxFloare.Size = sz;
-                pictureBoxFloare.Location = location;
+                floare.Imagine.Size = pictureBoxFloare.Size;
+                //pictureBoxFloare.Location = location;
+
             }
-            //MessageBox.Show("wheel");
+
         }
 
         private void pictureBoxFloare_MouseEnter(object sender, EventArgs e)
@@ -205,10 +224,15 @@ namespace USM.ProgramareVisuala.Lab1
 
         private void pictureBoxFloare_MouseMove(object sender, MouseEventArgs e)
         {
+            if (listViewFlori.SelectedItems.Count <= 0) return;
+            Floare floare = (Floare)listViewFlori.SelectedItems[0].Tag;
+            if (floare.Imagine == null) return;
             if (e.Button == System.Windows.Forms.MouseButtons.Left)
             {
                 pictureBoxFloare.Left = e.X + pictureBoxFloare.Left - MouseDownLocation.X;
                 pictureBoxFloare.Top = e.Y + pictureBoxFloare.Top - MouseDownLocation.Y;
+                floare.Imagine.Location = pictureBoxFloare.Location;
+
             }
         }
         private Point MouseDownLocation;
@@ -218,6 +242,72 @@ namespace USM.ProgramareVisuala.Lab1
             {
                 MouseDownLocation = e.Location;
             }
+        }
+
+        private void listViewFlori_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            Console.WriteLine(e.Item.Text + "; checked " + e.IsSelected);
+            if (!e.IsSelected)
+            {
+                floareClear();
+                return;
+            }
+            Floare floare = (Floare)e.Item.Tag;
+            floareToForm(floare);
+        }
+        void floareToForm(Floare floare)
+        {
+            textBoxDenumire.Text = floare.Denumire;
+            comboTulpina.Text = floare.Tulpina.ToString();
+            textBoxNumarDePetale.Text = floare.NumarDePetale.ToString();
+            textBoxUtilizare.Text = floare.Utilizare;
+            textBoxClasaBiologica.Text = floare.ClasaBiologica;
+            textBoxDenumireStiintifica.Text = floare.DenumireStiintifica;
+            comboBoxLongevitate.Text = floare.Longevitate.ToString();
+            comboBoxRamificatie.Text = floare.Ramificare.ToString();
+            textBoxPret.Text = floare.Pret.ToString();
+            textBoxLungimeMaxima.Text = floare.LungimeMaxima.ToString();
+            textBoxLungimeMedie.Text = floare.LungimeMedie.ToString();
+            floareToImage(floare);
+
+        }
+        void floareToImage(Floare floare)
+        {
+            if (floare.Imagine == null)
+            {
+                imageClear();
+                Console.WriteLine("floare to image exit");
+                return;
+            }
+            Imagine imagine = floare.Imagine;
+            Console.WriteLine("floare to build path: " + imagine.SystemPath);
+            Console.WriteLine("floare to build name: " + imagine.NumeImagine);
+            Image image = FloareModel.GetImage(imagine); // new Bitmap(openFileDialog1.FileName);
+            //FloareModel.GetImage(floare);
+            pictureBoxFloare.Image = image;
+            pictureBoxFloare.Location = imagine.Location;
+            pictureBoxFloare.Size = imagine.Size;
+        }
+        void floareClear()
+        { 
+            textBoxDenumire.Text = "";
+            comboTulpina.Text = "";
+            textBoxNumarDePetale.Text = "";
+            textBoxUtilizare.Text = "";
+            textBoxClasaBiologica.Text = "";
+            textBoxDenumireStiintifica.Text = "";
+            comboBoxLongevitate.Text = "";
+            comboBoxRamificatie.Text = "";
+            textBoxPret.Text = "";
+            textBoxLungimeMaxima.Text = "";
+            textBoxLungimeMedie.Text = "";
+            imageClear();
+        }
+        void imageClear()
+        {
+            pictureBoxFloare.Image = null;
+            pictureBoxFloare.Location = new Point(0, 0);
+            pictureBoxFloare.Size = new Size(panelFloare.Width, panelFloare.Height);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml.Serialization;
 using System.IO;
+using System.Drawing;
 
 namespace USM.ProgramareVisuala.Lab1
 {
@@ -16,12 +17,13 @@ namespace USM.ProgramareVisuala.Lab1
         string floareDbName;
         string xmlName = "flori.db.xml";
         string buildXmlPath(string path) { return path + "\\" + xmlName; }
+        string buildImgPath(string imgName) { return floareDbName + "\\" + imgName; }
         string getDb() { return floareDbName; }
         string getXmlName() { return buildXmlPath(floareDbName); }
 
         XmlSerializer serializer = new XmlSerializer(typeof(FloareSet));
         public FloareSet FloareSet {get; set;}
-        public Floare[] Flori 
+        public Floare[] Flori
         {
             get { return FloareSet.Flori; }
             set { FloareSet.Flori = value; }
@@ -64,7 +66,31 @@ namespace USM.ProgramareVisuala.Lab1
         public void saveFloareDbTo(string path)
         {
             checkFolder(path);
-            FloareSet.SelectMetoda = FloareSet.SelectMetoda.GetValueOrDefault(SelectMetoda.DupaClasa);
+            foreach (Floare floare in Flori)
+            {
+                Imagine imagine = floare.Imagine;
+                if (imagine == null) continue;
+                if (string.IsNullOrWhiteSpace(imagine.NumeImagine) && string.IsNullOrWhiteSpace(imagine.SystemPath))
+                    floare.Imagine = null;
+                else if (!string.IsNullOrWhiteSpace(imagine.SystemPath))
+                {
+                    if (!string.IsNullOrWhiteSpace(imagine.NumeImagine))
+                        File.Delete(buildImgPath(imagine.NumeImagine));
+                    string extension = Path.GetExtension(imagine.SystemPath);
+                    imagine.NumeImagine = Guid.NewGuid().ToString() + extension;
+                    File.Copy(imagine.SystemPath, buildImgPath(imagine.NumeImagine));
+                }
+                else if (floare.Sters && floare.Imagine != null && !string.IsNullOrWhiteSpace(imagine.NumeImagine))
+                {
+                    File.Delete(buildImgPath(floare.Imagine.NumeImagine));
+                }
+            }
+            Floare[] flori = Flori.Where(f => !f.Sters).ToArray();
+            Flori = flori;
+
+
+            //TODO: review this code
+            //FloareSet.SelectMetoda = FloareSet.SelectMetoda.GetValueOrDefault(SelectMetoda.DupaClasa);
             TextWriter writer = new StreamWriter(buildXmlPath(path));
             serializer.Serialize(writer, FloareSet);
             writer.Close();
@@ -82,7 +108,8 @@ namespace USM.ProgramareVisuala.Lab1
 							DenumireStiintifica = "Selenicereus grandifloris",
 							ClasaBiologica = "Cactaceae",
 							Utilizare = "Decorativa",
-							Longevitate = Longevitate.Perena
+							Longevitate = Longevitate.Perena,
+                            Tulpina = Tulpina.Taratoare
 						},
 						new Floare
 						{
@@ -90,7 +117,8 @@ namespace USM.ProgramareVisuala.Lab1
 							DenumireStiintifica = "Lophophora williamsii",
 							ClasaBiologica = "Cactaceae",
 							Utilizare = "Culturala",
-							Longevitate = Longevitate.Perena
+							Longevitate = Longevitate.Perena,
+                            Tulpina = Tulpina.Erecta
 						},
 						new Floare
 						{
@@ -98,7 +126,8 @@ namespace USM.ProgramareVisuala.Lab1
 							DenumireStiintifica = "Rosa canina",
 							ClasaBiologica = "Rosaceae",
 							Utilizare = "Medicinala",
-							Longevitate = Longevitate.Perena
+							Longevitate = Longevitate.Perena,
+                            Tulpina = Tulpina.Erecta
 						},
 						new Floare
 						{
@@ -106,6 +135,7 @@ namespace USM.ProgramareVisuala.Lab1
 							DenumireStiintifica = "Rosa canina",
 							ClasaBiologica = "Rosaceae",
 							Utilizare = "Decorativa",
+                            Tulpina = Tulpina.Erecta,
 							Longevitate = Longevitate.Perena
 						},
 						new Floare
@@ -114,6 +144,7 @@ namespace USM.ProgramareVisuala.Lab1
 							DenumireStiintifica = "Triticum aestivum",
 							ClasaBiologica = "Poaceae",
 							Utilizare = "Alimentara",
+                            Tulpina = Tulpina.Erecta,
 							Longevitate = Longevitate.Perena
 						}
 					}
@@ -126,7 +157,26 @@ namespace USM.ProgramareVisuala.Lab1
             writer.Close();
         }
 
- 
 
+
+
+        public Image GetImage(Imagine imagine)
+        {
+            if (string.IsNullOrWhiteSpace(imagine.NumeImagine) && string.IsNullOrWhiteSpace(imagine.SystemPath))
+                return null;
+            string imgPath = buildImgPath(imagine.NumeImagine);
+            if (string.IsNullOrWhiteSpace(imagine.NumeImagine))
+                imgPath = imagine.SystemPath;
+
+
+            Image img = null;
+            using (var fs = new System.IO.FileStream(imgPath, System.IO.FileMode.Open))
+            {
+                var bmp = new Bitmap(fs);
+                img = (Bitmap)bmp.Clone(); //because need to free resources
+            }
+
+            return new Bitmap(img);
+        }
     }
 }

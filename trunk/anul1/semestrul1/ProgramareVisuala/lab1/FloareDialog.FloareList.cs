@@ -31,7 +31,7 @@ namespace USM.ProgramareVisuala.Lab1
 		}
 		void incarcaFloriInLista<TKey>(string categorie, Func<Floare, TKey> groupby)
 		{
-			incarcaFloriInLista(FloareModel.Flori.Where(g => groupby(g).Equals(categorie)));
+			incarcaFloriInLista(FloareModel.Flori.Where(f => !f.Sters).Where(g => groupby(g).Equals(categorie)));
 		}
 
     }

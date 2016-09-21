@@ -20,10 +20,10 @@ namespace USM.ProgramareVisuala.Lab1
             clearFloareControls();
             TreeNode treeNode = treeViewFlori.Nodes.Add("Toate Florile");
 
-			foreach (Floare floare in FloareModel.Flori.GroupBy(groupby).Select(x => x.First())  )
+			foreach (Floare floare in FloareModel.Flori.Where(f => !f.Sters).GroupBy(groupby).Select(x => x.First())  )
 			{
                 var categorieNode = treeNode.Nodes.Add(groupby(floare).ToString());
-                foreach (Floare ifloare in FloareModel.Flori.Where(g => groupby(g).Equals(groupby(floare))))
+                foreach (Floare ifloare in FloareModel.Flori.Where(f => !f.Sters).Where(g => groupby(g).Equals(groupby(floare))))
                     categorieNode.Nodes.Add(ifloare.Denumire).Tag = ifloare;
 			}
 			treeNode.Expand();

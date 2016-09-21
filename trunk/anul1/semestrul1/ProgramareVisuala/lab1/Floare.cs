@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Xml.Serialization;
+using System.Drawing;
 
 namespace USM.ProgramareVisuala.Lab1
 {
@@ -29,11 +31,17 @@ public class Floare
 		writer.WriteLine(String.Format("{0}Longevitate:'{1}'", indent1, Longevitate));
        	writer.WriteLine(indent + "}");
    }
+   [XmlIgnoreAttribute]
+   public bool Sters { get; set; }
 }
 
 public class Imagine
 {
     public string NumeImagine { get; set; }
+    [XmlIgnoreAttribute]
+    public string SystemPath { get; set; }
+    public Point Location { get; set; }
+    public Size Size { get; set; }
 }
 public class FloareSet
 {

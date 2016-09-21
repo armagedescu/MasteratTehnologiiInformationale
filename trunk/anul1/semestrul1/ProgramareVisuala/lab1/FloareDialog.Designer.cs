@@ -36,6 +36,9 @@ namespace USM.ProgramareVisuala.Lab1
             this.listViewFlori = new System.Windows.Forms.ListView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageDetaliiFloare = new System.Windows.Forms.TabPage();
+            this.panelFloare = new System.Windows.Forms.Panel();
+            this.pictureBoxFloare = new System.Windows.Forms.PictureBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxPret = new System.Windows.Forms.TextBox();
             this.textBoxLungimeMaxima = new System.Windows.Forms.TextBox();
@@ -69,16 +72,13 @@ namespace USM.ProgramareVisuala.Lab1
             this.radioButtonDupaClasa = new System.Windows.Forms.RadioButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.buttonSalveazaOCopieCa = new System.Windows.Forms.Button();
-            this.pictureBoxFloare = new System.Windows.Forms.PictureBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.panelFloare = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPageDetaliiFloare.SuspendLayout();
+            this.panelFloare.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFloare)).BeginInit();
             this.groupBoxSetariAvansate.SuspendLayout();
             this.groupBoxAfisare.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFloare)).BeginInit();
-            this.panelFloare.SuspendLayout();
             this.SuspendLayout();
             // 
             // treeViewFlori
@@ -98,6 +98,7 @@ namespace USM.ProgramareVisuala.Lab1
             this.listViewFlori.TabIndex = 1;
             this.listViewFlori.UseCompatibleStateImageBehavior = false;
             this.listViewFlori.View = System.Windows.Forms.View.Details;
+            this.listViewFlori.ItemSelectionChanged += new System.Windows.Forms.ListViewItemSelectionChangedEventHandler(this.listViewFlori_ItemSelectionChanged);
             this.listViewFlori.KeyUp += new System.Windows.Forms.KeyEventHandler(this.listViewFlori_KeyUp);
             // 
             // tabControl1
@@ -148,6 +149,39 @@ namespace USM.ProgramareVisuala.Lab1
             this.tabPageDetaliiFloare.UseVisualStyleBackColor = true;
             this.tabPageDetaliiFloare.Click += new System.EventHandler(this.tabPageDetaliiFloare_Click);
             this.tabPageDetaliiFloare.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.tabPageDetaliiFloare_PreviewKeyDown);
+            // 
+            // panelFloare
+            // 
+            this.panelFloare.Controls.Add(this.pictureBoxFloare);
+            this.panelFloare.Location = new System.Drawing.Point(296, 217);
+            this.panelFloare.Name = "panelFloare";
+            this.panelFloare.Size = new System.Drawing.Size(116, 110);
+            this.panelFloare.TabIndex = 28;
+            // 
+            // pictureBoxFloare
+            // 
+            this.pictureBoxFloare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxFloare.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxFloare.Name = "pictureBoxFloare";
+            this.pictureBoxFloare.Size = new System.Drawing.Size(108, 108);
+            this.pictureBoxFloare.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxFloare.TabIndex = 26;
+            this.pictureBoxFloare.TabStop = false;
+            this.pictureBoxFloare.Click += new System.EventHandler(this.pictureBoxFloare_Click);
+            this.pictureBoxFloare.DragDrop += new System.Windows.Forms.DragEventHandler(this.pictureBoxFloare_DragDrop);
+            this.pictureBoxFloare.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxFloare_MouseDown);
+            this.pictureBoxFloare.MouseEnter += new System.EventHandler(this.pictureBoxFloare_MouseEnter);
+            this.pictureBoxFloare.MouseLeave += new System.EventHandler(this.pictureBoxFloare_MouseLeave);
+            this.pictureBoxFloare.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxFloare_MouseMove);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(232, 218);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(44, 13);
+            this.label12.TabIndex = 27;
+            this.label12.Text = "Imagine";
             // 
             // label11
             // 
@@ -460,39 +494,6 @@ namespace USM.ProgramareVisuala.Lab1
             this.buttonSalveazaOCopieCa.Text = "Salveaza O Copie Ca";
             this.buttonSalveazaOCopieCa.UseVisualStyleBackColor = true;
             // 
-            // pictureBoxFloare
-            // 
-            this.pictureBoxFloare.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxFloare.Location = new System.Drawing.Point(0, 0);
-            this.pictureBoxFloare.Name = "pictureBoxFloare";
-            this.pictureBoxFloare.Size = new System.Drawing.Size(108, 108);
-            this.pictureBoxFloare.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxFloare.TabIndex = 26;
-            this.pictureBoxFloare.TabStop = false;
-            this.pictureBoxFloare.Click += new System.EventHandler(this.pictureBoxFloare_Click);
-            this.pictureBoxFloare.DragDrop += new System.Windows.Forms.DragEventHandler(this.pictureBoxFloare_DragDrop);
-            this.pictureBoxFloare.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxFloare_MouseDown);
-            this.pictureBoxFloare.MouseEnter += new System.EventHandler(this.pictureBoxFloare_MouseEnter);
-            this.pictureBoxFloare.MouseLeave += new System.EventHandler(this.pictureBoxFloare_MouseLeave);
-            this.pictureBoxFloare.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxFloare_MouseMove);
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(232, 218);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(44, 13);
-            this.label12.TabIndex = 27;
-            this.label12.Text = "Imagine";
-            // 
-            // panelFloare
-            // 
-            this.panelFloare.Controls.Add(this.pictureBoxFloare);
-            this.panelFloare.Location = new System.Drawing.Point(296, 217);
-            this.panelFloare.Name = "panelFloare";
-            this.panelFloare.Size = new System.Drawing.Size(116, 110);
-            this.panelFloare.TabIndex = 28;
-            // 
             // FloareDialog
             // 
             this.ClientSize = new System.Drawing.Size(816, 500);
@@ -505,12 +506,12 @@ namespace USM.ProgramareVisuala.Lab1
             this.tabControl1.ResumeLayout(false);
             this.tabPageDetaliiFloare.ResumeLayout(false);
             this.tabPageDetaliiFloare.PerformLayout();
+            this.panelFloare.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFloare)).EndInit();
             this.groupBoxSetariAvansate.ResumeLayout(false);
             this.groupBoxAfisare.ResumeLayout(false);
             this.groupBoxAfisare.PerformLayout();
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFloare)).EndInit();
-            this.panelFloare.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
