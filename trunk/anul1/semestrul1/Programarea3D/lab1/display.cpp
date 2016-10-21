@@ -3,12 +3,14 @@
 #include <GL/glu.h>
 #include <GL/glaux.h>
 #include <stdio.h>
-
+#include "cone.h"
+static cone0 c1(10, 30);
 void spacePrepare()
 {
 	glTranslated(0., 0., -6.0);
 	glRotated(35., 1., 0., 0.);
-	glRotated(-35., 0., 1., 0.);
+	//glRotated(-35., 0., 1., 0.);
+	glRotated(35., 0., 1., 0.);
 }
 void drawCentralPoint()
 {
@@ -79,7 +81,12 @@ void CALLBACK display(void)
 	glPushMatrix();
 	spacePrepare();
 	drawAll();
-
+	glPushMatrix();
+	glTranslated(0.,0., 1.);
+	glScaled(2., 2., 3.);
+	glColor3d(1., 0., 1.);
+	c1.drawcon();
+	glPopMatrix();
 
 	//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 	// Aici vom adãuga fragmente de cod pentru diferite

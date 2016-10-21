@@ -7,7 +7,7 @@
 extern void CALLBACK resize(int width, int height);
 extern void CALLBACK display(void);
 
-void main()
+int main()
 {
 	// Stabilim coordonatele ferestrei pe ecran
 	// coltul stânga sus (0,0)
@@ -74,4 +74,5 @@ void main()
 	// pe întregul ecran (mesajul WM_PAINT in Windows)
 
 	auxMainLoop(display);
+	return 0;
 }

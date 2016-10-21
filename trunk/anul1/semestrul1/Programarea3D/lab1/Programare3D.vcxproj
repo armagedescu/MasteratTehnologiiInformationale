@@ -74,10 +74,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bezier.cpp" />
+    <ClCompile Include="cone.cpp" />
     <ClCompile Include="display.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="modules.cpp" />
     <ClCompile Include="resize.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="cone.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
