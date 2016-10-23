@@ -1,18 +1,17 @@
 #pragma once
-#ifndef __CONE_H__
-#define __CONE_H__
-#define _USE_MATH_DEFINES
+#ifndef __CYLLINDER_H__
+#define __CYLLINDER_H__
 #include <math.h>
 #include "constante.h"
 
-class cone0
+class cyllinder0
 {
 protected:
 	int nh;
 	int ns;
 	double c[MAXH][MAXS][3];
 public:
-	cone0(int, int);
+	cyllinder0(int, int);
 	void draw();
 };
 

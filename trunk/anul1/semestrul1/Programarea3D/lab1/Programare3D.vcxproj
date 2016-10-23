@@ -74,15 +74,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="auxFunctions.cpp" />
+    <ClCompile Include="auxMain.cpp" />
     <ClCompile Include="bezier.cpp" />
     <ClCompile Include="cone.cpp" />
-    <ClCompile Include="display.cpp" />
+    <ClCompile Include="cyllinder0.cpp" />
+    <ClCompile Include="glFunctions.cpp" />
+    <ClCompile Include="glutDisplay.cpp" />
+    <ClCompile Include="glutMain.cpp" />
+    <ClCompile Include="lab1.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="modules.cpp" />
-    <ClCompile Include="resize.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="auxFunctions.h" />
     <ClInclude Include="cone.h" />
+    <ClInclude Include="constante.h" />
+    <ClInclude Include="cyllinder0.h" />
+    <ClInclude Include="externals.h" />
+    <ClInclude Include="glFunctions.h" />
+    <ClInclude Include="glutFunctions.h" />
+    <ClInclude Include="lab1.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

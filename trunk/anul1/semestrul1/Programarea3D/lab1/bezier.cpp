@@ -14,19 +14,7 @@ static void init(void)
 {
 	spacePrepare();
 	
-	//glEnable(GL_ALPHA_TEST);
-	////glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_COLOR_MATERIAL);
-	//glEnable(GL_LIGHTING);
-	//glEnable(GL_LIGHT0);
-	//float pos[4] = {3,3,3,1};
-	//float dir[3] = {-1,-1,-1};
-	//glLightfv(GL_LIGHT0, GL_POSITION, pos);
-	//glLightfv(GL_LIGHT0, GL_SPOT_DIRECTION, dir);
-	//glEnable(GL_BLEND);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glClearColor(1.f, 1.f, 1.f, 1.f);
-	
+
 
    glClearColor(0.0, 0.0, 0.0, 0.0);
    glShadeModel(GL_FLAT);
@@ -70,20 +58,9 @@ static void reshape(int w, int h)
    glLoadIdentity();
 }
 
-static int main3(int argc, char** argv)
-{
-   glutInit(&argc, argv);
-   glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
-   glutInitWindowSize (500, 500);
-   glutInitWindowPosition (100, 100);
-   glutCreateWindow (argv[0]);
-   init ();
-   glutDisplayFunc(display);
-   glutReshapeFunc(reshape);
-   glutMainLoop();
-   return 0;
-}
-static int main2(int argc, char** argv)
+
+
+int bezierMain(int argc, char** argv)
 {
    glutInit(&argc, argv);
 

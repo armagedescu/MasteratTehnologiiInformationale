@@ -1,3 +1,4 @@
+#include "cyllinder0.h"
 #include <windows.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -5,25 +6,18 @@
 #include <math.h>
 #include "cone.h"
 
-cone0::cone0(int heightsegm, int sectors)
+cyllinder0::cyllinder0(int heightsegm, int sectors)
 {
 	nh = nh > MAXH ? MAXH : (heightsegm < 1 ? 10 : heightsegm);
 	ns = sectors > MAXS ? MAXS : (sectors < 3 ? 10 : sectors);
-	//nh = heightsegm;
-	//ns = sectors;
-	//if(nh > MAXH) nh = MAXH;
-	//else if(nh < 1) nh = 10;
-	//if(ns > MAXS) ns = MAXS;
-	//else if(ns < 3) ns = 10;
-
 	double hstep = 1.0/nh;
 	double astep = -360.0/ns;
-	double hcur = 0.0, acur, rcur;
-	for(int i = 0; i < nh; i++)
+	double hcur = 0.0, acur, rcur = 1;
+	for(int i = 0; i < nh - 1; i++)
 	{
 		hcur += hstep;
 		acur = 0.0;
-		rcur = hcur;
+		//rcur = hcur;
 		for(int j = 0; j < ns; j++)
 		{
 			c[i][j][0] = rcur * cos(RADGRAD * acur);
@@ -34,7 +28,7 @@ cone0::cone0(int heightsegm, int sectors)
 	}
 }
 
-void cone0::draw()
+void cyllinder0::draw()
 {
 	glBegin(GL_TRIANGLE_FAN);
 		glVertex3d(0., 0., 0.);
