@@ -2,8 +2,6 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <stdio.h>
-#include "cone.h"
-#include "cyllinder0.h"
 #include <iostream>
 #include "externals.h"
 #include "lab1.h"
@@ -45,18 +43,11 @@ void GLUTCALLBACK glutDisplay(void)
 	glPushMatrix();
 	spacePrepare();
 	glutDrawAll();
-	//glPushMatrix();
-	//glTranslated(0.,0., 1.);
-	//glScaled(2., 2., 3.);
-	//glColor3d(1., 0., 1.);
-	//
-	//glPopMatrix();
 
 	//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 	// Aici vom adãuga fragmente de cod pentru diferite
 	// exemple, pe parcursul studierii funcþiilor OpenGL
 	//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-	//lab1Display();
 	lab1GlDisplay();
 
 	glPopMatrix();

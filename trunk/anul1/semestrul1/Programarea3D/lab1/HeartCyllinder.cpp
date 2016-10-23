@@ -1,11 +1,15 @@
-#include "cyllinder0.h"
+#include <Windows.h>
+#include <GL/gl.h>
+#include "HeartCyllinder.h"
+
 #include <windows.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glaux.h>
 #include <math.h>
 
-cyllinder0::cyllinder0(int heightsegm, int sectors)
+
+HeartCyllinder::HeartCyllinder(int heightsegm, int sectors)
 {
 	nh = nh > MAXH ? MAXH : (heightsegm < 1 ? 10 : heightsegm);
 	ns = sectors > MAXS ? MAXS : (sectors < 3 ? 10 : sectors);
@@ -13,11 +17,20 @@ cyllinder0::cyllinder0(int heightsegm, int sectors)
 	double astep = -360.0/ns;
 	double hcur = 0.0, acur = 0, rcur = 1;
 
-	for(int j = 0; j < ns; j++)
+	for(int j = 0; j <= ns / 2; j++)
 	{
+		rcur = j * 0.1;
 		c[0][j][0] = rcur * cos(RADGRAD * acur);
 		c[0][j][1] = rcur * sin(RADGRAD * acur);
 		acur += astep;
+	}
+	acur = 0;
+	for(int j = ns / 2, z = ns / 2; j <= ns ; j++, z--)
+	{//break;
+		rcur = -z * 0.1;
+		c[0][j][0] = rcur * cos(RADGRAD * acur);
+		c[0][j][1] = -rcur * sin(RADGRAD * acur);
+		acur -= astep;
 	}
 	for(int i = 1; i <= nh; i++) //segments
 	{
@@ -31,19 +44,20 @@ cyllinder0::cyllinder0(int heightsegm, int sectors)
 	}
 }
 
-void cyllinder0::draw()
+void HeartCyllinder::draw()
 {
+	glPushMatrix();
+	glTranslated(0.5, 0, 0);
 	//glBegin(GL_TRIANGLE_FAN);
 	//	glVertex3d(0., 0., 0.);
 	//	for(int j = 0; j < ns; j++)
 	//		glVertex3dv(c[0][j]);
 	//	glVertex3dv(c[0][0]);
 	//glEnd();
-
-	for(int i = 0; i <= nh; i++) //segments
+	for(int i = 0; i < nh; i++) //segments
 	{
-		glBegin(GL_LINE_STRIP);
-		for (int j = 0; j < ns; j++) //sectors
+		glBegin(GL_TRIANGLE_STRIP);
+		for (int j = 0; j < ns ; j++) //sectors
 		{
 			glVertex3dv(c[i + 1][j]);
 			glVertex3dv(c[i][j]);
@@ -52,4 +66,5 @@ void cyllinder0::draw()
 		glVertex3dv(c[i][0]);
 		glEnd();
 	}
+	glPopMatrix();
 }

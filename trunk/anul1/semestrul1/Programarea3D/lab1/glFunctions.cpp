@@ -5,13 +5,9 @@
 //#include <GL/glu.h>
 void spacePrepare()
 {
-	static double dfi = 0;
-	//glTranslated(0., 0., -6.0);
-	glTranslated(0, -0.0, -6.0);
+	glTranslated(0., 0., -6.0);
 	glRotated(35. + getDFi(), 1., 0., 0.);
 	glRotated(-35. + getDFi(), 0., 1., 0.);
-	//dfi += 0.02;
-	//glRotated(35., 0., 1., 0.);
 }
 
 
