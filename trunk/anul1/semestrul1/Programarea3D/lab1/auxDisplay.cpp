@@ -4,7 +4,8 @@
 #include <GL/glut.h>
 #include <GL/glaux.h>
 #include <stdio.h>
-
+//#include "cone0.h"
+//#include "cyllinder0.h"
 #include "glfunctions.h"
 #include "lab1.h"
 void auxDrawCones()

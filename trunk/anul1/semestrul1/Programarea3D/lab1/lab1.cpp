@@ -10,7 +10,7 @@
 using namespace std;
 double getDFi()
 {
-	static double dFi = 1052.58;
+	static double dFi = 1;//0.58;
 	volatile double retVal = dFi;
 	dFi += 0.02;
 	//cout << retVal<< endl;
@@ -58,6 +58,6 @@ void mirrorDisplay()
 void lab1GlDisplay()
 {
 	dirrectDisplay();
-	//mirrorDisplay();
+	mirrorDisplay();
 
 }

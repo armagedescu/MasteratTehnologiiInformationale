@@ -74,7 +74,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="auxFunctions.cpp" />
+    <ClCompile Include="auxDisplay.cpp" />
     <ClCompile Include="auxMain.cpp" />
     <ClCompile Include="bezier.cpp" />
     <ClCompile Include="cone0.cpp" />
