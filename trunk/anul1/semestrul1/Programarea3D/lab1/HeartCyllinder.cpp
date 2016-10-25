@@ -7,7 +7,8 @@
 #include <GL/glu.h>
 #include <GL/glaux.h>
 #include <math.h>
-
+#include <iostream>
+using namespace std;
 
 HeartCyllinder::HeartCyllinder(int heightsegm, int sectors)
 {
@@ -17,17 +18,24 @@ HeartCyllinder::HeartCyllinder(int heightsegm, int sectors)
 	double astep = -360.0/ns;
 	double hcur = 0.0, acur = 0, rcur = 1;
 
+	const double rLim = 1.5;
+	double rMax = ns / 2 * 0.1;
+	double ratio = rMax / rLim;
+	cout << "rMax = "<< rMax<< endl;
 	for(int j = 0; j <= ns / 2; j++)
 	{
-		rcur = j * 0.1;
+		rcur = j * 0.1 / ratio;
+		cout << "rcur = "<< rcur<<"; acur = "<< acur<< endl;
 		c[0][j][0] = rcur * cos(RADGRAD * acur);
 		c[0][j][1] = rcur * sin(RADGRAD * acur);
 		acur += astep;
 	}
 	acur = 0;
+	cout << " ************************ "<<endl;
 	for(int j = ns / 2, z = ns / 2; j <= ns ; j++, z--)
 	{//break;
-		rcur = -z * 0.1;
+		rcur = -z * 0.1 / ratio;
+		cout << "rcur = "<< rcur<<"; acur = "<< acur<< endl;
 		c[0][j][0] = rcur * cos(RADGRAD * acur);
 		c[0][j][1] = -rcur * sin(RADGRAD * acur);
 		acur -= astep;
@@ -56,7 +64,8 @@ void HeartCyllinder::draw()
 	//glEnd();
 	for(int i = 0; i < nh; i++) //segments
 	{
-		glBegin(GL_TRIANGLE_STRIP);
+		//glBegin(GL_TRIANGLE_STRIP);
+		glBegin(GL_LINE_STRIP);
 		for (int j = 0; j < ns ; j++) //sectors
 		{
 			glVertex3dv(c[i + 1][j]);
