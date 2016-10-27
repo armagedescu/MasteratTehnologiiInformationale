@@ -27,6 +27,11 @@ HeartCone::HeartCone(int heightsegm, int sectors)
 		{
 			rcur = hcur * j * 0.1 / ratio;
 			//if (i == nh - 1) cout << "rcur = "<< rcur<<"; acur = "<< acur<< endl;
+			//add counterclockwise
+			d[i][j][0] = rcur * cos(RADGRAD * acur) + hcur / 2;
+			d[i][j][1] = rcur * sin(RADGRAD * acur);
+			d[i][j][2] = hcur;			
+			//add cloclwise
 			c[i][j][0] = rcur * cos(RADGRAD * acur) + hcur / 2;
 			c[i][j][1] = rcur * sin(RADGRAD * acur);
 			c[i][j][2] = hcur;
@@ -38,6 +43,11 @@ HeartCone::HeartCone(int heightsegm, int sectors)
 			acur -= astep;
 			rcur = hcur * z * 0.1 / ratio;
 			//if (i == nh - 1) cout << "rcur = "<< rcur<<"; acur = "<< acur<< endl;
+			//add counterclockwise
+			d[i][j][0] = rcur * cos(RADGRAD * acur) + hcur / 2;
+			d[i][j][1] = rcur * -sin(RADGRAD * acur);
+			d[i][j][2] = hcur;
+			//add clockwise
 			c[i][j][0] = rcur * cos(RADGRAD * acur) + hcur / 2;
 			c[i][j][1] = rcur * -sin(RADGRAD * acur);
 			c[i][j][2] = hcur;
@@ -71,18 +81,74 @@ void HeartCone::draw()
 	
 	return;//*/
 	glEnable(GL_CULL_FACE);
+	glCullFace(GL_FRONT);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_FRONT, GL_FILL);
+	glColor3d(1., 0., 1.);
+
 	for(int i = 0; i < nh - 1; i++)
 	{
 		//glBegin(GL_TRIANGLE_STRIP);
 		//glBegin(GL_LINE_STRIP);
-		glPolygonMode(GL_FRONT, GL_FILL);
-		for (int j = 0; j < ns; j++)
-		{
-			glVertex3dv(c[i + 1][j]);
-			glVertex3dv(c[i][j]);
-		}
-		glVertex3dv(c[i+1][0]);
-		glVertex3dv(c[i][0]);
+		//glFrontFace(GL_CCW);
+		//glPolygonMode(GL_BACK, GL_FILL);
+		//glBegin(GL_LINE_STRIP);
+		glBegin(GL_TRIANGLE_STRIP);
+			for (int j = 0; j < ns; j++)
+			{
+				glVertex3dv(c[i + 1][j]);
+				glVertex3dv(c[i][j]);
+			}
+			glVertex3dv(c[i+1][0]);
+			glVertex3dv(c[i][0]);
+		glEnd();
+
+		//glBegin(GL_LINE_STRIP);
+		//	for (int j = 0; j < ns; j++)
+		//	{
+		//		glVertex3dv(d[i + 1][j]);
+		//		glVertex3dv(d[i][j]);
+		//	}
+		//	glVertex3dv(d[i+1][0]);
+		//	glVertex3dv(d[i][0]);
+		//glEnd();
+	}
+	////glDisable(GL_CULL_FACE);
+	////
+	////glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glColor3d(0., 0., 1.);
+    
+	for(int i = 0; i < nh - 1; i++)
+	{
+		//glBegin(GL_TRIANGLE_STRIP);
+		//glBegin(GL_LINE_STRIP);
+		//glCullFace(GL_BACK);
+		//glFrontFace(GL_CCW);
+		//glPolygonMode(GL_FRONT, GL_FILL);
+		//glPolygonMode(GL_BACK, GL_FILL);
+		//glBegin(GL_LINE_STRIP);
+		//glBegin(GL_TRIANGLE_STRIP);
+		//	for (int j = 0; j < ns; j++)
+		//	{
+		//		glVertex3dv(c[i + 1][j]);
+		//		glVertex3dv(c[i][j]);
+		//	}
+		//	glVertex3dv(c[i+1][0]);
+		//	glVertex3dv(c[i][0]);
+		//glEnd();
+    
+		glBegin(GL_TRIANGLE_STRIP);
+		//glBegin(GL_TRIANGLES);
+		//glBegin(GL_POLYGON);
+			for (int j = 0; j < ns; j++)
+			{
+				glVertex3dv(d[i + 1][j]);
+				glVertex3dv(d[i][j]);
+			}
+			glVertex3dv(d[i+1][0]);
+			glVertex3dv(d[i][0]);
 		glEnd();
 	}
 	glDisable(GL_CULL_FACE);
