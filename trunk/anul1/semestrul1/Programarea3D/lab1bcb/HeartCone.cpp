@@ -128,7 +128,7 @@ void HeartCone::draw()
 		//glFrontFace(GL_CCW);
 		//glPolygonMode(GL_FRONT, GL_FILL);
 		//glPolygonMode(GL_BACK, GL_FILL);
-		//glBegin(GL_LINE_STRIP);
+		//glBegin(GL_LINE_STRIP );
 		//glBegin(GL_TRIANGLE_STRIP);
 		//	for (int j = 0; j < ns; j++)
 		//	{
