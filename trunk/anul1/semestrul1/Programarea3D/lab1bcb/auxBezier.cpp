@@ -55,8 +55,6 @@ static void init2(void)
 {
    glClearColor(0.0, 0.0, 0.0, 0.0);
    glShadeModel(GL_FLAT);
-   //glMap1f(GL_MAP1_VERTEX_3, 0.0, 1.0, 3, 4, &ctrlpoints[0][0]);
-   //glEnable(GL_MAP1_VERTEX_3);
 }
 void CALLBACK auxBezierDisplay2(void)
 {
@@ -64,17 +62,12 @@ void CALLBACK auxBezierDisplay2(void)
    glClear(GL_COLOR_BUFFER_BIT);
    glColor3f(1.0, 0.0, 0.0);
    glBegin(GL_LINE_STRIP);
-      //for (i = 0; i <= 30; i++)
-	  //	glEvalCoord1f((GLfloat) i/30.0);
 	  for (i = 0; i <= 30; i++)
 	  {
         double t = (double)i / 30;
 		double x1t = ctrlpoints[0][0] * (1 - t) + ctrlpoints[1][0] * t;
 		double y1t = ctrlpoints[0][1] * (1 - t) + ctrlpoints[1][1] * t;
-		//double x3[3] = {x1t, y1t, 0};
-		//cout<< "t = "<< t<< "; x = "<< x1t<< "; y = "<< y1t<< endl;
-		//glVertex3dv(x3);
-		//if (i == 10) break;
+
 		double x2t = ctrlpoints[1][0] * (1 - t) + ctrlpoints[2][0] * t;
 		double y2t = ctrlpoints[1][1] * (1 - t) + ctrlpoints[2][1] * t;
 		double x1ct = x1t * (1 - t) +  x2t * t;
