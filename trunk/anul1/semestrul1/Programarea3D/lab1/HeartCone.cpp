@@ -67,4 +67,55 @@ void HeartCone::draw()
 		glVertex3dv(c[i][0]);
 		glEnd();
 	}
+
+}
+void HeartCone::draw2()
+{
+	glBegin(GL_TRIANGLE_FAN);
+		glVertex3d(0., 0., 0.);
+		for(int j = 0; j < ns; j++)
+			glVertex3dv(c[0][j]);
+		glVertex3dv(c[0][0]);
+	glEnd();
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_FRONT);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_FRONT, GL_FILL);
+	glColor3d(1., 0., 1.);
+
+	for(int i = 0; i < nh - 1; i++)
+	{
+		glBegin(GL_TRIANGLE_STRIP);
+			for (int j = 0; j < ns; j++)
+			{
+				glVertex3dv(c[i + 1][j]);
+				glVertex3dv(c[i][j]);
+			}
+			glVertex3dv(c[i+1][0]);
+			glVertex3dv(c[i][0]);
+		glEnd();
+
+
+	}
+	glCullFace(GL_BACK);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	glColor3d(0., 0., 1.);
+    
+	for(int i = 0; i < nh - 1; i++)
+	{
+    
+		glBegin(GL_TRIANGLE_STRIP);
+		//glBegin(GL_TRIANGLES);
+		//glBegin(GL_POLYGON);
+			for (int j = 0; j < ns; j++)
+			{
+				glVertex3dv(c[i + 1][j]);
+				glVertex3dv(c[i][j]);
+			}
+			glVertex3dv(c[i+1][0]);
+			glVertex3dv(c[i][0]);
+		glEnd();
+	}
+	glDisable(GL_CULL_FACE);
 }

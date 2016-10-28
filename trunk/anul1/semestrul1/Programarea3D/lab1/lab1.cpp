@@ -22,11 +22,12 @@ void lab1Display()
 	static cone0 con1(10, 6);
 	static cyllinder0 cil1(10, 6);
 	static HeartCyllinder hci(40, 40);
-	static HeartCone hco(100, 100);
+	static HeartCone hco(60, 60);
 	//con1.draw();
 	//cil1.draw();
 	//hci.draw();
-	hco.draw();
+	//hco.draw();
+	hco.draw2();
 }
 void dirrectDisplay()
 {
@@ -46,10 +47,11 @@ void dirrectDisplay()
 	glEnable(GL_LINE_SMOOTH);
 	glBegin(GL_LINES);
 	   // Axa X
-	   glColor3d  (0.,0.,0.);
+	   glColor3d  (0.,0.,3.);
 	   glVertex3d (-2.5,0.,3.);
 	   glColor3d  (1.,0.,0.);
 	   glVertex3d (2.5,0.,3.);
+
 	   // Axa Y
 	   glColor3d  (0.,0.,0.);
 	   glVertex3d (0.,-2.5,3.);

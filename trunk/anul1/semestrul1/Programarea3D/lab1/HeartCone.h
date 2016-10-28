@@ -12,6 +12,7 @@ protected:
 public:
 	HeartCone(int, int);
 	void draw();
+	void draw2();
 };
 
 #endif
