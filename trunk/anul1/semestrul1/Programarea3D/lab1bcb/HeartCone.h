@@ -9,10 +9,10 @@ protected:
 	int nh;
 	int ns;
 	double c[MAXH][MAXS][3];
-	double d[MAXH][MAXS][3];
 public:
 	HeartCone(int, int);
 	void draw();
+	void draw2();
 };
 
 #endif
