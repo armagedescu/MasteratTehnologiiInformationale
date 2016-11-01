@@ -28,6 +28,8 @@ void lab1Display()
     ////cil1.draw();
     ////hci.draw();
     hco.draw();
+	//hco.draw1();
+	//hco.draw2();
 
 }
 void lab1Display2()

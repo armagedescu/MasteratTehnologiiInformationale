@@ -11,6 +11,7 @@ HeartCone::HeartCone(int heightsegm, int sectors)
 	sectors += sectors & 1;
 	nh = nh > MAXH ? MAXH : (heightsegm < 1 ? 10 : heightsegm);
 	ns = sectors > MAXS ? MAXS : (sectors < 3 ? 10 : sectors);
+	points.setSizes(nh, ns);
 	calculate3();
 }
 void HeartCone::calculate1()
@@ -31,9 +32,9 @@ void HeartCone::calculate1()
 		{
 			rcur = hcur * j * 0.1 / ratio;
 			if (i == nh - 1) cout << "rcur = "<< rcur<<"; acur = "<< acur<< endl;
-			c[i][j][0] = rcur * cos(RADGRAD * acur) + hcur / 2;
-			c[i][j][1] = rcur * sin(RADGRAD * acur);
-			c[i][j][2] = hcur;
+			points[i][j][0] ( rcur * cos(RADGRAD * acur) + hcur / 2 );
+			points[i][j][1] ( rcur * sin(RADGRAD * acur) );
+			points[i][j][2] ( hcur );
 			acur += astep;
 		}
 		if (i == nh - 1) cout << " ************************ "<<endl;
@@ -42,9 +43,9 @@ void HeartCone::calculate1()
 			acur -= astep;
 			rcur = hcur * z * 0.1 / ratio;
 			if (i == nh - 1) cout << "rcur = "<< rcur<<"; acur = "<< acur<< endl;
-			c[i][j][0] = rcur * cos(RADGRAD * acur) + hcur / 2;
-			c[i][j][1] = rcur * -sin(RADGRAD * acur);
-			c[i][j][2] = hcur;
+			points[i][j][0] ( rcur * cos(RADGRAD * acur) + hcur / 2 );
+			points[i][j][1] ( rcur * -sin(RADGRAD * acur) );
+			points[i][j][2] ( hcur );
 		}
 	}
 }
@@ -62,23 +63,22 @@ void HeartCone::calculate2()
 	{
 		hcur += hstep;
 		acur = 0.0;
-		//int j;
 		for(int j = 0, jp = ns / 2, jm = ns / 2; j <= ns / 2; j++, jp--, jm++)
 		{
 			rcur = hcur * j * 0.1 / ratio;
 			//if (i == nh - 1) cout << "rcur = "<< rcur<<"; acur = "<< acur<< endl;
-			c[i][j][0] = rcur * cos(RADGRAD * acur) + hcur / 2;
-			c[i][j][1] = rcur * sin(RADGRAD * acur);
-			c[i][j][2] = hcur;
+			points[i][j][0] ( rcur * cos(RADGRAD * acur) + hcur / 2 );
+			points[i][j][1] ( rcur * sin(RADGRAD * acur) );
+			points[i][j][2] ( hcur );
 			acur += astep;
 		}
 		//if (i == nh - 1) cout << " ************************ "<<endl;
-		for(int  j = ns / 2, z = ns / 2; j <= ns ; j++, z--)
+		for(int  j = ns / 2, z = ns / 2; j < ns ; j++, z--)
 		{
 			//if (i == nh - 1) cout << "rcur = "<< rcur<<"; acur = "<< acur<< endl;
-			c[i][j][0] =  c[i][z][0];
-			c[i][j][1] = -c[i][z][1];
-			c[i][j][2] =  c[i][z][2];
+			points[i][j][0] (  points[i][z][0] );
+			points[i][j][1] ( -points[i][z][1] );
+			points[i][j][2] (  points[i][z][2] );
 		}
 	}
 }
@@ -97,36 +97,39 @@ void HeartCone::calculate3()
 	{
 		double rcur = (double)j * ratio; // Curba lui Arhimede. Raza curenta: unghiul inmultit cu un coeficient
 		double picur = pistep * j; // Unghiul curent in radiani
-		c[nh - 1][j][0] = rcur * cos(picur) + 0.5; // mutam figura cu 0.5 unitati in directia axei X
-		c[nh - 1][j][1] = rcur * sin(picur);
-		c[nh - 1][j][2] = h; // h = 1
+		points[nh - 1][j][0] (rcur * cos(picur) + 0.5);// mutam figura cu 0.5 unitati in directia axei X
+		points[nh - 1][j][1] (rcur * sin(picur));
+		points[nh - 1][j][2] (h); // h = 1
 	}
-	for(int j = ns / 2 + 1, z = ns / 2 - 1; j <= ns ; j++, z--) //pana la 180 de grade exclusiv, calculat in numar de sectoare
+	cout<< "***************************************************************"<< endl;
+	for(int j = ns / 2 + 1, z = ns / 2 - 1; j < ns ; j++, z--) //pana la 180 de grade exclusiv, calculat in numar de sectoare
 	{
-		c[nh - 1][j][0] =  c[nh - 1][z][0];
-		c[nh - 1][j][1] = -c[nh - 1][z][1];
-		c[nh - 1][j][2] =  c[nh - 1][z][2];
+		points[nh - 1][j][0] ( points[nh - 1][z][0]);
+		points[nh - 1][j][1] (-points[nh - 1][z][1]);
+		points[nh - 1][j][2] ( points[nh - 1][z][2]); // h = 1
 	}
+
 
 	for(int i = nh - 2; i >= 0; i--)
 	{
 		double hcur = hstep * (i + 1);
-		for(int j = 0; j <= ns ; j++)
+		for(int j = 0; j < ns ; j++)
 		{
-			c[i][j][0] = c[nh - 1][j][0] * hcur;
-			c[i][j][1] = c[nh - 1][j][1] * hcur;
-			c[i][j][2] = hcur;
+			points[i][j][0] (points[nh - 1][j][0] * hcur);
+			points[i][j][1] (points[nh - 1][j][1] * hcur);
+			points[i][j][2] (hcur);
 		}
 	}
+
 }
 void HeartCone::draw()
 {
     glBegin(GL_TRIANGLES);
     for (int j = 0; j < ns; j++)
     {
-        glVertex3d(0., 0., 0.);
-        glVertex3dv(c[0][j]);
-        glVertex3dv(c[0][(j + 1) % ns]);
+		glVertex3d(0., 0., 0.);
+        glVertex3dv(points[0][j]);
+        glVertex3dv(points[0][(j + 1) % ns]);
     }
 
 
@@ -134,14 +137,13 @@ void HeartCone::draw()
     {
         for (int j = 0; j < ns; j++)
         {
-            glVertex3dv(c[i][j]);
-            glVertex3dv(c[i + 1][j]);
-            glVertex3dv(c[i + 1][(j + 1) % ns]);
+            glVertex3dv((double*)points[i][j]);
+            glVertex3dv((double*)points[i + 1][j]);
+            glVertex3dv((double*)points[i + 1][(j + 1) % ns]);
 
-            glVertex3dv(c[i][j]);
-            glVertex3dv(c[i + 1][(j + 1) % ns]);
-            glVertex3dv(c[i][(j + 1) % ns]);
-            
+            glVertex3dv((double*)points[i][j]);
+            glVertex3dv((double*)points[i + 1][(j + 1) % ns]);
+            glVertex3dv((double*)points[i][(j + 1) % ns]);
         }
     }
     glEnd();
@@ -152,8 +154,8 @@ void HeartCone::draw1()
 	glBegin(GL_TRIANGLE_FAN);
 		glVertex3d(0., 0., 0.);
 		for(int j = 0; j < ns; j++)
-			glVertex3dv(c[0][j]);
-		glVertex3dv(c[0][0]);
+			glVertex3dv(points[0][j]);
+		glVertex3dv(points[0][0]);
 	glEnd();
 
 	for(int i = 0; i < nh - 1; i++)
@@ -162,11 +164,11 @@ void HeartCone::draw1()
 		glBegin(GL_LINE_STRIP);
 		for (int j = 0; j < ns; j++)
 		{
-			glVertex3dv(c[i + 1][j]);
-			glVertex3dv(c[i][j]);
+			glVertex3dv(points[i + 1][j]);
+			glVertex3dv(points[i][j]);
 		}
-		glVertex3dv(c[i+1][0]);
-		glVertex3dv(c[i][0]);
+		glVertex3dv(points[i+1][0]);
+		glVertex3dv(points[i][0]);
 		glEnd();
 	}
 
@@ -176,8 +178,8 @@ void HeartCone::draw2()
 	glBegin(GL_TRIANGLE_FAN);
 		glVertex3d(0., 0., 0.);
 		for(int j = 0; j < ns; j++)
-			glVertex3dv(c[0][j]);
-		glVertex3dv(c[0][0]);
+			glVertex3dv(points[0][j]);
+		glVertex3dv(points[0][0]);
 	glEnd();
 
 	glEnable(GL_CULL_FACE);
@@ -191,11 +193,11 @@ void HeartCone::draw2()
 		glBegin(GL_TRIANGLE_STRIP);
 			for (int j = 0; j < ns; j++)
 			{
-				glVertex3dv(c[i + 1][j]);
-				glVertex3dv(c[i][j]);
+				glVertex3dv(points[i + 1][j]);
+				glVertex3dv(points[i][j]);
 			}
-			glVertex3dv(c[i+1][0]);
-			glVertex3dv(c[i][0]);
+			glVertex3dv(points[i+1][0]);
+			glVertex3dv(points[i][0]);
 		glEnd();
 
 
@@ -212,11 +214,11 @@ void HeartCone::draw2()
 		//glBegin(GL_POLYGON);
 			for (int j = 0; j < ns; j++)
 			{
-				glVertex3dv(c[i + 1][j]);
-				glVertex3dv(c[i][j]);
+				glVertex3dv(points[i + 1][j]);
+				glVertex3dv(points[i][j]);
 			}
-			glVertex3dv(c[i+1][0]);
-			glVertex3dv(c[i][0]);
+			glVertex3dv(points[i+1][0]);
+			glVertex3dv(points[i][0]);
 		glEnd();
 	}
 	glDisable(GL_CULL_FACE);
