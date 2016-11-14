@@ -1,9 +1,8 @@
-#include "cyllinder0.h"
 #include <windows.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <GL/glaux.h>
 #include <math.h>
+#include "cyllinder0.h"
 
 cyllinder0::cyllinder0(int heightsegm, int sectors)
 {

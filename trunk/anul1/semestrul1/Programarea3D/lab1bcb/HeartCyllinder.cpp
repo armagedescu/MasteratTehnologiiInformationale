@@ -1,13 +1,9 @@
 #include <Windows.h>
 #include <GL/gl.h>
-#include "HeartCyllinder.h"
-
-#include <windows.h>
-#include <GL/gl.h>
 #include <GL/glu.h>
-#include <GL/glaux.h>
 #include <math.h>
 #include <iostream>
+#include "HeartCyllinder.h"
 using namespace std;
 
 HeartCyllinder::HeartCyllinder(int heightsegm, int sectors)

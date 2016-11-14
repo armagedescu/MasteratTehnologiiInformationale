@@ -2,8 +2,6 @@
 #include <GL/gl.h>
 #include <GL/glut.h>
 #include <stdio.h>
-//#include "cone.h"
-//#include "cyllinder0.h"
 #include <iostream>
 #include "externals.h"
 #include "lab1.h"
