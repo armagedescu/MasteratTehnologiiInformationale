@@ -1,10 +1,9 @@
-#include "HeartCone.h"
 #include <windows.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <GL/glaux.h>
 #include <math.h>
 #include <iostream>
+#include "HeartCone.h"
 using namespace std;
 HeartCone::HeartCone(int heightsegm, int sectors)
 {

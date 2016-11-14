@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <GL/gl.h>
 #include "lab1.h"
-//#include <GL/glu.h>
+
 void spacePrepare()
 {
 	glTranslated(0., 0., -6.0);

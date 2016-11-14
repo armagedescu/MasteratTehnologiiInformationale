@@ -1,11 +1,9 @@
 #include <windows.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
-#include <GL/glaux.h>
 #include <math.h>
-#include "cone0.h"
-
 #include <iostream>
+#include "cone0.h"
 using namespace std;
 
 cone0::cone0(int heightsegm, int sectors)
