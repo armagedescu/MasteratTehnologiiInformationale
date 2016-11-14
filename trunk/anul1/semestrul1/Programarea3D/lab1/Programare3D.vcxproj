@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="angles.cpp" />
     <ClCompile Include="auxDisplay.cpp" />
     <ClCompile Include="auxMain.cpp" />
     <ClCompile Include="bezier.cpp" />
@@ -91,6 +92,7 @@
     <ClCompile Include="SegmentCone.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="angles.h" />
     <ClInclude Include="auxFunctions.h" />
     <ClInclude Include="cone0.h" />
     <ClInclude Include="constante.h" />
