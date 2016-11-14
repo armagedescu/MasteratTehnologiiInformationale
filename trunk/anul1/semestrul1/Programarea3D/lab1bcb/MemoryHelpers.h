@@ -2,6 +2,119 @@
 #ifndef __MEMORY_HELPERS_H__
 #define __MEMORY_HELPERS_H__
 #include <iostream>
+template <class T> class multiarray
+{
+	int* sizes;
+	int dimmension;
+	T* array;
+	void resetdimmensions()
+	{
+		delete[] sizes;
+		delete[] array;
+		dimmension = 0;
+		sizes = 0;
+		array = 0;
+	}
+	class multiarray_manipulator
+	{
+		multiarray<T>* elements;
+		int sizer;
+		double* p;
+		int getblock(int i)
+		{
+			int sz = 1;
+			if (sizer ==  elements->dimmension) return i;
+			if (sizer > elements->dimmension) throw;
+			for (int i = sizer; i < elements->dimmension; i++) sz *= elements->sizes[i];
+			return sz;
+		}
+	public:
+		multiarray_manipulator(multiarray<T>* _elements, int i): elements(_elements), p(_elements->array), sizer(1)
+		{
+			p = elements->array + (elements->sizes[sizer - 1] ) * i;
+		}
+		multiarray_manipulator& operator[](int i)
+		{
+			p += getblock (i);
+			sizer ++;
+			return *this;
+		}
+		operator T* ()
+		{
+			if (sizer >= elements->dimmension) throw;
+			return p;
+		}
+		T& operator () (T x)
+		{
+			if (sizer > elements->dimmension) throw;
+			(T&)*this = x;
+			return *p;
+		}
+		operator T& ()
+		{
+			if (sizer != 0) throw "sizer must be 0";
+			sizer = 3;
+			return *p;
+		}
+	};
+public:
+	multiarray():sizes(0), array(0), dimmension(0){}
+	multiarray(int _dimmension, ...){
+		va_list argptr;
+		va_start(argptr, _dimmension);
+		//std::cout <<_dimmension <<std::endl;
+		//std::cout <<*((&_dimmension) + 1) <<std::endl;
+		setdimmensionss(_dimmension, (int*)argptr);
+		va_end(argptr);
+	}
+	multiarray(int _dimmension, int* _sizes){
+		
+		setdimmensions(_dimmension, sizes);
+	}
+	multiarray_manipulator operator[] (int i)
+	{
+		return multiarray_manipulator (this, i);
+	}
+	void setdimmensionss(int _dimmension, int* _sizes)
+	{
+		resetdimmensions();
+		dimmension =_dimmension;
+		sizes = new int[dimmension];
+		int numelements = 1;
+		for (int i = 0; i < dimmension; i++)
+		{
+			sizes[i] = _sizes[-i];
+			numelements *= sizes[i];
+		}
+		array = new T[numelements];
+	}
+	void copymem(T* _array)
+	{
+		int numelements = 1;
+		for (int i = 0; i < dimmension; i++) numelements *= sizes[i];
+		for (int i = 0; i < numelements; i++) array[i] = _array[i];
+	}
+	void attachmem(T* _array)
+	{
+		delete[] array;
+		array = _array;
+	}
+	T* detachmem()
+	{
+		T* _array = array;
+		array = 0;
+		return _array;
+	}
+	void setdimmensions(int _dimmension, ...)
+	{
+		setdimmensions(_dimmension, &_dimmension + 1);
+	}
+	~multiarray()
+	{
+		delete[] sizes;
+		delete[] array;
+	}
+};
 class points3
 {
 	int size1;
