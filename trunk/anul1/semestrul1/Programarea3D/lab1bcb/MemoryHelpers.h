@@ -2,6 +2,20 @@
 #ifndef __MEMORY_HELPERS_H__
 #define __MEMORY_HELPERS_H__
 #include <iostream>
+#include <stdarg.h>
+using namespace std;
+template <class T, const int dimmension> class MultiArray
+{
+	int sizes[dimmension];
+	int blocks[dimmension - 1];
+	T* array;
+public:
+	~MultiArray()
+	{
+		delete[] T;
+		T = 0;
+	}
+};
 template <class T> class multiarray
 {
 	int* sizes;
@@ -22,16 +36,16 @@ template <class T> class multiarray
 		double* p;
 		int getblock(int i)
 		{
-			int sz = 1;
-			if (sizer ==  elements->dimmension) return i;
-			if (sizer > elements->dimmension) throw;
+			int sz = i;
+			if (sizer > elements->dimmension + 1) throw;
 			for (int i = sizer; i < elements->dimmension; i++) sz *= elements->sizes[i];
 			return sz;
 		}
 	public:
 		multiarray_manipulator(multiarray<T>* _elements, int i): elements(_elements), p(_elements->array), sizer(1)
 		{
-			p = elements->array + (elements->sizes[sizer - 1] ) * i;
+			p = elements->array + getblock(i);
+			sizer++;
 		}
 		multiarray_manipulator& operator[](int i)
 		{
@@ -41,40 +55,54 @@ template <class T> class multiarray
 		}
 		operator T* ()
 		{
-			if (sizer >= elements->dimmension) throw;
+			if (sizer >= elements->dimmension) throw "only arrays are allowed pointed dirrectly";
 			return p;
 		}
 		T& operator () (T x)
 		{
-			if (sizer > elements->dimmension) throw;
+			if (sizer > elements->dimmension + 1) throw;
 			(T&)*this = x;
 			return *p;
 		}
 		operator T& ()
 		{
-			if (sizer != 0) throw "sizer must be 0";
-			sizer = 3;
+			if (sizer > elements->dimmension + 1) throw "too many sizes";
+			sizer ++;
 			return *p;
 		}
 	};
+	void setdimmensions(int _dimmension, va_list  argptr)
+	{
+		dimmension = _dimmension;
+		sizes = new int[_dimmension];
+		int numelements = 1;
+		for( int i = 0 ; i < dimmension; i++ )
+		{
+			sizes[i] = va_arg( argptr, int );
+			numelements *= sizes[i];
+			std::cout<< sizes[i]<< std::endl;
+		}
+		array = new T[numelements];
+	}
 public:
 	multiarray():sizes(0), array(0), dimmension(0){}
-	multiarray(int _dimmension, ...){
+	multiarray(int _dimmension, ...) {
 		va_list argptr;
 		va_start(argptr, _dimmension);
-		//std::cout <<_dimmension <<std::endl;
-		//std::cout <<*((&_dimmension) + 1) <<std::endl;
-		setdimmensionss(_dimmension, (int*)argptr);
+		setdimmensions(_dimmension, argptr);
 		va_end(argptr);
-	}
-	multiarray(int _dimmension, int* _sizes){
-		
-		setdimmensions(_dimmension, sizes);
 	}
 	multiarray_manipulator operator[] (int i)
 	{
 		return multiarray_manipulator (this, i);
 	}
+	void setdimmensions(int _dimmension, ...) {
+		va_list argptr;
+		va_start(argptr, _dimmension);
+		setdimmensions(_dimmension, argptr);
+		va_end(argptr);
+	}
+
 	void setdimmensionss(int _dimmension, int* _sizes)
 	{
 		resetdimmensions();
@@ -87,6 +115,15 @@ public:
 			numelements *= sizes[i];
 		}
 		array = new T[numelements];
+	}
+	void dump()
+	{
+		int numelements = 1;
+		for (int i = 0; i < dimmension; i++) numelements *= sizes[i];
+		for (int i = 0; i < numelements; i++)
+		{
+			std::cout<< "i:"<<i<<"="<< array[i]<< "; "<< std::endl;
+		}
 	}
 	void copymem(T* _array)
 	{
@@ -104,10 +141,6 @@ public:
 		T* _array = array;
 		array = 0;
 		return _array;
-	}
-	void setdimmensions(int _dimmension, ...)
-	{
-		setdimmensions(_dimmension, &_dimmension + 1);
 	}
 	~multiarray()
 	{
@@ -148,6 +181,11 @@ class points3
 			(double&)*this = x;
 			return *p;
 		}
+		//		double& operator () (double x)
+		//{
+		//	(double&)*this = x;
+		//	return *p;
+		//}
 		operator double& ()
 		{
 			if (sizer != 0) throw "sizer must be 0";
