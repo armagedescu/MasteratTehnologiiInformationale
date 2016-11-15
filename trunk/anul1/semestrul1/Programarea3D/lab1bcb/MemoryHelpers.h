@@ -3,17 +3,95 @@
 #define __MEMORY_HELPERS_H__
 #include <iostream>
 #include <stdarg.h>
+#include <memory.h>
 using namespace std;
 template <class T, const int dimmension> class MultiArray
 {
+	int numelements;
 	int sizes[dimmension];
-	int blocks[dimmension - 1];
+	int blocks[dimmension];
 	T* array;
+	void setdimmensions(int firstDimmension, va_list  argptr)
+	{
+		sizes[0] = firstDimmension;
+		numelements = firstDimmension;
+		for( int i = 1 ; i < dimmension - 1; i++ )
+		{
+			sizes[i] = va_arg( argptr, int );
+			numelements *= sizes[i];
+			std::cout<< sizes[i]<< std::endl;
+		}
+		int blocksize = 1;
+		blocks[dimmension - 1] = 1;
+		for (int i = dimmension - 1, j = dimmension - 2; i > 0; i--, j--)
+		{
+			blocksize *= sizes[i];
+			blocks[j] = sizes[i];
+		}
+		array = new T[numelements];
+	}
+	class multiarray_manipulator
+	{
+		MultiArray<T, dimmension>* elements;
+		int sizer;
+		T* p;
+	public:
+		multiarray_manipulator(MultiArray<T, dimmension>* _elements, int i): elements(_elements), p(_elements->array + _elements->blocks[0] * i), sizer(1)
+		{
+		}
+		multiarray_manipulator& operator[](int i)
+		{
+			p += elements->blocks[sizer] * i;
+			sizer ++;
+			return *this;
+		}
+		operator T* ()
+		{
+			//if (sizer >= elements->dimmension) throw "only arrays are allowed pointed dirrectly";
+			return p;
+		}
+		T& operator () (T x)
+		{
+			//if (sizer > elements->dimmension + 1) throw;
+			(T&)*this = x;
+			return *p;
+		}
+		operator T& ()
+		{
+			//if (sizer > elements->dimmension + 1) throw "too many sizes";
+			sizer ++;
+			return *p;
+		}
+	};
+
 public:
+	MultiArray():array(0), numelements(0) {memset(sizes, 0, sizeof(sizes));memset(blocks, 0, sizeof(blocks));}
+	MultiArray(int firstDimmension, ...) {
+		va_list argptr;
+		va_start(argptr, firstDimmension);
+		setdimmensions(firstDimmension, argptr);
+		va_end(argptr);
+	}
+	void setdimmensions(int firstDimmension, ...)
+	{
+		va_list argptr;
+		va_start(argptr, firstDimmension);
+		setdimmensions(firstDimmension, argptr);
+		va_end(argptr);
+	}
+	multiarray_manipulator operator[] (int i)
+	{
+		return multiarray_manipulator (this, i);
+	}
 	~MultiArray()
 	{
-		delete[] T;
-		T = 0;
+		delete[] array;
+		array = 0;
+	}
+	void dump()
+	{
+		for (int i = 0; i < numelements; i++)
+			std::cout<< "i:"<<i<<"="<< array[i]<< "; "<< std::endl;
 	}
 };
 template <class T> class multiarray

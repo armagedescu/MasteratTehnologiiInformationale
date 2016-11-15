@@ -39,6 +39,7 @@ int main(int argc, char** argv)
 		//}
 		//y.dump();
 		//return 0;
+		{
 		multiarray<double> x(3, 4, 7, 3);
 		for (int i = 0; i < 4; i++)
 		{
@@ -55,7 +56,26 @@ int main(int argc, char** argv)
 			cout<< endl<< "*************************************************"<< endl;
 		}
 		x.dump();
-		MultiArray<long, 3> mm;
+		}
+		{
+		MultiArray<double, 3> x(4, 7, 3);
+				//multiarray<double> x(3, 4, 7, 3);
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0 ; j < 7; j++)
+			{
+				for (int k = 0; k < 3; k++)
+				{
+					x[i][j][k] ((double) i * j * k);
+					cout <<"i:"<< i << "; j:"<< j << "; j:"<< k<< ";op:"<< i*j*k <<" ctrl"<< (double&) x[i][j][k];
+					//x[i][j][k] ((double) i * j * k);
+				}
+				cout<< endl<< "---------------------------------------"<< endl;
+			}
+			cout<< endl<< "*************************************************"<< endl;
+		}
+		x.dump();
+		}
 	}catch(const char* xxx)
 	{
 		cout<< "exception: "<< xxx<< endl;
