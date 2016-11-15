@@ -1,2 +1,2 @@
 all:
-	bcc32c.exe *.cpp /I. /DUNICODE /DGLUT_DISABLE_ATEXIT_HACK
+	bcc32c.exe *.cpp /I. /DUNICODE /DGLUT_DISABLE_ATEXIT_HACK /nobjs
