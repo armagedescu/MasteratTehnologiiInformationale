@@ -3,6 +3,7 @@
 #include "cyllinder0.h"
 #include "HeartCyllinder.h"
 #include "HeartCone.h"
+#include "HeartConeNorm.h"
 #include <windows.h>
 #include <GL/gl.h>
 
@@ -18,6 +19,24 @@ double getDFi()
 }
 void lab1Display()
 {
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glEnable (GL_NORMALIZE);
+    //glPolygonMode(GL_BACK, GL_LINE);
+    static cone0 con1(10, 6);
+    //static cyllinder0 cil1(10, 6);
+    //static HeartCyllinder hci(40, 40);
+    //static HeartConeNorm hco(8, 15);
+    static HeartConeNorm hco(80, 80);
+    //con1.draw();
+    ////cil1.draw();
+    ////hci.draw();
+    hco.draw();
+	//hco.draw1();
+	//hco.draw2();
+
+}
+void lab1Display1()
+{
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_LINE);
     static cone0 con1(10, 6);
@@ -32,18 +51,18 @@ void lab1Display()
 	//hco.draw2();
 
 }
-void lab1Display2()
-{
-	//static cone0 con1(10, 6);
-	//static cyllinder0 cil1(10, 6);
-	//static HeartCyllinder hci(40, 40);
-	static HeartCone hco(60, 60);
-	//con1.draw();
-	//cil1.draw();
-	//hci.draw();
-	hco.draw2();
-}
-void dirrectDisplay()
+//void lab1Display2()
+//{
+//	//static cone0 con1(10, 6);
+//	//static cyllinder0 cil1(10, 6);
+//	//static HeartCyllinder hci(40, 40);
+//	static HeartCone hco(60, 60);
+//	//con1.draw();
+//	//cil1.draw();
+//	//hci.draw();
+//	hco.draw2();
+//}
+void directDisplay()
 {
 	glPushMatrix();
 	glTranslated(0., 0., 0.);
@@ -82,12 +101,12 @@ void mirrorDisplay()
 	glPushMatrix();
 	glRotated(180, 1, 0, 0);
 	glRotated(180, 0, 0, 1);
-	dirrectDisplay();
+	directDisplay();
 	glPopMatrix();
 }
 void lab1GlDisplay()
 {
-	dirrectDisplay();
+	directDisplay();
 	mirrorDisplay();
 
 }

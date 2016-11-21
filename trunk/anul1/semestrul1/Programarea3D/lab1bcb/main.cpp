@@ -14,7 +14,6 @@ int main(int argc, char** argv)
 	//return bezierAuxMain( argc,  argv);
 	//return bezierGlutMain( argc,  argv);
 	//return auxMain(argc, argv);
-
 	return glutMain(argc, argv);
 }
 
