@@ -96,7 +96,7 @@ void HeartCone::calculate3()
 	{
 		double rcur = (double)j * ratio; // Curba lui Arhimede. Raza curenta: unghiul inmultit cu un coeficient
 		double picur = pistep * j; // Unghiul curent in radiani
-		points[nh - 1][j][0] (rcur * cos(picur) + 0.5);// mutam figura cu 0.5 unitati in directia axei X
+		points[nh - 1][j][0] (rcur * cos(picur));// + 0.5);// mutam figura cu 0.5 unitati in directia axei X
 		points[nh - 1][j][1] (rcur * sin(picur));
 		points[nh - 1][j][2] (h); // h = 1
 	}
@@ -123,6 +123,22 @@ void HeartCone::calculate3()
 }
 void HeartCone::draw()
 {
+	glPushMatrix();
+	double t[16] = {
+		   1, 0, 0, 0,
+		   0, 1, 0, 0,
+		 0.5, 0, 1, 0,
+		   0, 0, 0, 1
+	};
+	glMultMatrixd (t);
+	//double s[16] = {
+	//	   1, 0, 0, 0,
+	//	   0, 1, 0, 0,
+	//	   0, 0, 1, 0,
+	//	   0, 0, 0, 1
+	//};
+	//glMultMatrixd (t);
+	glScaled(1., 0.9, 1.);
     glBegin(GL_TRIANGLES);
     for (int j = 0; j < ns; j++)
     {
@@ -146,6 +162,8 @@ void HeartCone::draw()
         }
     }
     glEnd();
+	glPopMatrix();
+
 
 }
 void HeartCone::draw1()
@@ -174,6 +192,7 @@ void HeartCone::draw1()
 }
 void HeartCone::draw2()
 {
+
 	glBegin(GL_TRIANGLE_FAN);
 		glVertex3d(0., 0., 0.);
 		for(int j = 0; j < ns; j++)

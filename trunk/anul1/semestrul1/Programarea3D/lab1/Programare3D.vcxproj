@@ -85,6 +85,7 @@
     <ClCompile Include="glutDisplay.cpp" />
     <ClCompile Include="glutMain.cpp" />
     <ClCompile Include="HeartCone.cpp" />
+    <ClCompile Include="HeartConeNorm.cpp" />
     <ClCompile Include="HeartCyllinder.cpp" />
     <ClCompile Include="lab1.cpp" />
     <ClCompile Include="main.cpp" />
@@ -100,6 +101,7 @@
     <ClInclude Include="externals.h" />
     <ClInclude Include="glFunctions.h" />
     <ClInclude Include="glutFunctions.h" />
+    <ClInclude Include="HeartConeNorm.h" />
     <ClInclude Include="HeartCyllinder.h" />
     <ClInclude Include="HeartCone.h" />
     <ClInclude Include="lab1.h" />
