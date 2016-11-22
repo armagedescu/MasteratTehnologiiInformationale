@@ -62,36 +62,23 @@ void HeartConeNorm::draw()
 {
 	static GLdouble v[3] = {0.0, 0.0, 0.0};
 	glPushMatrix();
-	double t[16] = {
-		   1, 0, 0, 0,
-		   0, 1, 0, 0,
-		 0.5, 0, 1, 0,
-		   0, 0, 0, 1
+
+	double s[16] = {
+		     1,    0, 0, 0,
+		     0, 0.95, 0, 0, //<-- 0.95, aplatizare dupã Y
+		   0.5,    0, 1, 0, //<-- 0.5,   deplasare dupã X
+		     0,    0, 0, 1
 	};
-	glMultMatrixd (t);
-	//double s[16] = {
-	//	   1, 0, 0, 0,
-	//	   0, 1, 0, 0,
-	//	   0, 0, 1, 0,
-	//	   0, 0, 0, 1
-	//};
-	//glMultMatrixd (t);
-	glScaled(1., 0.9, 1.);
+	glMultMatrixd (s);
+
     glBegin(GL_TRIANGLES);
 
-	for (int j = 0; j < ns; j++)
-    {
-		glNormal3dv(norm(points[0][j], v, points[0][(j + 1) % ns]));
-		glVertex3d(0., 0., 0.);
-        glVertex3dv(points[0][j]);
-        glVertex3dv(points[0][(j + 1) % ns]);
-    }
 
-    for(int i = 0; i < nh - 1; i++)
+	for (int j = 1; j < ns; j++)
     {
-        for (int j = 0; j < ns; j++)
+		glNormal3dv(norm(points[0][j], points[1][(j+1)%ns], points[1][j]));
+		for(int i = nh - 2; i >= 0; i--)
         {
-			glNormal3dv(norm(points[i][j], points[i+1][(j+1)%ns], points[i+1][j]));
             glVertex3dv((double*)points[i][j]);
             glVertex3dv((double*)points[i + 1][j]);
             glVertex3dv((double*)points[i + 1][(j + 1) % ns]);
@@ -100,6 +87,9 @@ void HeartConeNorm::draw()
             glVertex3dv((double*)points[i + 1][(j + 1) % ns]);
             glVertex3dv((double*)points[i][(j + 1) % ns]);
         }
+		glVertex3d(0., 0., 0.);
+        glVertex3dv(points[0][j]);
+        glVertex3dv(points[0][(j + 1) % ns]);
     }
 
 
