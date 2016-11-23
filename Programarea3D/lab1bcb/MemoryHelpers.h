@@ -5,78 +5,78 @@
 #include <stdarg.h>
 #include <memory.h>
 using namespace std;
-template <class T, const int dimmension = 1> class MultiArray
+template <class T, const int dimension = 1> class MultiArray
 {
 	int numelements;
-	int sizes[dimmension];
-	int blocks[dimmension];
+	int sizes[dimension];
+	int blocks[dimension];
 	T* array;
-	void setdimmensions(int firstDimmension, va_list  argptr)
+	void setdimensions(int firstdimension, va_list  argptr)
 	{
-		sizes[0] = firstDimmension;
-		numelements = firstDimmension;
-		for( int i = 1 ; i < dimmension; i++ )
+		sizes[0] = firstdimension;
+		numelements = firstdimension;
+		for( int i = 1 ; i < dimension; i++ )
 		{
 			sizes[i] = va_arg( argptr, int );
 			numelements *= sizes[i];
 		}
-		for (int i = dimmension - 1, blocksize = 1; i >= 0; blocksize *= sizes[i], i--)
+		for (int i = dimension - 1, blocksize = 1; i >= 0; blocksize *= sizes[i], i--)
 			blocks[i] = blocksize;
 		delete[] array;
 		array = new T[numelements];
 	}
 	class manipulator
 	{
-		MultiArray<T, dimmension>* elements;
+		MultiArray<T, dimension>* elements;
 		int sizer;
 		T* p;
 	public:
-		manipulator(MultiArray<T, dimmension>* _elements, int i): elements(_elements), p(_elements->array + _elements->blocks[0] * i), sizer(1)
+		manipulator(MultiArray<T, dimension>* _elements, int i): elements(_elements), p(_elements->array + _elements->blocks[0] * i), sizer(1)
 		{
 		}
 		manipulator& operator[](int i)
 		{
-			if (sizer >= dimmension) throw "operator[] too many calls";
+			if (sizer >= dimension) throw "operator[] too many calls";
 			p += elements->blocks[sizer] * i;
 			sizer ++;
 			return *this;
 		}
 		operator T* ()
 		{
-			if (sizer >= dimmension) throw "only arrays are allowed pointed dirrectly";
+			if (sizer >= dimension) throw "only arrays are allowed pointed dirrectly";
 			return p;
 		}
 		T& operator () (T x)
 		{
-			if (sizer != dimmension) throw "invalid index, operator ()(T)";
+			if (sizer != dimension) throw "invalid index, operator ()(T)";
 			(T&)*this = x;
 			return *p;
 		}
 		T& operator () ()
 		{
-			if (sizer != dimmension) throw "invalid index, operator ()()";
+			if (sizer != dimension) throw "invalid index, operator ()()";
 			return *p;
 		}
 		operator T& ()
 		{
-			if (sizer != dimmension) throw "too many sizes, operator (T&)";
+			if (sizer != dimension) throw "too many sizes, operator (T&)";
 			return *p;
 		}
 	};
 
 public:
 	MultiArray():array(0), numelements(0) {memset(sizes, 0, sizeof(sizes));memset(blocks, 0, sizeof(blocks));}
-	MultiArray(int firstDimmension, ...) : array(0){
+	MultiArray(int firstdimension, ...) : array(0){
 		va_list argptr;
-		va_start(argptr, firstDimmension);
-		setdimmensions(firstDimmension, argptr);
+		va_start(argptr, firstdimension);
+		setdimensions(firstdimension, argptr);
 		va_end(argptr);
 	}
-	void setdimmensions(int firstDimmension, ...)
+	void setdimensions(int firstdimension, ...)
 	{
 		va_list argptr;
-		va_start(argptr, firstDimmension);
-		setdimmensions(firstDimmension, argptr);
+		va_start(argptr, firstdimension);
+		setdimensions(firstdimension, argptr);
 		va_end(argptr);
 	}
 	manipulator operator[] (int i)
@@ -97,13 +97,13 @@ public:
 template <class T> class multiarray
 {
 	int* sizes;
-	int dimmension;
+	int dimension;
 	T* array;
-	void resetdimmensions()
+	void resetdimensions()
 	{
 		delete[] sizes;
 		delete[] array;
-		dimmension = 0;
+		dimension = 0;
 		sizes = 0;
 		array = 0;
 	}
@@ -115,8 +115,8 @@ template <class T> class multiarray
 		int getblock(int i)
 		{
 			int sz = i;
-			if (sizer > elements->dimmension + 1) throw;
-			for (int i = sizer; i < elements->dimmension; i++) sz *= elements->sizes[i];
+			if (sizer > elements->dimension + 1) throw;
+			for (int i = sizer; i < elements->dimension; i++) sz *= elements->sizes[i];
 			return sz;
 		}
 	public:
@@ -133,28 +133,28 @@ template <class T> class multiarray
 		}
 		operator T* ()
 		{
-			if (sizer >= elements->dimmension) throw "only arrays are allowed pointed dirrectly";
+			if (sizer >= elements->dimension) throw "only arrays are allowed pointed dirrectly";
 			return p;
 		}
 		T& operator () (T x)
 		{
-			if (sizer > elements->dimmension + 1) throw;
+			if (sizer > elements->dimension + 1) throw;
 			(T&)*this = x;
 			return *p;
 		}
 		operator T& ()
 		{
-			if (sizer > elements->dimmension + 1) throw "too many sizes";
+			if (sizer > elements->dimension + 1) throw "too many sizes";
 			sizer ++;
 			return *p;
 		}
 	};
-	void setdimmensions(int _dimmension, va_list  argptr)
+	void setdimensions(int _dimension, va_list  argptr)
 	{
-		dimmension = _dimmension;
-		sizes = new int[_dimmension];
+		dimension = _dimension;
+		sizes = new int[_dimension];
 		int numelements = 1;
-		for( int i = 0 ; i < dimmension; i++ )
+		for( int i = 0 ; i < dimension; i++ )
 		{
 			sizes[i] = va_arg( argptr, int );
 			numelements *= sizes[i];
@@ -163,31 +163,31 @@ template <class T> class multiarray
 		array = new T[numelements];
 	}
 public:
-	multiarray():sizes(0), array(0), dimmension(0){}
-	multiarray(int _dimmension, ...) {
+	multiarray():sizes(0), array(0), dimension(0){}
+	multiarray(int _dimension, ...) {
 		va_list argptr;
-		va_start(argptr, _dimmension);
-		setdimmensions(_dimmension, argptr);
+		va_start(argptr, _dimension);
+		setdimensions(_dimension, argptr);
 		va_end(argptr);
 	}
 	manipulator operator[] (int i)
 	{
 		return manipulator (this, i);
 	}
-	void setdimmensions(int _dimmension, ...) {
+	void setdimensions(int _dimension, ...) {
 		va_list argptr;
-		va_start(argptr, _dimmension);
-		setdimmensions(_dimmension, argptr);
+		va_start(argptr, _dimension);
+		setdimensions(_dimension, argptr);
 		va_end(argptr);
 	}
 
-	void setdimmensionss(int _dimmension, int* _sizes)
+	void setdimensionss(int _dimension, int* _sizes)
 	{
-		resetdimmensions();
-		dimmension =_dimmension;
-		sizes = new int[dimmension];
+		resetdimensions();
+		dimension =_dimension;
+		sizes = new int[dimension];
 		int numelements = 1;
-		for (int i = 0; i < dimmension; i++)
+		for (int i = 0; i < dimension; i++)
 		{
 			sizes[i] = _sizes[-i];
 			numelements *= sizes[i];
@@ -197,7 +197,7 @@ public:
 	void dump()
 	{
 		int numelements = 1;
-		for (int i = 0; i < dimmension; i++) numelements *= sizes[i];
+		for (int i = 0; i < dimension; i++) numelements *= sizes[i];
 		for (int i = 0; i < numelements; i++)
 		{
 			std::cout<< "i:"<<i<<"="<< array[i]<< "; "<< std::endl;
@@ -206,7 +206,7 @@ public:
 	void copymem(T* _array)
 	{
 		int numelements = 1;
-		for (int i = 0; i < dimmension; i++) numelements *= sizes[i];
+		for (int i = 0; i < dimension; i++) numelements *= sizes[i];
 		for (int i = 0; i < numelements; i++) array[i] = _array[i];
 	}
 	void attachmem(T* _array)
