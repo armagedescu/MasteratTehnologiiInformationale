@@ -12,9 +12,10 @@ using namespace std;
 HeartConeNorm::HeartConeNorm(int heightsegm, int sectors)
 {
 	sectors += sectors & 1;
-	nh = nh > MAXH ? MAXH : (heightsegm < 1 ? 10 : heightsegm);
+	nh = nh      > MAXH ? MAXH : (heightsegm < 1 ? 10 : heightsegm);
 	ns = sectors > MAXS ? MAXS : (sectors < 3 ? 10 : sectors);
-	points.setdimmensions(nh, ns, 3);
+	points.setdimensions(nh, ns, 3);
+	norms.setdimensions(ns, 3);
 	calculate();
 }
 
@@ -29,23 +30,25 @@ void HeartConeNorm::calculate()
 	const double pistep = -2 * M_PI / ns;
 
 
-	for(int j = 0; j <= ns / 2; j++) //pana la 180 de grade inclusiv, calculat in numar de sectoare
+	// Calculam coordonatele
+	int j;
+	for(j = 0; j <= ns / 2; j++) //pana la 180 de grade inclusiv, calculat in numar de sectoare
 	{
 		double rcur = (double)j * ratio; // Curba lui Arhimede. Raza curenta: unghiul inmultit cu un coeficient
 		double picur = pistep * j; // Unghiul curent in radiani
-		points[nh - 1][j][0] (rcur * cos(picur));// + 0.5);// mutam figura cu 0.5 unitati in directia axei X
+		points[nh - 1][j][0] (rcur * cos(picur));// + 0.5);// mutam figura cu 0.5 unitati in directia axei X, se face in matrita de translare
 		points[nh - 1][j][1] (rcur * sin(picur));
 		points[nh - 1][j][2] (h); // h = 1
 	}
-	cout<< "***************************************************************"<< endl;
-	for(int j = ns / 2 + 1, z = ns / 2 - 1; j < ns ; j++, z--) //pana la 180 de grade exclusiv, calculat in numar de sectoare
+	// Transformam simetric coordonatele in ordine negativa fata de axa Y
+	for(int z = ns / 2 - 1; j < ns ; j++, z--) //pana la 180 de grade exclusiv, calculat in numar de sectoare
 	{
 		points[nh - 1][j][0] ( points[nh - 1][z][0]);
 		points[nh - 1][j][1] (-points[nh - 1][z][1]);
 		points[nh - 1][j][2] ( points[nh - 1][z][2]); // h = 1
 	}
 
-
+	// Calculam fiecare strat, miscorand stratul precedent proportional cu numarul straturi
 	for(int i = nh - 2; i >= 0; i--)
 	{
 		double hcur = hstep * (i + 1);
@@ -57,13 +60,21 @@ void HeartConeNorm::calculate()
 		}
 	}
 
+	//Calculam vectorii pentru fiecare sector
+	for (int j = 0; j < ns; j++)
+    {
+		double* nm = norm(points[0][j], points[1][(j+1)%ns], points[1][j]);
+		for (int i = 0; i < 3; i++) norms[j][i] (nm[i]);
+	}
+
 }
+//y=(x^2+y^2-1)^(0.5)/arctg(y/x)
 void HeartConeNorm::draw()
 {
 	static GLdouble v[3] = {0.0, 0.0, 0.0};
 	glPushMatrix();
 
-	double s[16] = {
+	const double s[16] = {
 		     1,    0, 0, 0,
 		     0, 0.95, 0, 0, //<-- 0.95, aplatizare dupã Y
 		   0.5,    0, 1, 0, //<-- 0.5,   deplasare dupã X
@@ -73,10 +84,9 @@ void HeartConeNorm::draw()
 
     glBegin(GL_TRIANGLES);
 
-
-	for (int j = 1; j < ns; j++)
+	for (int j = 0; j < ns; j++)
     {
-		glNormal3dv(norm(points[0][j], points[1][(j+1)%ns], points[1][j]));
+		glNormal3dv(norms[j]);
 		for(int i = nh - 2; i >= 0; i--)
         {
             glVertex3dv((double*)points[i][j]);
@@ -92,13 +102,11 @@ void HeartConeNorm::draw()
         glVertex3dv(points[0][(j + 1) % ns]);
     }
 
-
-
     glEnd();
 	glPopMatrix();
 
-
 }
+
 GLdouble *HeartConeNorm::norm(const GLdouble p1[3], const GLdouble p2[3], const GLdouble p3[3])
 {
 	static GLdouble p[3];

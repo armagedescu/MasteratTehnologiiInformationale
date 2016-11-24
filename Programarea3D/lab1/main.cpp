@@ -110,7 +110,7 @@ int main(int argc, char** argv)
 	//		//cout<< ""<< endl;
 	//		//cout<< "********************* dump *******************************"<< endl;
 	//		//x.dump();
-	//		//x.setdimmensions(3, 8, 5);
+	//		//x.setdimensions(3, 8, 5);
 	//		//		//multiarray<double> x(3, 4, 7, 3);
 	//		//for (int i = 0; i < 3; i++)
 	//		//{

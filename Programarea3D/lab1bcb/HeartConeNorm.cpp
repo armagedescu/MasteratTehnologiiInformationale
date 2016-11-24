@@ -68,7 +68,7 @@ void HeartConeNorm::calculate()
 	}
 
 }
-y=(x^2+y^2-1)^(0.5)/arctg(y/x)
+//y=(x^2+y^2-1)^(0.5)/arctg(y/x)
 void HeartConeNorm::draw()
 {
 	static GLdouble v[3] = {0.0, 0.0, 0.0};
