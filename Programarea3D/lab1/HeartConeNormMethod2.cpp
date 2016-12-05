@@ -3,22 +3,23 @@
 #include <GL/glu.h>
 #include <math.h>
 #include <iostream>
+//#include "HeartCone.h"
 using namespace std;
 
-#include "HeartConeNorm.h"
+#include "HeartConeNormMethod2.h"
 
 
-HeartConeNorm::HeartConeNorm(int heightsegm, int sectors)
+HeartConeNormMethod2::HeartConeNormMethod2(int heightsegm, int sectors)
 {
 	sectors += sectors & 1;
 	nh = nh      > MAXH ? MAXH : (heightsegm < 1 ? 10 : heightsegm);
 	ns = sectors > MAXS ? MAXS : (sectors < 3 ? 10 : sectors);
 	points.setdimensions(nh, ns, 3);
-	norms.setdimensions(ns, 3);
+	norms.setdimensions(ns * 6, 3);
 	calculate();
 }
 
-void HeartConeNorm::calculate()
+void HeartConeNormMethod2::calculate()
 {
 	//Raza va creste de la 0 la 1.5 pentru ns/2 sectoare si apoi va scade de la 1.5 la 0 pana la ns
 	const double rmax = 1.5;
@@ -40,6 +41,24 @@ void HeartConeNorm::calculate()
 		points[nh - 1][j][1] (rcur * sin(picur));
 		points[nh - 1][j][2] (h); // h = 1
 
+		double dFdFi[3] = 
+		{
+			rcur * (cos(picur) - picur * sin(picur)), rcur * (sin(picur) + picur * cos(picur)), 0
+		};
+
+		double dFdZ[3] = 
+		{
+			rcur * cos(picur),                        rcur * sin(picur),                        1
+		};
+		
+		double dFiZ[3] = 
+		{
+			 (dFdFi[1] * dFdZ[2] - dFdFi[2] * dFdZ[1]),
+			 (dFdFi[2] * dFdZ[0] - dFdFi[0] * dFdZ[2]) * (j < ns/2 ? 1 : -1),
+			 (dFdFi[0] * dFdZ[1] - dFdFi[1] * dFdZ[0]),
+		};
+		norms[j].set (dFiZ);
+
 	}
 	// Transformam simetric coordonatele in ordine negativa fata de axa Y
 	for(int z = ns / 2 - 1; j < ns ; j++, z--) //pana la 180 de grade exclusiv, calculat in numar de sectoare
@@ -48,6 +67,9 @@ void HeartConeNorm::calculate()
 		points[nh - 1][j][1] (-points[nh - 1][z][1]);
 		points[nh - 1][j][2] ( points[nh - 1][z][2]); // h = 1
 
+		norms[j][0] ( norms[z][0]);
+		norms[j][1] (-norms[z][1]);
+		norms[j][2] ( norms[z][2]);
 	}
 
 	// Calculam fiecare strat, miscorand stratul precedent proportional cu numarul straturi
@@ -62,14 +84,9 @@ void HeartConeNorm::calculate()
 		}
 	}
 
-	//Calculam vectorii pentru fiecare sector
-	for (int j = 0; j < ns; j++)
-		norms[j].set (norm(points[0][j], points[1][(j+1)%ns], points[1][j]));
-
-
 }
 //y=(x^2+y^2-1)^(0.5)/arctg(y/x)
-void HeartConeNorm::draw()
+void HeartConeNormMethod2::draw()
 {
 	static GLdouble v[3] = {0.0, 0.0, 0.0};
 	glPushMatrix();
@@ -86,19 +103,25 @@ void HeartConeNorm::draw()
 
 	for (int j = 0; j < ns; j++)
     {
-		glNormal3dv(norms[j]);
+		//glNormal3dv(norms[j]);
 		for(int i = nh - 2; i >= 0; i--)
         {
+			glNormal3dv(norms[j]);
             glVertex3dv((double*)points[i][j]);
             glVertex3dv((double*)points[i + 1][j]);
+			glNormal3dv(norms[(j + 1) % ns]);
             glVertex3dv((double*)points[i + 1][(j + 1) % ns]);
 
+			glNormal3dv(norms[j]);
             glVertex3dv((double*)points[i][j]);
+			glNormal3dv(norms[(j + 1) % ns]);
             glVertex3dv((double*)points[i + 1][(j + 1) % ns]);
             glVertex3dv((double*)points[i][(j + 1) % ns]);
         }
+		glNormal3dv(norms[j]);
 		glVertex3d(0., 0., 0.);
         glVertex3dv(points[0][j]);
+		glNormal3dv(norms[(j + 1) % ns]);
         glVertex3dv(points[0][(j + 1) % ns]);
     }
 
@@ -107,11 +130,3 @@ void HeartConeNorm::draw()
 
 }
 
-GLdouble *HeartConeNorm::norm(const GLdouble p1[3], const GLdouble p2[3], const GLdouble p3[3])
-{
-	static GLdouble p[3];
-	p[0] = (p1[1]*(p2[2]-p3[2]) + p2[1]*(p3[2]-p1[2]) + p3[1]*(p1[2]-p2[2]));
-	p[1] = (p1[2]*(p2[0]-p3[0]) + p2[2]*(p3[0]-p1[0]) + p3[2]*(p1[0]-p2[0]));
-	p[2] = (p1[0]*(p2[1]-p3[1]) + p2[0]*(p3[1]-p1[1]) + p3[0]*(p1[1]-p2[1]));
-	return p;
-}

@@ -1,7 +1,7 @@
-#include <windows.h>
+//#include <windows.h>
 //#include <stdio.h>
-#include "MemoryHelpers.h"
-#include "externals.h"
+//#include "MemoryHelpers.h"
+//#include "externals.h"
 #include <iostream>
 int bezierGlutMain(int argc, char** argv);
 int bezierAuxMain(int argc, char** argv);
