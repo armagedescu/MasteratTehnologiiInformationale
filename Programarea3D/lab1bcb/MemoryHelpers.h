@@ -46,6 +46,13 @@ template <class T, const int dimension = 1> class MultiArray
 			if (sizer >= dimension) throw "only arrays are allowed pointed dirrectly";
 			return p;
 		}
+		T* set (T* x)
+		{
+			if (sizer >= dimension) throw "invalid index, operator ()(T*)";
+			if (sizer <= 0) throw "invalid index, operator ()(T*)";
+			memcpy(p, x, sizeof(T) * elements->blocks[sizer - 1]);
+			return p;
+		}
 		T& operator () (T x)
 		{
 			if (sizer != dimension) throw "invalid index, operator ()(T)";

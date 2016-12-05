@@ -1,14 +1,15 @@
+#include <windows.h>
+#include <GL/gl.h>
+#include <iostream>
 #include "lab1.h"
 #include "cone0.h"
 #include "cyllinder0.h"
 #include "HeartCyllinder.h"
 #include "HeartCone.h"
 #include "HeartConeNorm.h"
-#include <windows.h>
-#include <GL/gl.h>
-
-#include <iostream>
+#include "HeartConeNormMethod2.h"
 using namespace std;
+
 double getDFi()
 {
 	static double dFi = 1;
@@ -26,11 +27,14 @@ void lab1Display()
     //static cyllinder0 cil1(10, 6);
     //static HeartCyllinder hci(40, 40);
     //static HeartConeNorm hco(8, 15);
-    static HeartConeNorm hco(80, 80);
+    //hco.draw();
+    //static HeartConeNorm hco(80, 80);
+    //hco.draw();
+	HeartConeNormMethod2 hco2(8, 15);
+    hco2.draw();
     //con1.draw();
     ////cil1.draw();
     ////hci.draw();
-    hco.draw();
 	//hco.draw1();
 	//hco.draw2();
 
