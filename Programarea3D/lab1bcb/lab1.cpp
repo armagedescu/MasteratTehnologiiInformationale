@@ -8,6 +8,7 @@
 #include "HeartCone.h"
 #include "HeartConeNorm.h"
 #include "HeartConeNormMethod2.h"
+#include "HeartConeNormMethod1.h"
 using namespace std;
 
 double getDFi()
@@ -30,8 +31,10 @@ void lab1Display()
     //hco.draw();
     //static HeartConeNorm hco(80, 80);
     //hco.draw();
-	HeartConeNormMethod2 hco2(8, 15);
+	static HeartConeNormMethod2 hco2(8, 15);
     hco2.draw();
+	static HeartConeNormMethod1 hco1(8, 15);
+    //hco1.draw();
     //con1.draw();
     ////cil1.draw();
     ////hci.draw();
