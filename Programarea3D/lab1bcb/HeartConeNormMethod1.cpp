@@ -54,7 +54,7 @@ void HeartConeNormMethod1::calculate()
 		{
 			norm[0] = x/sqrt(x*x+y*y) + z*y/(x*x+y*y);
 			norm[1] = y/sqrt(x*x+y*y) - z*x/(x*x+y*y);
-			norm[2] = -atanx2y(y,x);
+			//norm[2] = -atanx2y(y,x);
 		}
 		cout<< "fi="<< picur / M_PI<<"; atan="<< atanx2y(y, x) / M_PI<< "; x="<< norm[0]<< "; y="<< norm[1]<< "; z="<< norm[2]<< endl;
 		norms[j].set (norm);
