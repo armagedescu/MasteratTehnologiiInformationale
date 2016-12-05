@@ -19,11 +19,14 @@ HeartConeNormMethod1::HeartConeNormMethod1(int heightsegm, int sectors)
 	calculate();
 }
 
+
 double atanx2y(double y, double x)
 {
-	if (x == 0) return (M_PI / 2) * y>0.? 1. : -1.;
-	return atan(y/x);
+	if (x == 0 && y == 0) return -(M_PI / 2); //consideram unghi de -Pi/4
+	if (x == 0) return (M_PI / 2) * y>0.? 1. : -1.; //consideram unghi de +- Pi/4
+	return  atan(y/x);
 }
+
 void HeartConeNormMethod1::calculate()
 {
 	//Raza va creste de la 0 la 1.5 pentru ns/2 sectoare si apoi va scade de la 1.5 la 0 pana la ns
@@ -46,14 +49,14 @@ void HeartConeNormMethod1::calculate()
 		points[nh - 1][j][1] (rcur * sin(picur));
 		points[nh - 1][j][2] (h); // h = 1
 		double x = rcur * cos(picur), y = rcur * sin(picur), z = h; //h = 1
-		double norm[3] = 
+		double norm[3] = {0, -1, -1};
+		if (x != 0 && y != 0) //nu permitem impartire la zero
 		{
-			 2 * (x*x*x + x * y*y + rrmax*y*atanx2y(y,x)) / (x*x + y*y),
-			 2 * (y*y*y + y * x*x - rrmax*x*atanx2y(y,x)) / (x*x + y*y),
-			-1 //-2 * rrmax*pow(atanx2y (y,x), 2)
-		};
-		cout<< "fi="<< picur / M_PI<<"; atan="<< atan(y/x) / M_PI<< "; x="<< norm[0]<< "; y="<< norm[1]<< "; z="<< norm[2]<< endl;
-		//y=(x^2+y^2-1)^(0.5)/arctg(y/x)
+			norm[0] = x/sqrt(x*x+y*y) + z*y/(x*x+y*y);
+			norm[1] = y/sqrt(x*x+y*y) - z*x/(x*x+y*y);
+			norm[2] = -atanx2y(y,x);
+		}
+		cout<< "fi="<< picur / M_PI<<"; atan="<< atanx2y(y, x) / M_PI<< "; x="<< norm[0]<< "; y="<< norm[1]<< "; z="<< norm[2]<< endl;
 		norms[j].set (norm);
 
 	}
