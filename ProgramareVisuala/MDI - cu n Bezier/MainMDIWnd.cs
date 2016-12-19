@@ -35,16 +35,13 @@ class MainMDIWnd : Form
         //        m_MenuFileNew.ShowShortcut = false;
 
         m_MenuFileOpen = new MenuItem("&Open...");
-        m_MenuFileOpen.Click +=
-        new EventHandler(MenuFileOpen_OnClick);
+        m_MenuFileOpen.Click += new EventHandler(MenuFileOpen_OnClick);
         m_MenuFileOpen.Shortcut = Shortcut.CtrlO;
         m_MenuFileOpen.ShowShortcut = true;
 
-        m_MenuFileClose = new MenuItem("&Close",
-        new EventHandler(MenuFileClose_OnClick));
+        m_MenuFileClose = new MenuItem("&Close", new EventHandler(MenuFileClose_OnClick));
 
-        m_MenuFileExit = new MenuItem("E&xit",
-        new EventHandler(MenuFileExit_OnClick));
+        m_MenuFileExit = new MenuItem("E&xit", new EventHandler(MenuFileExit_OnClick));
 
 
         m_MenuFile.MenuItems.Add(m_MenuFileNew);
@@ -60,13 +57,10 @@ class MainMDIWnd : Form
 
 
         m_MenuWindow = new MenuItem("&Window");
-        m_MenuWindow.MdiList = true;
-        m_MenuWindowCascade = new MenuItem("&Cascade",
-        new EventHandler(MenuWindowCascade_OnClick));
-        m_MenuWindowHorizontally = new MenuItem("&Horizontally",
-        new EventHandler(MenuWindowHorizontally_OnClick));
-        m_MenuWindowVertically = new MenuItem("&Vertically",
-        new EventHandler(MenuWindowVertically_OnClick));
+        //m_MenuWindow.MdiList = true;
+        m_MenuWindowCascade = new MenuItem("&Cascade", new EventHandler(MenuWindowCascade_OnClick));
+        m_MenuWindowHorizontally = new MenuItem("&Horizontally", new EventHandler(MenuWindowHorizontally_OnClick));
+        m_MenuWindowVertically = new MenuItem("&Vertically", new EventHandler(MenuWindowVertically_OnClick));
         m_MenuWindow.MenuItems.Add(m_MenuWindowCascade);
         m_MenuWindow.MenuItems.Add(m_MenuWindowHorizontally);
         m_MenuWindow.MenuItems.Add(m_MenuWindowVertically);
