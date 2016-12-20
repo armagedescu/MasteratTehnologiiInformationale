@@ -8,6 +8,8 @@
 #include "HeartCone.h"
 #include "HeartConeNorm.h"
 #include "HeartConeNormMethod2.h"
+//#include "HeartConeNormMethod1.h"
+#include "HeartConeTexture1.h"
 using namespace std;
 
 double getDFi()
@@ -23,50 +25,24 @@ void lab1Display()
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable (GL_NORMALIZE);
     //glPolygonMode(GL_BACK, GL_LINE);
-    static cone0 con1(10, 6);
-    //static cyllinder0 cil1(10, 6);
-    //static HeartCyllinder hci(40, 40);
-    //static HeartConeNorm hco(8, 15);
-    //hco.draw();
-    //static HeartConeNorm hco(80, 80);
-    //hco.draw();
-	HeartConeNormMethod2 hco2(8, 15);
+	static HeartConeNormMethod2 hco2(8, 15);
     hco2.draw();
-    //con1.draw();
-    ////cil1.draw();
-    ////hci.draw();
-	//hco.draw1();
-	//hco.draw2();
+	glDisable (GL_NORMALIZE);
 
 }
 void lab1Display1()
 {
-    glPolygonMode(GL_FRONT, GL_FILL);
-    glPolygonMode(GL_BACK, GL_LINE);
-    static cone0 con1(10, 6);
-    //static cyllinder0 cil1(10, 6);
-    //static HeartCyllinder hci(40, 40);
-    static HeartCone hco(8, 15);
-    //con1.draw();
-    ////cil1.draw();
-    ////hci.draw();
-    hco.draw();
-	//hco.draw1();
-	//hco.draw2();
-
+	
+	//glCullFace(GL_FRONT);
+    //glPolygonMode(GL_FRONT, GL_FILL);
+    //glPolygonMode(GL_BACK, GL_LINE);
+	static HeartConeTexture1 hct(8, 15);
+	hct.draw();
+	//glDisable(GL_CULL_FACE);
 }
-//void lab1Display2()
-//{
-//	//static cone0 con1(10, 6);
-//	//static cyllinder0 cil1(10, 6);
-//	//static HeartCyllinder hci(40, 40);
-//	static HeartCone hco(60, 60);
-//	//con1.draw();
-//	//cil1.draw();
-//	//hci.draw();
-//	hco.draw2();
-//}
-void directDisplay()
+
+
+void directDisplay(void (*labdisplay)())
 {
 	glPushMatrix();
 	glTranslated(0., 0., 0.);
@@ -97,20 +73,41 @@ void directDisplay()
 
 	glScaled(2., 2., 3.);
 	glColor3d(1., 0., 1.);
-	lab1Display();
+	//lab1Display();
+	labdisplay();
 	glPopMatrix();
 }
+
 void mirrorDisplay()
 {
 	glPushMatrix();
 	glRotated(180, 1, 0, 0);
 	glRotated(180, 0, 0, 1);
-	directDisplay();
+	directDisplay(lab1Display);
 	glPopMatrix();
 }
+
+
+void mirrorDisplay2()
+{
+	glPushMatrix();
+	glRotated(90, 1, 0, 0);
+	directDisplay(lab1Display1);
+	glPopMatrix();
+}
+void mirrorDisplay3()
+{
+	glPushMatrix();
+	glRotated(270, 1, 0, 0);
+	glRotated(180, 0, 0, 1);
+	directDisplay(lab1Display1);
+	glPopMatrix();
+}
+
 void lab1GlDisplay()
 {
-	directDisplay();
+	directDisplay(lab1Display);
 	mirrorDisplay();
-
+	mirrorDisplay2();
+	mirrorDisplay3();
 }
