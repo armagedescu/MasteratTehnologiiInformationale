@@ -37,7 +37,19 @@ void auxDrawAll()
 
 void CALLBACK auxDisplay(void)
 {
+	static AUX_RGBImageRec *pBackgroundIimage = auxDIBImageLoadW(L"PeisajRustic.bmp");
 	glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	
+	glRasterPos3d(-6.1999, -6.1999, -11.999);
+	//	glRasterPos3d(0.0, 0.0, -11.999);
+	//glPixelZoom(1.0f, 1.0f);
+	GLint wp[4];
+	glGetIntegerv(GL_VIEWPORT, wp);
+	glPixelZoom((float)wp[2] / pBackgroundIimage->sizeX, (float)wp[3] / pBackgroundIimage->sizeY);
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glDrawPixels(pBackgroundIimage->sizeX, pBackgroundIimage->sizeY, GL_RGB, GL_UNSIGNED_BYTE, pBackgroundIimage->data);
+
 	// glClear( GL_COLOR_BUFFER_BIT );
 	// glClear( GL_DEPTH_BUFFER_BIT );
 	glPushMatrix();

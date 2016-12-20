@@ -66,7 +66,6 @@ void HeartConeNorm::calculate()
 	for (int j = 0; j < ns; j++)
 		norms[j].set (norm(points[0][j], points[1][(j+1)%ns], points[1][j]));
 
-
 }
 //y=(x^2+y^2-1)^(0.5)/arctg(y/x)
 void HeartConeNorm::draw()

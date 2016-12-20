@@ -143,6 +143,14 @@ template <class T> class multiarray
 			if (sizer >= elements->dimension) throw "only arrays are allowed pointed dirrectly";
 			return p;
 		}
+		T* set (T* x)
+		{
+			throw "Review this method before using";
+			if (sizer >= elements->dimension) throw "invalid index, operator ()(T*)";
+			if (sizer <= 0) throw "invalid index, operator ()(T*)";
+			memcpy(p, x, sizeof(T) * elements->blocks[sizer - 1]);
+			return p;
+		}
 		T& operator () (T x)
 		{
 			if (sizer > elements->dimension + 1) throw;
