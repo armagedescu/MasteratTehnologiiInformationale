@@ -29,8 +29,7 @@ class MainMDIWnd : Form
 
         m_MenuFile = new MenuItem("&File");
 
-        m_MenuFileNew = new MenuItem("&New",
-        new EventHandler(MenuFileNew_OnClick));
+        m_MenuFileNew = new MenuItem("&New", new EventHandler(MenuFileNew_OnClick));
         m_MenuFileNew.Shortcut = Shortcut.CtrlN;
         //        m_MenuFileNew.ShowShortcut = false;
 

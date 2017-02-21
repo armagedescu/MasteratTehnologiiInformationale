@@ -98,14 +98,11 @@ class ChildMDIWnd : Form
         //În cazul când valoarea este true, pentru obþinerea denumirilor
         //ale fiºierelor trebuie sã utilizãm proprietatea FileNames
         openFileDialog.Multiselect = false;
-        openFileDialog.Filter =
-        "bmp files (*.bmp)|*.bmp|jpg files (*.jpg)|*.jpg";
+        openFileDialog.Filter = "bmp files (*.bmp)|*.bmp|jpg files (*.jpg)|*.jpg";
         openFileDialog.FilterIndex = 1;
         if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-        {
             this.SetImage(openFileDialog.FileName);
 //            ChildWnd.Show();
-        }
         openFileDialog.Dispose();
     }
     float f(int n)
