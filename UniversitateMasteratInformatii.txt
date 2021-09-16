@@ -1,0 +1,33 @@
+Vsevolod Arnaut: arnaut_s@yahoo.com
+Bioinformatica, A. Prepelita: aureliaprofir@yahoo.com
+
+
+Pentru a putea sustine examenele, in primul rind trebuie sa imi prezentati laboratoarele. Va trimit formularile laboratoarelor la Tehnologii Web.
+
+Lab1.
+
+De elaborat o aplicație în care este definită o clasă generică, care conține 3 metode (generale) de sortare, care permit sortarea după diferite criterii a diferitor tipuri de tablouri. Pentru exemplificarea posibilităților de sortare vor fi utilizate 2 tablouri de tipuri predefinite și un tablou de un tip elaborat de programator. Aplicația va fi una cu interfață grafică, permițînd determinarea dimensiunilor tablourilor și a valorilor elementelor atît de la tastatură cît și aleator. Sortările pot fi făcute atît crescător cît și descrescător și pe orice submulțime de elemente ale tabloului, evidențiate prin diferite tipuri de filtre. Rezultatele sortărilor vor fi vizualizate.
+
+
+Lab2.
+
+De elaborat o aplicație în care este definită o clasă (tematica este liberă), care va fi considerată colecție enumerabilă (vor fi utilizate 4 metode de obținere a enumerabilității, de aceea vom avea 4 versiuni ale laboratorului). Aplicația va fi una cu interfață grafică, permițînd creare de obiecte în baza clasei definite, editarea obiectelor create, ștergerea unor obiecte. Aplicația va avea posibilitatea de a selecta obiectul care va fi editat sau șters. Pentru editarea sau crearea de obiecte vor fi utilizate boxe textuale în care va fi vizualizată informația din cîmpurile corespunzătoare ale obiectului. În elaborarea aplicației va fi aplicată enumerabilitatea clasei elaborate.
+
+Lab3.
+
+De elaborat o aplicație în care sunt definite o serie de clase dintr-un domeniu de problema (tematica este liberă (de exemplu, student, grupa, obiect, profesor)). În baza claselor vor fi create colecții enumerabile (de exemplu, tablouri unidimensionale de tipul clasei date). Veți realiza 15 interogări de tip LINQ, aplicînd diferite clauze (from, let, where, join, select, group, orderby, into). Rezultatele interogîrilor vor fi vizualizate. Aplicația va fi una cu interfață grafică.
+
+Lab4.
+
+De elaborat o aplicație Web (Web Forms) modelînd aplicația “Calculator” din Windows.
+
+ 
+
+Lab5.
+
+De elaborat o aplicație Web (Web Forms) tematica fiind la libera alegere, în care se aplică lucrul cu bazele de date în ASP.NET (vizualizare date, inserare date, ștergere date, modificare date).
+
+Laboratoarele laTehnologii de Programare le trimit putin mai tirziu.
+
+Cu respect,
+V.Arnaut
