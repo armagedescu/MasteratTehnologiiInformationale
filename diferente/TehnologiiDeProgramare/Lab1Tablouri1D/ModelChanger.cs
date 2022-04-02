@@ -16,9 +16,8 @@ namespace Lab1Tablouri1D
         {
             InitializeComponent();
         }
-        public ModelChanger(SortModel model)
+        public ModelChanger(SortModel model) : this ()
         {
-            InitializeComponent();
             this.model = model;
             model.OnChange += reloadData;
             reloadData();

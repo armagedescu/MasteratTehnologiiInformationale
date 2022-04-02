@@ -18,10 +18,8 @@ namespace Lab1Tablouri1D
         {
             InitializeComponent();
         }
-        public SortModel model { get; set; }
-        public SortForm(SortModel model)
+        public SortForm(SortModel model) : this ()
         {
-            InitializeComponent();
             this.model = model;
             this.model.OnChange += reloadData;
 
@@ -29,6 +27,8 @@ namespace Lab1Tablouri1D
             this.model.sorter[1].onAfterCmp += (s, a, b, result) => { drawAfterCmp(pictureSelectionSort, s, a, b, result); };
             this.model.sorter[2].onAfterCmp += (s, a, b, result) => { drawAfterCmp(pictureInsertionSort, s, a, b); };
         }
+        public SortModel model { get; set; }
+
         void reloadData()
         {
             drawArrayDefault(pictureBubbleSort,    model.sorter[0]);
