@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FloareSet xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SelectMetoda>DupaClasa</SelectMetoda>
+  <SelectMetoda>DupaUtilizare</SelectMetoda>
   <Flori>
     <Floare>
       <LungimeMedie xsi:nil="true" />
@@ -66,6 +66,17 @@
       <Tulpina xsi:nil="true" />
       <Ramificare xsi:nil="true" />
       <Longevitate>Perena</Longevitate>
+      <Imagine>
+        <NumeImagine>26ddd7d8-5549-4dc8-bd48-374a3b6a8648.jpg</NumeImagine>
+        <Location>
+          <X>-7</X>
+          <Y>-49</Y>
+        </Location>
+        <Size>
+          <Width>191</Width>
+          <Height>180</Height>
+        </Size>
+      </Imagine>
     </Floare>
   </Flori>
 </FloareSet>
